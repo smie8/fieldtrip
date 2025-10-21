@@ -410,6 +410,12 @@ a {
 /* Mobile-first responsive design */
 /* Mobile: up to 768px */
 @media (max-width: 768px) {
+    /* Mobile Safari specific fixes */
+    html, body {
+        -webkit-text-size-adjust: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
     }
@@ -444,16 +450,18 @@ a {
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     #section-1 .row-2 {
-        flex-shrink: 0;
-        padding-bottom: var(--spacing-xl) !important; /* Much more space before animation */
-        margin-bottom: var(--spacing-md) !important; /* Additional margin for separation */
+        flex-shrink: 0 !important;
+        padding-bottom: 3rem !important; /* Much more space before animation - explicit value */
+        margin-bottom: 1.5rem !important; /* Additional margin for separation - explicit value */
+        min-height: 60px !important; /* Ensure minimum height */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     #section-1 .row-4 {
-        flex-shrink: 0;
-        padding-top: var(--spacing-xl) !important; /* Much more space after animation */
-        margin-top: var(--spacing-md) !important; /* Additional margin for separation */
+        flex-shrink: 0 !important;
+        padding-top: 3rem !important; /* Much more space after animation - explicit value */
+        margin-top: 1.5rem !important; /* Additional margin for separation - explicit value */
+        min-height: 60px !important; /* Ensure minimum height */
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -522,14 +530,16 @@ a {
     
     /* Contact button directly follows text block - always visible */
     #section-2 .cta-button {
-        position: static; /* Use normal document flow */
-        margin-top: var(--spacing-sm); /* Reduced space above button */
-        margin-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 40px); /* Reduced space for browser UI */
+        position: static !important; /* Use normal document flow */
+        margin-top: 1rem !important; /* Reduced space above button - explicit value */
+        margin-bottom: 2rem !important; /* Reduced space for browser UI - explicit value */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
-        z-index: 10; /* Ensure it's above other content */
-        flex-shrink: 0; /* Prevent button from shrinking */
-        min-height: 44px; /* Ensure minimum touch target */
-        max-width: calc(100vw - 2rem); /* Prevent button from exceeding viewport */
+        z-index: 10 !important; /* Ensure it's above other content */
+        flex-shrink: 0 !important; /* Prevent button from shrinking */
+        min-height: 44px !important; /* Ensure minimum touch target */
+        max-width: calc(100vw - 2rem) !important; /* Prevent button from exceeding viewport */
+        display: block !important; /* Force display */
+        visibility: visible !important; /* Force visibility */
     }
     
     /* Auto-sizing text block container - consolidated with centering styles above */
@@ -711,4 +721,25 @@ a {
 .cta-button:focus {
     outline: 2px solid #007acc;
     outline-offset: 2px;
+}
+
+/* Mobile Safari specific fixes - ensure mobile styles are applied */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+    /* Force mobile Safari to apply our mobile styles */
+    #section-1 .row-2 {
+        padding-bottom: 3rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    #section-1 .row-4 {
+        padding-top: 3rem !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    #section-2 .cta-button {
+        display: block !important;
+        visibility: visible !important;
+        margin-top: 1rem !important;
+        margin-bottom: 2rem !important;
+    }
 }

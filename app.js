@@ -310,7 +310,7 @@ class FieldTripApp {
     }
 
     /**
-     * Adjust mobile viewport to account for browser UI
+     * Adjust mobile viewport to account for browser UI and scale content if needed
      */
     adjustMobileViewport() {
         if (this.isMobile()) {
@@ -318,45 +318,109 @@ class FieldTripApp {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             
-            // Enhanced protection for bottom arrow and button
-            const row5 = document.querySelector('.row-5');
-            const section2Button = document.querySelector('#section-2 .cta-button');
-            const section2Row4 = document.querySelector('#section-2 .row-4');
-            
-            // Calculate additional protection based on screen size
-            const screenHeight = window.innerHeight;
-            const additionalPadding = screenHeight < 600 ? 100 : 80; // More padding for smaller screens
-            
-            if (row5) {
-                // Enhanced bottom arrow protection
-                row5.style.paddingBottom = `calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + ${additionalPadding}px)`;
-                row5.style.minHeight = '120px';
-                row5.style.position = 'relative';
-                row5.style.zIndex = '10';
-            }
-            
-            if (section2Button) {
-                // Enhanced section 2 button protection
-                section2Button.style.marginBottom = `calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + ${additionalPadding}px)`;
-                section2Button.style.position = 'relative';
-                section2Button.style.zIndex = '10';
-            }
-            
-            if (section2Row4) {
-                // Enhanced section 2 row protection
-                section2Row4.style.paddingBottom = `calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + ${additionalPadding - 20}px)`;
-                section2Row4.style.minHeight = '120px';
-                section2Row4.style.position = 'relative';
-                section2Row4.style.zIndex = '10';
-            }
-            
-            // Update app container protection
-            const appContainer = document.querySelector('.app-container');
-            if (appContainer) {
-                appContainer.style.paddingBottom = `calc(env(safe-area-inset-bottom, 0px) + ${additionalPadding + 40}px)`;
-                appContainer.style.minHeight = `calc(var(--vh, 1vh) * 100 + ${additionalPadding + 40}px)`;
-            }
+            // Calculate if content needs scaling
+            this.scaleContentToFitViewport();
         }
+    }
+    
+    /**
+     * Scale content to fit within viewport height, ensuring down arrow is always visible
+     */
+    scaleContentToFitViewport() {
+        const viewportHeight = window.innerHeight;
+        const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0');
+        const availableHeight = viewportHeight - safeAreaBottom;
+        
+        // Get actual content height by measuring the current section
+        const currentSection = document.querySelector('.section--active');
+        if (!currentSection) return;
+        
+        // Temporarily make content visible to measure it
+        const originalDisplay = currentSection.style.display;
+        currentSection.style.display = 'block';
+        currentSection.style.visibility = 'visible';
+        
+        // Measure actual content height
+        const contentHeight = currentSection.scrollHeight;
+        
+        // Restore original display
+        currentSection.style.display = originalDisplay;
+        
+        // Calculate scale factor needed to fit content
+        const scaleFactor = Math.min(1, availableHeight / contentHeight);
+        
+        // Only scale if content is too tall (scale factor < 1)
+        if (scaleFactor < 1) {
+            this.applyContentScaling(scaleFactor);
+        } else {
+            this.resetContentScaling();
+        }
+    }
+    
+    /**
+     * Calculate minimum height needed for all content
+     */
+    calculateMinimumContentHeight() {
+        // Base heights for each row (approximate)
+        const row1Height = 100; // Logo
+        const row2Height = 80;  // Description
+        const row3MinHeight = 200; // Animation (minimum)
+        const row4Height = 80;  // Button
+        const row5Height = 120; // Arrow with protection
+        
+        return row1Height + row2Height + row3MinHeight + row4Height + row5Height;
+    }
+    
+    /**
+     * Apply content scaling to fit viewport
+     */
+    applyContentScaling(scaleFactor) {
+        // Set minimum scale factor to prevent content from becoming too small
+        const minScale = 0.6;
+        const finalScale = Math.max(scaleFactor, minScale);
+        
+        const appContainer = document.querySelector('.app-container');
+        if (appContainer) {
+            appContainer.style.transform = `scale(${finalScale})`;
+            appContainer.style.transformOrigin = 'top center';
+            appContainer.style.height = `${100 / finalScale}vh`;
+            appContainer.style.overflow = 'hidden';
+            
+            // Add smooth transition for scaling
+            appContainer.style.transition = 'transform 0.3s ease-out';
+        }
+        
+        // Scale individual sections for better control
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.transform = `scale(${finalScale})`;
+            section.style.transformOrigin = 'top center';
+            section.style.transition = 'transform 0.3s ease-out';
+        });
+        
+        // Log scaling for debugging
+        console.log(`Content scaled to ${(finalScale * 100).toFixed(1)}% to fit viewport`);
+    }
+    
+    /**
+     * Reset content scaling
+     */
+    resetContentScaling() {
+        const appContainer = document.querySelector('.app-container');
+        if (appContainer) {
+            appContainer.style.transform = 'scale(1)';
+            appContainer.style.transformOrigin = 'top center';
+            appContainer.style.height = '100vh';
+            appContainer.style.overflow = 'hidden';
+            appContainer.style.transition = 'transform 0.3s ease-out';
+        }
+        
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.transform = 'scale(1)';
+            section.style.transformOrigin = 'top center';
+            section.style.transition = 'transform 0.3s ease-out';
+        });
+        
+        console.log('Content scaling reset to 100%');
     }
 
     /**
@@ -408,6 +472,12 @@ class FieldTripApp {
         // Show new content after transition
         setTimeout(() => {
             this.showNewContent();
+            // Recalculate scaling for new section
+            if (this.isMobile()) {
+                setTimeout(() => {
+                    this.scaleContentToFitViewport();
+                }, 100);
+            }
             this.isTransitioning = false;
         }, 800);
     }

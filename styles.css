@@ -484,16 +484,16 @@ a {
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
-    /* CRITICAL: Bottom arrow protection for all mobile browsers */
+    /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        /* Enhanced protection against browser UI */
-        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 80px); /* Extra bottom padding for browser UI */
+        /* Basic protection - scaling will handle the rest */
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 20px); /* Minimal bottom padding */
         margin-bottom: 0; /* Remove margin, use padding instead */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure arrow stays above other content */
-        min-height: 120px; /* Ensure enough space for arrow and protection */
+        min-height: 80px; /* Reduced since scaling handles fit */
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -664,29 +664,29 @@ a {
         white-space: nowrap;
     }
     
-    /* CRITICAL: Section 2 contact button protection for all mobile browsers */
+    /* CRITICAL: Section 2 contact button protection - now using scaling approach */
     #section-2 .cta-button {
-        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 80px) !important; /* Enhanced protection for browser UI */
+        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 20px) !important; /* Minimal protection - scaling handles the rest */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure button stays above other content */
     }
     
     /* Additional protection for section 2 row-4 (button container) */
     #section-2 .row-4 {
-        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 60px) !important; /* Extra bottom padding */
-        min-height: 120px !important; /* Ensure enough space */
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 20px) !important; /* Minimal bottom padding */
+        min-height: 80px !important; /* Reduced since scaling handles fit */
         position: relative !important;
         z-index: 10 !important;
     }
     
     
-    /* CRITICAL: App container protection for all mobile browsers */
+    /* CRITICAL: App container protection - now using scaling approach */
     .app-container {
-        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
-        min-height: calc(100vh + 120px); /* Ensure content height accounts for browser UI */
-        /* Additional protection for dynamic browser UI */
-        min-height: calc(var(--vh, 1vh) * 100 + 120px); /* Use JavaScript-calculated viewport height */
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 40px); /* Reduced padding since scaling handles fit */
+        min-height: 100vh; /* Use standard viewport height */
+        min-height: calc(var(--vh, 1vh) * 100); /* Use JavaScript-calculated viewport height */
         position: relative; /* Enable proper stacking context */
+        overflow: hidden; /* Prevent scrolling - scaling handles content fit */
     }
     
     /* Enhanced viewport height protection */

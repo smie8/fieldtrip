@@ -473,6 +473,9 @@ a {
         align-items: center;
         padding: var(--spacing-lg) 0; /* Consistent padding */
         flex: 1; /* Take up remaining space */
+        min-height: 0; /* Allow flex shrinking */
+        max-height: calc(100vh - 200px); /* Ensure content fits in viewport */
+        overflow-y: auto; /* Allow scrolling if content is too tall */
     }
     
     /* Text block with minimal spacing */
@@ -487,18 +490,21 @@ a {
         margin-bottom: var(--spacing-md); /* Minimal space between text and button */
     }
     
-    /* Contact button directly follows text block */
+    /* Contact button directly follows text block - always visible */
     #section-2 .cta-button {
         position: static; /* Use normal document flow */
         margin-top: var(--spacing-md); /* Minimal space above button */
         margin-bottom: var(--spacing-lg); /* Space below button */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
+        flex-shrink: 0; /* Prevent button from shrinking */
+        min-height: 44px; /* Ensure minimum touch target */
+        max-width: calc(100vw - 2rem); /* Prevent button from exceeding viewport */
     }
     
     /* Auto-sizing text block container - consolidated with centering styles above */
     
-    /* Optimized font size for mobile section 2 text - proper typography */
+    /* Optimized font size for mobile section 2 text - prevent line breaks */
     #section-2 .text-block p {
         font-size: 0.9rem !important; /* Proper size for mobile */
         line-height: 1.5; /* Better line height for readability */
@@ -507,7 +513,7 @@ a {
         width: auto; /* Let text determine width */
         margin-left: auto;
         margin-right: auto;
-        white-space: pre-line; /* Preserve line breaks from JSON */
+        white-space: nowrap; /* Prevent line breaks within paragraphs */
     }
     
     /* Last paragraph with minimal spacing */
@@ -585,6 +591,27 @@ a {
     
     #section-2 .cta-button {
         margin-top: var(--spacing-sm); /* Minimal space above button */
+    }
+}
+
+/* Very small screens - ensure contact button is always visible */
+@media (max-width: 480px) {
+    #section-2 .row-3 {
+        max-height: calc(100vh - 150px); /* More space for content */
+        padding: var(--spacing-md) 0; /* Reduced padding */
+    }
+    
+    #section-2 .text-block {
+        padding: var(--spacing-md); /* Reduced padding */
+    }
+    
+    #section-2 .text-block p {
+        font-size: 0.8rem !important; /* Smaller font for very small screens */
+    }
+    
+    #section-2 .cta-button {
+        font-size: 0.7rem !important; /* Smaller button text */
+        padding: var(--spacing-sm) var(--spacing-md); /* Smaller button padding */
     }
 }
 

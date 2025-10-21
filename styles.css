@@ -445,13 +445,15 @@ a {
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     #section-1 .row-2 {
         flex-shrink: 0;
-        padding-bottom: var(--spacing-md); /* Consistent space before animation */
+        padding-bottom: var(--spacing-xl); /* Much more space before animation */
+        margin-bottom: var(--spacing-md); /* Additional margin for separation */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     #section-1 .row-4 {
         flex-shrink: 0;
-        padding-top: var(--spacing-md); /* Consistent space after animation */
+        padding-top: var(--spacing-xl); /* Much more space after animation */
+        margin-top: var(--spacing-md); /* Additional margin for separation */
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -470,7 +472,7 @@ a {
         align-items: center;
         position: relative;
         z-index: 1;
-        padding: var(--spacing-md) 0; /* Consistent padding around animation */
+        padding: var(--spacing-lg) 0; /* More padding around animation */
     }
     
     /* Ensure row-4 (button) stays centered */

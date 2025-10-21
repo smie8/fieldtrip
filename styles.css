@@ -486,13 +486,13 @@ a {
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let content determine width */
         padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xxl) var(--spacing-md); /* Extra bottom padding for button clearance */
-        margin-bottom: 120px; /* Increased space for absolutely positioned button */
+        margin-bottom: 160px; /* Significantly increased space for absolutely positioned button */
     }
     
     /* Anchor contact button to bottom of page with proper spacing */
     #section-2 .cta-button {
         position: absolute; /* Position absolutely */
-        bottom: 60px; /* Increased from 40px to 60px for more clearance */
+        bottom: 80px; /* Significantly increased from 60px to 80px for more clearance */
         left: 50%; /* Center horizontally */
         transform: translateX(-50%); /* Perfect centering */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
@@ -517,8 +517,8 @@ a {
     
     /* Extra spacing for the last paragraph to prevent contact button overlap */
     #section-2 .text-block p:last-child {
-        margin-bottom: var(--spacing-xxl); /* Increased space before contact button */
-        padding-bottom: var(--spacing-xl); /* Additional padding for last paragraph */
+        margin-bottom: calc(var(--spacing-xxl) * 1.5); /* Significantly increased space before contact button */
+        padding-bottom: var(--spacing-xxl); /* Additional padding for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
@@ -580,6 +580,22 @@ a {
     .contact-phone {
         font-size: clamp(0.7rem, 4.6vw, 1.38rem); /* 115% of intro font size */
         white-space: nowrap;
+    }
+}
+
+/* iPhone 16 and similar devices - extra spacing for contact button */
+@media (max-width: 768px) and (max-height: 900px) {
+    #section-2 .text-block {
+        margin-bottom: 200px !important; /* Extra space for iPhone 16 */
+    }
+    
+    #section-2 .text-block p:last-child {
+        margin-bottom: calc(var(--spacing-xxl) * 2) !important; /* Double spacing for iPhone 16 */
+        padding-bottom: calc(var(--spacing-xxl) * 1.5) !important;
+    }
+    
+    #section-2 .cta-button {
+        bottom: 100px !important; /* Extra clearance for iPhone 16 */
     }
 }
 

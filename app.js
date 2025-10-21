@@ -206,22 +206,29 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        // Start with image hidden
+        // CRITICAL: Clear the image source FIRST to prevent showing old image
+        this.randomIllustration.src = '';
+        this.randomIllustration.alt = '';
+        
+        // Keep image hidden until new one is loaded
         this.randomIllustration.style.opacity = '0';
         this.randomIllustration.style.transition = 'opacity 0.3s ease-in';
         
-        // Force fresh load by adding cache-busting parameter
-        const cacheBuster = Date.now();
-        this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
-        this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
-        
-        // Fade in image after it's loaded
-        this.randomIllustration.onload = () => {
-            setTimeout(() => {
-                this.randomIllustration.style.opacity = '1';
-                console.log('New illustration faded in');
-            }, 50);
-        };
+        // Small delay to ensure old image is cleared
+        setTimeout(() => {
+            // Force fresh load by adding cache-busting parameter
+            const cacheBuster = Date.now();
+            this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
+            this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
+            
+            // Fade in image after it's loaded
+            this.randomIllustration.onload = () => {
+                setTimeout(() => {
+                    this.randomIllustration.style.opacity = '1';
+                    console.log('New illustration faded in');
+                }, 50);
+            };
+        }, 100);
         
         // Debug: Log the selection to verify sequential cycling
         console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);

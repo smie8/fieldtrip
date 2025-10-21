@@ -448,8 +448,8 @@ a {
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     .section#section-1 .row-2 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Reduced space to ensure content fits */
-        margin-bottom: clamp(0.25rem, 1vh, 0.5rem) !important; /* Reduced margin to save space */
+        padding-bottom: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space before animation */
+        margin-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
@@ -464,17 +464,17 @@ a {
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-top: clamp(0.5rem, 2vh, 1rem) !important; /* Reduced space to ensure content fits */
-        margin-top: clamp(0.25rem, 1vh, 0.5rem) !important; /* Reduced margin to save space */
+        padding-top: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space after animation */
+        margin-top: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
     /* Section 1 row-5 (arrow) - ensure it's visible and not under address bar */
     .section#section-1 .row-5 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        min-height: clamp(40px, 8vh, 60px) !important; /* Ensure arrow has space */
-        padding: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Dynamic padding for arrow */
-        margin-bottom: clamp(0.5rem, 3vh, 1rem) !important; /* Space above browser UI */
+        min-height: clamp(60px, 10vh, 80px) !important; /* Ensure arrow has more space */
+        padding: clamp(1rem, 3vh, 1.5rem) 0 !important; /* More padding for arrow */
+        margin-bottom: clamp(1rem, 5vh, 2rem) !important; /* More space above browser UI */
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -741,8 +741,8 @@ a {
     /* Force mobile styles with highest specificity */
     body .section#section-1 .row-2 {
         flex: 0 0 auto !important;
-        padding-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Reduced space to ensure content fits */
-        margin-bottom: clamp(0.25rem, 1vh, 0.5rem) !important; /* Reduced margin to save space */
+        padding-bottom: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space before animation */
+        margin-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
         min-height: auto !important;
     }
     
@@ -755,16 +755,16 @@ a {
     
     body .section#section-1 .row-4 {
         flex: 0 0 auto !important;
-        padding-top: clamp(0.5rem, 2vh, 1rem) !important; /* Reduced space to ensure content fits */
-        margin-top: clamp(0.25rem, 1vh, 0.5rem) !important; /* Reduced margin to save space */
+        padding-top: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space after animation */
+        margin-top: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
         min-height: auto !important;
     }
     
     body .section#section-1 .row-5 {
         flex: 0 0 auto !important;
-        min-height: clamp(40px, 8vh, 60px) !important; /* Ensure arrow has space */
-        padding: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Dynamic padding for arrow */
-        margin-bottom: clamp(0.5rem, 3vh, 1rem) !important; /* Space above browser UI */
+        min-height: clamp(60px, 10vh, 80px) !important; /* Ensure arrow has more space */
+        padding: clamp(1rem, 3vh, 1.5rem) 0 !important; /* More padding for arrow */
+        margin-bottom: clamp(1rem, 5vh, 2rem) !important; /* More space above browser UI */
     }
     
     body .section#section-2 .cta-button {

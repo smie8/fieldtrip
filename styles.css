@@ -689,24 +689,20 @@ a {
     
     /* Desktop section 2 - logo left, arrow centered in row 1 */
     #section-2 .row-1 {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr; /* Left space, center content, right space */
         align-items: center;
         padding: var(--spacing-md);
-        position: relative; /* For absolute positioning of arrow */
     }
     
     /* Logo on the left */
     #section-2 .section__logo--header {
-        flex: 0 0 auto; /* Don't grow/shrink */
-        margin-right: auto; /* Push to left */
+        justify-self: start; /* Align to left */
     }
     
     /* Arrow centered */
     #section-2 .nav-arrow--up {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        flex: 0 0 auto; /* Don't grow/shrink */
+        justify-self: center; /* Center the arrow */
     }
     
     /* Show logo in section 2 on desktop */

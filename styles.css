@@ -408,13 +408,11 @@ a {
 /* Removed unused environment flagging classes */
 
 /* Mobile-first responsive design */
-/* Mobile: up to 768px */
-@media (max-width: 768px) {
-    /* Mobile Safari specific fixes */
-    html, body {
-        -webkit-text-size-adjust: 100%;
-        -webkit-overflow-scrolling: touch;
-    }
+/* Mobile: up to 768px - Universal mobile styles for all devices */
+@media screen and (max-width: 768px), 
+       screen and (max-device-width: 768px),
+       screen and (max-width: 768px) and (orientation: portrait),
+       screen and (max-width: 768px) and (orientation: landscape) {
     
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
@@ -449,18 +447,18 @@ a {
     }
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
-    #section-1 .row-2 {
+    .section#section-1 .row-2 {
         flex-shrink: 0 !important;
-        padding-bottom: 3rem !important; /* Much more space before animation - explicit value */
-        margin-bottom: 1.5rem !important; /* Additional margin for separation - explicit value */
+        padding-bottom: 3rem !important; /* Much more space before animation */
+        margin-bottom: 1.5rem !important; /* Additional margin for separation */
         min-height: 60px !important; /* Ensure minimum height */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
-    #section-1 .row-4 {
+    .section#section-1 .row-4 {
         flex-shrink: 0 !important;
-        padding-top: 3rem !important; /* Much more space after animation - explicit value */
-        margin-top: 1.5rem !important; /* Additional margin for separation - explicit value */
+        padding-top: 3rem !important; /* Much more space after animation */
+        margin-top: 1.5rem !important; /* Additional margin for separation */
         min-height: 60px !important; /* Ensure minimum height */
     }
     
@@ -529,10 +527,10 @@ a {
     }
     
     /* Contact button directly follows text block - always visible */
-    #section-2 .cta-button {
+    .section#section-2 .cta-button {
         position: static !important; /* Use normal document flow */
-        margin-top: 1rem !important; /* Reduced space above button - explicit value */
-        margin-bottom: 2rem !important; /* Reduced space for browser UI - explicit value */
+        margin-top: 1rem !important; /* Reduced space above button */
+        margin-bottom: 2rem !important; /* Reduced space for browser UI */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10 !important; /* Ensure it's above other content */
         flex-shrink: 0 !important; /* Prevent button from shrinking */
@@ -723,23 +721,27 @@ a {
     outline-offset: 2px;
 }
 
-/* Mobile Safari specific fixes - ensure mobile styles are applied */
-@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-    /* Force mobile Safari to apply our mobile styles */
-    #section-1 .row-2 {
+/* Universal mobile styles - ensure mobile styles work on all devices */
+@media screen and (max-width: 768px) {
+    /* Force mobile styles with highest specificity */
+    body .section#section-1 .row-2 {
         padding-bottom: 3rem !important;
         margin-bottom: 1.5rem !important;
+        min-height: 60px !important;
     }
     
-    #section-1 .row-4 {
+    body .section#section-1 .row-4 {
         padding-top: 3rem !important;
         margin-top: 1.5rem !important;
+        min-height: 60px !important;
     }
     
-    #section-2 .cta-button {
+    body .section#section-2 .cta-button {
         display: block !important;
         visibility: visible !important;
         margin-top: 1rem !important;
         margin-bottom: 2rem !important;
+        min-height: 44px !important;
     }
 }
+

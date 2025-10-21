@@ -243,6 +243,44 @@ body .section#section-1 .row-3 {
     max-height: 80vh !important;
 }
 
+/* Section 2 specific styling */
+#section-2 .row-3 {
+    flex: 0 0 auto;
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-2 .text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: calc(100vw - 2rem);
+    width: 100%;
+    padding: var(--spacing-sm);
+    text-align: center;
+}
+
+#section-2 .text-block p {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+    max-width: calc(100vw - 2rem);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    white-space: pre-line;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#section-2 .text-block p:last-child {
+    margin-bottom: 0.25rem;
+}
+
 /* App container bottom padding for browser UI */
 .app-container {
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);

@@ -10,6 +10,7 @@ class FieldTripApp {
         this.isTransitioning = false;
         this.copytexts = null;
         this.lastSelectedIllustration = null; // Track last selected animation
+        this.currentAnimationIndex = -1; // Track current position in animation sequence
         
         // Available illustrations
         this.illustrations = [
@@ -174,22 +175,20 @@ class FieldTripApp {
     }
 
     /**
-     * Select and display a random illustration
-     * Constraint: Same animation will not appear twice in a row
+     * Select and display the next illustration in sequence
+     * Cycles through animations 1,2,3,4,5 with random starting point
+     * Ensures no consecutive duplicates across page refreshes
      */
     selectRandomIllustration() {
-        let availableIllustrations = this.illustrations;
-        
-        // If we have a last selected illustration, exclude it from the available options
-        if (this.lastSelectedIllustration) {
-            availableIllustrations = this.illustrations.filter(
-                illustration => illustration !== this.lastSelectedIllustration
-            );
+        // If this is the first selection, pick a random starting point
+        if (this.currentAnimationIndex === -1) {
+            this.currentAnimationIndex = Math.floor(Math.random() * this.illustrations.length);
+        } else {
+            // Move to next animation in sequence
+            this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
         }
         
-        // Select random illustration from available options
-        const randomIndex = Math.floor(Math.random() * availableIllustrations.length);
-        const selectedIllustration = availableIllustrations[randomIndex];
+        const selectedIllustration = this.illustrations[this.currentAnimationIndex];
         
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
@@ -197,11 +196,8 @@ class FieldTripApp {
         this.randomIllustration.src = selectedIllustration;
         this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
         
-        // Debug: Log the selection to verify constraint is working
-        console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]}`);
-        if (this.lastSelectedIllustration) {
-            console.log(`Previous illustration was excluded from selection`);
-        }
+        // Debug: Log the selection to verify sequential cycling
+        console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex})`);
     }
 
     /**

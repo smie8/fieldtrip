@@ -206,10 +206,21 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
+        // Keep image hidden until it's fully loaded
+        this.randomIllustration.style.display = 'none';
+        this.randomIllustration.style.opacity = '0';
+        
         // Force fresh load by adding cache-busting parameter
         const cacheBuster = Date.now();
         this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
         this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
+        
+        // Show image only after it's loaded
+        this.randomIllustration.onload = () => {
+            this.randomIllustration.style.display = '';
+            this.randomIllustration.style.opacity = '1';
+            console.log('New illustration loaded and shown');
+        };
         
         // Debug: Log the selection to verify sequential cycling
         console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
@@ -486,11 +497,13 @@ class FieldTripApp {
         if (previousSection === 1) {
             console.log('Hiding illustration when leaving section 1');
             if (this.randomIllustration) {
-                // Hide the image element itself
+                // Ultra-aggressive hiding
                 this.randomIllustration.style.display = 'none';
                 this.randomIllustration.style.visibility = 'hidden';
                 this.randomIllustration.style.opacity = '0';
-                console.log('Illustration hidden');
+                this.randomIllustration.style.transform = 'scale(0)';
+                this.randomIllustration.src = ''; // Clear source immediately
+                console.log('Illustration completely hidden and cleared');
             }
         }
         
@@ -572,14 +585,8 @@ class FieldTripApp {
     showNewContent() {
         console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, resetting illustration');
-            // Reset illustration visibility first
-            if (this.randomIllustration) {
-                this.randomIllustration.style.display = '';
-                this.randomIllustration.style.visibility = 'visible';
-                this.randomIllustration.style.opacity = '1';
-                console.log('Illustration visibility restored');
-            }
+            console.log('Returning to section 1, will load fresh illustration');
+            // Don't restore visibility here - let the onload handler do it
             
             // Create a completely fresh image element to prevent any caching issues
             setTimeout(() => {

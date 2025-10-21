@@ -88,6 +88,9 @@ body {
 
 .row-1 { /* Logo */
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .row-1--header {
@@ -98,6 +101,9 @@ body {
 
 .row-2 { /* Description */
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .row-3 { /* Animation (section 1) or Text+Button (section 2) */
@@ -682,12 +688,16 @@ a {
         padding: var(--spacing-xxl);
     }
     
-    .nav-arrow--down {
-        bottom: var(--spacing-lg);
-    }
-    
+    /* Desktop arrows use same row-based centering as mobile */
+    .nav-arrow--down,
     .nav-arrow--up {
-        top: calc(var(--spacing-lg) + env(safe-area-inset-top, 0px));
+        position: static !important; /* Use normal flow instead of absolute */
+        left: auto !important;
+        transform: none !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto; /* Center horizontally */
     }
 }
 

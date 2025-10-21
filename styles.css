@@ -504,7 +504,7 @@ a {
     
     /* Auto-sizing text block container - consolidated with centering styles above */
     
-    /* Optimized font size for mobile section 2 text - prevent line breaks */
+    /* Optimized font size for mobile section 2 text - respect line breaks */
     #section-2 .text-block p {
         font-size: 0.9rem !important; /* Proper size for mobile */
         line-height: 1.5; /* Better line height for readability */
@@ -513,7 +513,7 @@ a {
         width: auto; /* Let text determine width */
         margin-left: auto;
         margin-right: auto;
-        white-space: nowrap; /* Prevent line breaks within paragraphs */
+        white-space: pre-line; /* Respect line breaks from JSON */
     }
     
     /* Last paragraph with minimal spacing */

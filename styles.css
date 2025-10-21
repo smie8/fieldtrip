@@ -687,11 +687,16 @@ a {
     
     /* Desktop uses unified padding from global .row rule */
     
-    /* Desktop section 2 - arrow in row 1 aligned with logo position */
+    /* Desktop section 2 - logo and arrow in row 1 */
     #section-2 .row-1 {
-        justify-content: flex-start; /* Align arrow to left like logo */
+        justify-content: space-between; /* Logo on left, arrow on right */
         align-items: center;
-        padding-left: var(--spacing-lg); /* Match logo positioning */
+        padding: var(--spacing-md);
+    }
+    
+    /* Hide logo in section 2 on mobile, show on desktop */
+    #section-2 .section__logo--header {
+        display: block; /* Show logo on desktop */
     }
     
     #section-2 .row-3 {

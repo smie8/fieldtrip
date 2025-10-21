@@ -201,11 +201,18 @@ body {
     transform: translateY(-50%);
 }
 
-/* Navigation arrow positioning - now handled by row-based centering */
+/* Navigation arrow positioning - unified centering for all screen sizes */
 .nav-arrow--down,
 .nav-arrow--up {
     width: 24px; /* Ensure consistent width */
     height: 24px; /* Ensure consistent height */
+    position: static; /* Use normal flow */
+    left: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Center horizontally */
 }
 
 /* Removed unused .section__title - using logo instead */
@@ -570,17 +577,6 @@ a {
         font-size: 1.5rem;
     }
     
-    /* Mobile arrows use same static positioning as desktop */
-    .nav-arrow--down,
-    .nav-arrow--up {
-        position: static !important; /* Use normal flow instead of absolute */
-        left: auto !important;
-        transform: none !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto; /* Center horizontally */
-    }
     
     /* Mobile contact overlay styles */
     .contact-overlay .contact-info {
@@ -615,17 +611,6 @@ a {
         margin-bottom: calc(var(--spacing-xl) + 120px) !important; /* Much more space for real mobile browser UI */
     }
     
-    /* Ensure navigation arrows are perfectly centered on mobile */
-    .nav-arrow--down,
-    .nav-arrow--up {
-        position: static !important; /* Use normal flow instead of absolute */
-        left: auto !important;
-        transform: none !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto; /* Center horizontally */
-    }
     
     /* Add bottom padding to prevent content from being cut by browser UI */
     .app-container {
@@ -687,17 +672,6 @@ a {
         padding-bottom: var(--spacing-md) !important; /* Remove mobile extra bottom padding */
     }
     
-    /* Desktop arrows use same row-based centering as mobile */
-    .nav-arrow--down,
-    .nav-arrow--up {
-        position: static !important; /* Use normal flow instead of absolute */
-        left: auto !important;
-        transform: none !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto; /* Center horizontally */
-    }
 }
 
 /* Large desktop optimizations */

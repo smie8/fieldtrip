@@ -206,9 +206,21 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        // Keep image hidden until it's fully loaded
+        // Completely hide image and create a new one
         this.randomIllustration.style.display = 'none';
         this.randomIllustration.style.opacity = '0';
+        this.randomIllustration.style.visibility = 'hidden';
+        this.randomIllustration.style.transform = 'scale(0)';
+        
+        // Create a completely new image element
+        const newImg = document.createElement('img');
+        newImg.className = this.randomIllustration.className;
+        newImg.style.display = 'none';
+        newImg.style.opacity = '0';
+        
+        // Replace the old image
+        this.randomIllustration.parentNode.replaceChild(newImg, this.randomIllustration);
+        this.randomIllustration = newImg;
         
         // Force fresh load by adding cache-busting parameter
         const cacheBuster = Date.now();
@@ -217,9 +229,13 @@ class FieldTripApp {
         
         // Show image only after it's loaded
         this.randomIllustration.onload = () => {
-            this.randomIllustration.style.display = '';
-            this.randomIllustration.style.opacity = '1';
-            console.log('New illustration loaded and shown');
+            setTimeout(() => {
+                this.randomIllustration.style.display = '';
+                this.randomIllustration.style.opacity = '1';
+                this.randomIllustration.style.visibility = 'visible';
+                this.randomIllustration.style.transform = '';
+                console.log('New illustration loaded and shown');
+            }, 100);
         };
         
         // Debug: Log the selection to verify sequential cycling
@@ -588,23 +604,10 @@ class FieldTripApp {
             console.log('Returning to section 1, will load fresh illustration');
             // Don't restore visibility here - let the onload handler do it
             
-            // Create a completely fresh image element to prevent any caching issues
+            // Load the new illustration (which will create a fresh element)
             setTimeout(() => {
-                console.log('Creating fresh image element');
-                if (this.randomIllustration) {
-                    // Create a completely fresh image element
-                    const newImg = this.randomIllustration.cloneNode(false);
-                    newImg.src = '';
-                    newImg.alt = '';
-                    
-                    // Replace the old image with the new one
-                    this.randomIllustration.parentNode.replaceChild(newImg, this.randomIllustration);
-                    this.randomIllustration = newImg;
-                    console.log('Fresh image element created');
-                    
-                    // Now load the new illustration
-                    this.selectRandomIllustration();
-                }
+                console.log('Loading new illustration');
+                this.selectRandomIllustration();
             }, 100);
             
             // Reveal rows 1,2,4 when returning to the first view

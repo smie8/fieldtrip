@@ -148,8 +148,8 @@ body {
 }
 
 .illustration {
-    max-width: 90vw; /* Use 90% of viewport width */
-    max-height: 60vh; /* Use 60% of viewport height */
+    max-width: 95vw !important; /* Use 95% of viewport width */
+    max-height: 70vh !important; /* Use 70% of viewport height */
     width: auto;
     height: auto;
     opacity: 1;
@@ -159,8 +159,8 @@ body {
 /* Mobile-specific illustration sizing */
 @media (max-width: 768px) {
     .illustration {
-        max-width: 85vw; /* Use 85% of viewport width on mobile */
-        max-height: 50vh; /* Use 50% of viewport height on mobile */
+        max-width: 90vw !important; /* Use 90% of viewport width on mobile */
+        max-height: 60vh !important; /* Use 60% of viewport height on mobile */
     }
 }
 
@@ -184,8 +184,9 @@ body {
 }
 
 .section__logo {
-    width: 225px; /* Reduced from 300px to 75% */
+    width: 180px !important; /* Further reduced to 60% of original 300px */
     height: auto;
+    max-width: 180px !important;
 }
 
 .section__logo--header {

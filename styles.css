@@ -457,9 +457,9 @@ a {
     /* Mobile section 2 specific styles - restructure for proper centering */
     #section-2 .row-3 {
         flex-direction: column;
-        justify-content: center; /* Center the text content */
+        justify-content: flex-start; /* Start from top to leave space for button */
         align-items: center;
-        padding: var(--spacing-lg) 0; /* Add vertical padding */
+        padding: var(--spacing-lg) 0 var(--spacing-xxl) 0; /* More bottom padding for button space */
         flex: 1; /* Take up remaining space */
         position: relative; /* Enable absolute positioning for button */
     }
@@ -469,21 +469,23 @@ a {
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start; /* Start from top */
         align-items: center;
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let content determine width */
-        padding: var(--spacing-lg) var(--spacing-md); /* Less side padding for more text space */
+        padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xxl) var(--spacing-md); /* Extra bottom padding for button clearance */
+        margin-bottom: 80px; /* Ensure space for absolutely positioned button */
     }
     
-    /* Anchor contact button to bottom of page */
+    /* Anchor contact button to bottom of page with proper spacing */
     #section-2 .cta-button {
         position: absolute; /* Position absolutely */
-        bottom: 20px; /* 20px from bottom of viewport */
+        bottom: 40px; /* Increased from 20px to 40px for more clearance */
         left: 50%; /* Center horizontally */
         transform: translateX(-50%); /* Perfect centering */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
+        margin: 0 var(--spacing-md); /* Add horizontal margin for button padding */
     }
     
     /* Auto-sizing text block container - consolidated with centering styles above */
@@ -492,12 +494,19 @@ a {
     #section-2 .text-block p {
         font-size: 0.9rem !important; /* Larger size to better use available space */
         line-height: 1.4; /* Better line height for readability */
-        margin-bottom: var(--spacing-sm); /* Proper space between paragraphs */
+        margin-bottom: var(--spacing-md); /* Increased space between paragraphs */
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let text determine width */
         margin-left: auto;
         margin-right: auto;
         white-space: pre-line; /* Preserve line breaks from JSON */
+        padding-bottom: var(--spacing-sm); /* Extra padding for last paragraph */
+    }
+    
+    /* Extra spacing for the last paragraph to prevent contact button overlap */
+    #section-2 .text-block p:last-child {
+        margin-bottom: var(--spacing-xl); /* Extra space before contact button */
+        padding-bottom: var(--spacing-lg); /* Additional padding for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */

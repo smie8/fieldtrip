@@ -206,36 +206,21 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        // Completely hide image and create a new one
-        this.randomIllustration.style.display = 'none';
+        // Start with image hidden
         this.randomIllustration.style.opacity = '0';
-        this.randomIllustration.style.visibility = 'hidden';
-        this.randomIllustration.style.transform = 'scale(0)';
-        
-        // Create a completely new image element
-        const newImg = document.createElement('img');
-        newImg.className = this.randomIllustration.className;
-        newImg.style.display = 'none';
-        newImg.style.opacity = '0';
-        
-        // Replace the old image
-        this.randomIllustration.parentNode.replaceChild(newImg, this.randomIllustration);
-        this.randomIllustration = newImg;
+        this.randomIllustration.style.transition = 'opacity 0.3s ease-in';
         
         // Force fresh load by adding cache-busting parameter
         const cacheBuster = Date.now();
         this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
         this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
         
-        // Show image only after it's loaded
+        // Fade in image after it's loaded
         this.randomIllustration.onload = () => {
             setTimeout(() => {
-                this.randomIllustration.style.display = '';
                 this.randomIllustration.style.opacity = '1';
-                this.randomIllustration.style.visibility = 'visible';
-                this.randomIllustration.style.transform = '';
-                console.log('New illustration loaded and shown');
-            }, 100);
+                console.log('New illustration faded in');
+            }, 50);
         };
         
         // Debug: Log the selection to verify sequential cycling
@@ -509,17 +494,14 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // CRITICAL: Hide illustration IMMEDIATELY when leaving section 1
+        // CRITICAL: Fade out illustration when leaving section 1
         if (previousSection === 1) {
-            console.log('Hiding illustration when leaving section 1');
+            console.log('Fading out illustration when leaving section 1');
             if (this.randomIllustration) {
-                // Ultra-aggressive hiding
-                this.randomIllustration.style.display = 'none';
-                this.randomIllustration.style.visibility = 'hidden';
+                // Add smooth fade out transition
+                this.randomIllustration.style.transition = 'opacity 0.2s ease-out';
                 this.randomIllustration.style.opacity = '0';
-                this.randomIllustration.style.transform = 'scale(0)';
-                this.randomIllustration.src = ''; // Clear source immediately
-                console.log('Illustration completely hidden and cleared');
+                console.log('Illustration fading out');
             }
         }
         

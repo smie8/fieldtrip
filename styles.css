@@ -194,9 +194,21 @@ body {
     transform: translateY(-50%);
 }
 
-/* Up arrow positioning - same as down arrow */
+/* Navigation arrow positioning */
+.nav-arrow--down {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
 .nav-arrow--up {
+    position: absolute;
     top: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 /* Removed unused .section__title - using logo instead */

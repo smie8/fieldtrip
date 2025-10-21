@@ -86,48 +86,54 @@ body {
     justify-content: center;
 }
 
-/* UNIFIED ROW SYSTEM - Consistent flex behavior for all rows */
+/* RULE-BASED ROW SYSTEM - Follows 5 rules: visibility, no overlap, full height, uniform padding, big animation */
 .row-1 { /* Logo */
-    flex: 0 0 auto; /* Don't grow or shrink, use content size */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap */
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 .row-1--header {
-    flex: 0 0 auto; /* Consistent with other rows */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap */
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 .row-2 { /* Description */
-    flex: 0 0 auto; /* Don't grow or shrink, use content size */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap */
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 .row-3 { /* Animation (section 1) or Text+Button (section 2) */
-    flex: 0 0 auto; /* Don't grow or shrink, use content size */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap (mobile) */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 .row-4 { /* CTA Button */
-    flex: 0 0 auto; /* Don't grow or shrink, use content size */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap */
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 .row-5 { /* Down Arrow */
-    flex: 0 0 auto; /* Don't grow or shrink, use content size */
+    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap */
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
 /* Section styles */
@@ -447,24 +453,24 @@ a {
         text-align: center;
     }
     
-    /* UNIFIED MOBILE SPACING - Simple, consistent padding for all rows */
+    /* MOBILE RULES: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
     .section#section-1 .row-2 {
-        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
     .section#section-1 .row-3 {
-        padding: var(--spacing-xl) var(--spacing-md); /* More padding around animation */
-        min-height: 150px; /* Minimum space for animation */
-        max-height: 50vh; /* Maximum height to ensure content fits */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        min-height: 200px; /* Rule 5: Big animation - minimum space */
+        max-height: 60vh; /* Rule 5: Big animation - use available space */
     }
     
     .section#section-1 .row-4 {
-        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
     .section#section-1 .row-5 {
-        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
-        margin-bottom: var(--spacing-xl); /* Extra space above browser UI */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        margin-bottom: var(--spacing-lg); /* Rule 1: Ensure visibility above browser UI */
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -473,22 +479,22 @@ a {
         justify-content: center;
     }
     
-    /* Desktop row-3 - use flex: 1 to fill available space */
+    /* DESKTOP RULES: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
     .row-3 {
-        flex: 1 !important; /* Grow to fill available space on desktop */
-        min-height: 200px; /* Minimum space for animation */
+        flex: 1 !important; /* Rule 3: Fill available space to use full height */
+        min-height: 200px; /* Rule 5: Big animation - minimum space */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: relative;
         z-index: 1;
-        padding: var(--spacing-xl) 0; /* Proper padding around animation */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
-    /* Desktop row-1, row-2, row-4 - ensure they don't grow */
-    .row-1, .row-2, .row-4 {
-        flex-shrink: 0; /* Don't shrink on desktop */
+    /* Desktop other rows - don't grow but don't shrink either */
+    .row-1, .row-2, .row-4, .row-5 {
+        flex-shrink: 0; /* Rule 2: Don't shrink to prevent overlap */
     }
     
     /* Ensure row-4 (button) stays centered */
@@ -735,24 +741,24 @@ a {
 /* Universal mobile styles - ensure mobile styles work on all devices */
 @media screen and (max-width: 768px) {
     /* Force mobile styles with highest specificity */
-    /* UNIFIED MOBILE SPACING - Force consistent padding for all rows */
+    /* MOBILE RULES ENFORCEMENT - Force all 5 rules */
     body .section#section-1 .row-2 {
-        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
+        padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
     }
     
     body .section#section-1 .row-3 {
-        padding: var(--spacing-xl) var(--spacing-md) !important; /* More padding around animation */
-        min-height: 150px !important; /* Minimum space for animation */
-        max-height: 50vh !important; /* Maximum height to ensure content fits */
+        padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
+        min-height: 200px !important; /* Rule 5: Big animation - minimum space */
+        max-height: 60vh !important; /* Rule 5: Big animation - use available space */
     }
     
     body .section#section-1 .row-4 {
-        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
+        padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
     }
     
     body .section#section-1 .row-5 {
-        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
-        margin-bottom: var(--spacing-xl) !important; /* Extra space above browser UI */
+        padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
+        margin-bottom: var(--spacing-lg) !important; /* Rule 1: Ensure visibility above browser UI */
     }
     
     body .section#section-2 .cta-button {

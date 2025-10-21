@@ -78,9 +78,9 @@ body {
     padding: 0;
 }
 
-/* 5-row layout system */
+/* 5-row layout system - unified padding */
 .row {
-    padding: 15px; /* Reduced from 25px for tighter layout */
+    padding: var(--spacing-md); /* Unified spacing: 1.5rem everywhere */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -432,12 +432,6 @@ a {
     .row {
         justify-content: center;
         text-align: center;
-        padding: var(--spacing-md); /* Consistent spacing */
-    }
-    
-    /* Section 1 rows - ensure proper spacing */
-    #section-1 .row {
-        padding: var(--spacing-md); /* Consistent spacing */
     }
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
@@ -452,10 +446,7 @@ a {
         padding-top: var(--spacing-md); /* Consistent space after animation */
     }
     
-    /* Section 2 rows need different padding */
-    #section-2 .row {
-        padding: var(--spacing-md); /* Consistent spacing */
-    }
+    /* Section 2 rows use unified padding from global .row rule */
     
     .row-1--header {
         justify-content: center;
@@ -675,22 +666,7 @@ a {
         font-size: 1.2rem;
     }
     
-    /* Desktop-specific spacing fixes */
-    .row-1 {
-        padding-top: var(--spacing-xl); /* More space above logo */
-    }
-    
-    .row-3 {
-        padding: var(--spacing-sm) 0; /* Less space around animation */
-    }
-    
-    .row-4 {
-        padding-bottom: var(--spacing-lg); /* Space between button and arrow */
-    }
-    
-    .row-5 {
-        padding-top: var(--spacing-md); /* Space above arrow */
-    }
+    /* Desktop uses unified padding from global .row rule */
     
     .contact-form {
         padding: var(--spacing-xxl);

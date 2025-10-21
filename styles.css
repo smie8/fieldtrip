@@ -476,18 +476,21 @@ a {
         min-height: 0; /* Allow flex shrinking */
         max-height: calc(100vh - 200px); /* Ensure content fits in viewport */
         overflow-y: auto; /* Allow scrolling if content is too tall */
+        text-align: center; /* Center all content */
+        width: 100%; /* Full width */
     }
     
-    /* Text block with minimal spacing */
+    /* Text block with proper centering and width constraints */
     #section-2 .text-block {
         display: flex;
         flex-direction: column;
         justify-content: flex-start; /* Start from top */
         align-items: center;
-        max-width: none; /* Remove width constraint to let content determine width */
-        width: auto; /* Let content determine width */
+        max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
+        width: 100%; /* Full width within constraints */
         padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
         margin-bottom: var(--spacing-md); /* Minimal space between text and button */
+        text-align: center; /* Center text within container */
     }
     
     /* Contact button directly follows text block - always visible */
@@ -509,11 +512,14 @@ a {
         font-size: 0.9rem !important; /* Proper size for mobile */
         line-height: 1.5; /* Better line height for readability */
         margin-bottom: var(--spacing-sm); /* Reduced space between paragraphs */
-        max-width: none; /* Remove width constraint to let content determine width */
-        width: auto; /* Let text determine width */
+        max-width: calc(100vw - 4rem); /* Constrain width to fit viewport with padding */
+        width: 100%; /* Full width within constraints */
         margin-left: auto;
         margin-right: auto;
+        text-align: center; /* Center text within paragraphs */
         white-space: pre-line; /* Respect line breaks from JSON */
+        word-wrap: break-word; /* Break long words if needed */
+        overflow-wrap: break-word; /* Additional word breaking support */
     }
     
     /* Last paragraph with minimal spacing */

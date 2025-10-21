@@ -466,59 +466,54 @@ a {
         padding-bottom: 20px; /* Extra bottom padding to clear browser UI */
     }
     
-    /* Mobile section 2 specific styles - restructure for proper centering */
+    /* Mobile section 2 specific styles - proper flexbox layout */
     #section-2 .row-3 {
         flex-direction: column;
-        justify-content: flex-start; /* Start from top to leave space for button */
+        justify-content: space-between; /* Distribute space between text and button */
         align-items: center;
-        padding: var(--spacing-lg) 0 var(--spacing-xxl) 0; /* More bottom padding for button space */
+        padding: var(--spacing-lg) 0; /* Consistent padding */
         flex: 1; /* Take up remaining space */
-        position: relative; /* Enable absolute positioning for button */
     }
     
-    /* Center text in available space with more breathing room */
+    /* Text block with proper spacing */
     #section-2 .text-block {
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Start from top */
+        justify-content: center; /* Center text vertically in available space */
         align-items: center;
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let content determine width */
-        padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xxl) var(--spacing-md); /* Extra bottom padding for button clearance */
-        margin-bottom: 160px; /* Significantly increased space for absolutely positioned button */
+        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
+        margin-bottom: var(--spacing-xl); /* Space between text and button */
     }
     
-    /* Anchor contact button to bottom of page with proper spacing */
+    /* Contact button positioned below text with proper spacing */
     #section-2 .cta-button {
-        position: absolute; /* Position absolutely */
-        bottom: 80px; /* Significantly increased from 60px to 80px for more clearance */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Perfect centering */
+        position: static; /* Use normal document flow instead of absolute */
+        margin-top: var(--spacing-xl); /* Space above button */
+        margin-bottom: var(--spacing-lg); /* Space below button */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
-        margin: 0 var(--spacing-md); /* Add horizontal margin for button padding */
     }
     
     /* Auto-sizing text block container - consolidated with centering styles above */
     
-    /* Optimized font size for mobile section 2 text - better space usage */
+    /* Optimized font size for mobile section 2 text - proper typography */
     #section-2 .text-block p {
-        font-size: 0.9rem !important; /* Larger size to better use available space */
-        line-height: 1.4; /* Better line height for readability */
-        margin-bottom: var(--spacing-md); /* Increased space between paragraphs */
+        font-size: 0.9rem !important; /* Proper size for mobile */
+        line-height: 1.6; /* Better line height for readability */
+        margin-bottom: var(--spacing-lg); /* Consistent space between paragraphs */
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let text determine width */
         margin-left: auto;
         margin-right: auto;
         white-space: pre-line; /* Preserve line breaks from JSON */
-        padding-bottom: var(--spacing-sm); /* Extra padding for last paragraph */
     }
     
-    /* Extra spacing for the last paragraph to prevent contact button overlap */
+    /* Last paragraph with proper spacing */
     #section-2 .text-block p:last-child {
-        margin-bottom: calc(var(--spacing-xxl) * 1.5); /* Significantly increased space before contact button */
-        padding-bottom: var(--spacing-xxl); /* Additional padding for last paragraph */
+        margin-bottom: var(--spacing-lg); /* Consistent spacing for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
@@ -583,19 +578,14 @@ a {
     }
 }
 
-/* iPhone 16 and similar devices - extra spacing for contact button */
-@media (max-width: 768px) and (max-height: 900px) {
+/* Additional mobile spacing for better text-button separation */
+@media (max-width: 768px) {
     #section-2 .text-block {
-        margin-bottom: 200px !important; /* Extra space for iPhone 16 */
-    }
-    
-    #section-2 .text-block p:last-child {
-        margin-bottom: calc(var(--spacing-xxl) * 2) !important; /* Double spacing for iPhone 16 */
-        padding-bottom: calc(var(--spacing-xxl) * 1.5) !important;
+        margin-bottom: var(--spacing-xxl); /* Extra space before button */
     }
     
     #section-2 .cta-button {
-        bottom: 100px !important; /* Extra clearance for iPhone 16 */
+        margin-top: var(--spacing-xxl); /* Extra space above button */
     }
 }
 

@@ -484,10 +484,19 @@ a {
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
+    /* CRITICAL: Bottom arrow protection for all mobile browsers */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        margin-bottom: var(--spacing-lg); /* Rule 1: Ensure visibility above browser UI */
+        /* Enhanced protection against browser UI */
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 80px); /* Extra bottom padding for browser UI */
+        margin-bottom: 0; /* Remove margin, use padding instead */
+        position: relative; /* Enable z-index stacking */
+        z-index: 10; /* Ensure arrow stays above other content */
+        min-height: 120px; /* Ensure enough space for arrow and protection */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -655,16 +664,38 @@ a {
         white-space: nowrap;
     }
     
-    /* Additional mobile button and arrow styles */
+    /* CRITICAL: Section 2 contact button protection for all mobile browsers */
     #section-2 .cta-button {
-        margin-bottom: calc(var(--spacing-lg) + 60px) !important; /* Reduced space for real mobile browser UI */
+        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 80px) !important; /* Enhanced protection for browser UI */
+        position: relative; /* Enable z-index stacking */
+        z-index: 10; /* Ensure button stays above other content */
+    }
+    
+    /* Additional protection for section 2 row-4 (button container) */
+    #section-2 .row-4 {
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 60px) !important; /* Extra bottom padding */
+        min-height: 120px !important; /* Ensure enough space */
+        position: relative !important;
+        z-index: 10 !important;
     }
     
     
-    /* Add bottom padding to prevent content from being cut by browser UI */
+    /* CRITICAL: App container protection for all mobile browsers */
     .app-container {
         padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
         min-height: calc(100vh + 120px); /* Ensure content height accounts for browser UI */
+        /* Additional protection for dynamic browser UI */
+        min-height: calc(var(--vh, 1vh) * 100 + 120px); /* Use JavaScript-calculated viewport height */
+        position: relative; /* Enable proper stacking context */
+    }
+    
+    /* Enhanced viewport height protection */
+    html, body {
+        /* Use JavaScript-calculated viewport height for better mobile support */
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        /* Additional fallback for browsers that don't support CSS custom properties */
+        min-height: 100vh;
     }
 }
 
@@ -698,10 +729,27 @@ a {
         min-height: auto !important; /* Use global button height */
     }
     
-    /* Extra aggressive padding for very small screens */
+    /* CRITICAL: Extra aggressive protection for very small screens */
     .app-container {
         padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 150px) !important;
         min-height: calc(100vh + 150px) !important;
+        min-height: calc(var(--vh, 1vh) * 100 + 150px) !important; /* Use JavaScript viewport height */
+    }
+    
+    /* Enhanced protection for very small screens - section 1 bottom arrow */
+    .section#section-1 .row-5 {
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 100px) !important; /* Extra protection */
+        min-height: 140px !important; /* More space for very small screens */
+    }
+    
+    /* Enhanced protection for very small screens - section 2 contact button */
+    #section-2 .cta-button {
+        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 100px) !important; /* Extra protection */
+    }
+    
+    #section-2 .row-4 {
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 80px) !important; /* Extra protection */
+        min-height: 140px !important; /* More space for very small screens */
     }
 }
 

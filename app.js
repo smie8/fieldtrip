@@ -148,8 +148,9 @@ class FieldTripApp {
             row.style.transform = 'translateY(20px)';
         });
         
-        // Keep down arrow always visible
+        // Keep down arrow always visible and ensure it's protected
         this.arrowDown.classList.add('nav-arrow--visible');
+        this.ensureBottomArrowVisibility();
         
         // Hide up arrow initially
         this.arrowUp.classList.remove('nav-arrow--visible');
@@ -277,6 +278,33 @@ class FieldTripApp {
             }, 500);
         });
         
+        // Handle scroll events that might trigger browser UI changes
+        window.addEventListener('scroll', () => {
+            if (this.isMobile()) {
+                setTimeout(() => {
+                    this.adjustMobileViewport();
+                }, 100);
+            }
+        });
+        
+        // Handle focus events that might trigger browser UI changes
+        window.addEventListener('focus', () => {
+            if (this.isMobile()) {
+                setTimeout(() => {
+                    this.adjustMobileViewport();
+                }, 100);
+            }
+        });
+        
+        // Handle visibility change events (tab switching, etc.)
+        document.addEventListener('visibilitychange', () => {
+            if (this.isMobile() && !document.hidden) {
+                setTimeout(() => {
+                    this.adjustMobileViewport();
+                }, 200);
+            }
+        });
+        
         // Initial mobile viewport adjustment
         this.adjustMobileViewport();
     }
@@ -290,10 +318,43 @@ class FieldTripApp {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             
-            // Ensure down arrow is visible
+            // Enhanced protection for bottom arrow and button
             const row5 = document.querySelector('.row-5');
+            const section2Button = document.querySelector('#section-2 .cta-button');
+            const section2Row4 = document.querySelector('#section-2 .row-4');
+            
+            // Calculate additional protection based on screen size
+            const screenHeight = window.innerHeight;
+            const additionalPadding = screenHeight < 600 ? 100 : 80; // More padding for smaller screens
+            
             if (row5) {
-                row5.style.paddingBottom = 'max(20px, env(safe-area-inset-bottom, 0px))';
+                // Enhanced bottom arrow protection
+                row5.style.paddingBottom = `calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + ${additionalPadding}px)`;
+                row5.style.minHeight = '120px';
+                row5.style.position = 'relative';
+                row5.style.zIndex = '10';
+            }
+            
+            if (section2Button) {
+                // Enhanced section 2 button protection
+                section2Button.style.marginBottom = `calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + ${additionalPadding}px)`;
+                section2Button.style.position = 'relative';
+                section2Button.style.zIndex = '10';
+            }
+            
+            if (section2Row4) {
+                // Enhanced section 2 row protection
+                section2Row4.style.paddingBottom = `calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + ${additionalPadding - 20}px)`;
+                section2Row4.style.minHeight = '120px';
+                section2Row4.style.position = 'relative';
+                section2Row4.style.zIndex = '10';
+            }
+            
+            // Update app container protection
+            const appContainer = document.querySelector('.app-container');
+            if (appContainer) {
+                appContainer.style.paddingBottom = `calc(env(safe-area-inset-bottom, 0px) + ${additionalPadding + 40}px)`;
+                appContainer.style.minHeight = `calc(var(--vh, 1vh) * 100 + ${additionalPadding + 40}px)`;
             }
         }
     }
@@ -371,6 +432,21 @@ class FieldTripApp {
         document.querySelectorAll('.cta-button').forEach(btn => {
             btn.classList.remove('cta-button--visible');
         });
+        
+        // Clear section 1 illustration when navigating away to prevent flash
+        if (sectionNumber === 1) {
+            this.clearSection1Illustration();
+        }
+    }
+    
+    /**
+     * Clear section 1 illustration to prevent flash when returning
+     */
+    clearSection1Illustration() {
+        if (this.randomIllustration) {
+            this.randomIllustration.src = '';
+            this.randomIllustration.alt = '';
+        }
     }
 
     /**
@@ -378,8 +454,10 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
-            // Select a new random illustration when returning to section 1
-            this.selectRandomIllustration();
+            // Small delay before loading new illustration to ensure clean transition
+            setTimeout(() => {
+                this.selectRandomIllustration();
+            }, 100);
             
             // Reveal rows 1,2,4 when returning to the first view
             document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
@@ -395,8 +473,9 @@ class FieldTripApp {
                 this.requestReferencesBtn.classList.add('cta-button--visible');
             }, 300);
 
-            // Show down arrow immediately
+            // Show down arrow immediately and ensure it's protected
             this.arrowDown.classList.add('nav-arrow--visible');
+            this.ensureBottomArrowVisibility();
         } else if (this.currentSection === 2) {
             // Show up arrow immediately
             this.arrowUp.classList.add('nav-arrow--visible');
@@ -404,7 +483,60 @@ class FieldTripApp {
             // Show text and button after a delay
             setTimeout(() => {
                 this.contactUsBtn.classList.add('cta-button--visible');
+                this.ensureBottomButtonVisibility();
             }, 400);
+        }
+    }
+    
+    /**
+     * Ensure bottom arrow is always visible and protected
+     */
+    ensureBottomArrowVisibility() {
+        if (this.isMobile()) {
+            const row5 = document.querySelector('.row-5');
+            if (row5) {
+                // Force visibility and protection
+                row5.style.display = 'flex';
+                row5.style.alignItems = 'center';
+                row5.style.justifyContent = 'center';
+                row5.style.position = 'relative';
+                row5.style.zIndex = '10';
+                row5.style.minHeight = '120px';
+                
+                // Ensure arrow is visible
+                if (this.arrowDown) {
+                    this.arrowDown.style.visibility = 'visible';
+                    this.arrowDown.style.opacity = '1';
+                    this.arrowDown.style.position = 'relative';
+                    this.arrowDown.style.zIndex = '11';
+                }
+            }
+        }
+    }
+    
+    /**
+     * Ensure bottom button is always visible and protected
+     */
+    ensureBottomButtonVisibility() {
+        if (this.isMobile()) {
+            const section2Button = document.querySelector('#section-2 .cta-button');
+            const section2Row4 = document.querySelector('#section-2 .row-4');
+            
+            if (section2Button) {
+                section2Button.style.visibility = 'visible';
+                section2Button.style.opacity = '1';
+                section2Button.style.position = 'relative';
+                section2Button.style.zIndex = '11';
+            }
+            
+            if (section2Row4) {
+                section2Row4.style.display = 'flex';
+                section2Row4.style.alignItems = 'center';
+                section2Row4.style.justifyContent = 'center';
+                section2Row4.style.position = 'relative';
+                section2Row4.style.zIndex = '10';
+                section2Row4.style.minHeight = '120px';
+            }
         }
     }
 

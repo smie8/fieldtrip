@@ -409,10 +409,12 @@ a {
 
 /* Mobile-first responsive design */
 /* Mobile: up to 768px - Universal mobile styles for all devices */
-@media screen and (max-width: 768px), 
-       screen and (max-device-width: 768px),
-       screen and (max-width: 768px) and (orientation: portrait),
-       screen and (max-width: 768px) and (orientation: landscape) {
+@media screen and (max-width: 768px) {
+    
+    /* DEBUG: Test if mobile styles are being applied */
+    body {
+        background-color: #f0f0f0 !important; /* Light gray background for mobile testing */
+    }
     
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */

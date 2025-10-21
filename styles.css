@@ -687,22 +687,26 @@ a {
     
     /* Desktop uses unified padding from global .row rule */
     
-    /* Desktop section 2 - logo and arrow in row 1 */
+    /* Desktop section 2 - logo left, arrow centered in row 1 */
     #section-2 .row-1 {
-        justify-content: space-between; /* Logo on left, arrow on right */
+        display: flex;
         align-items: center;
         padding: var(--spacing-md);
-        display: flex;
+        position: relative; /* For absolute positioning of arrow */
     }
     
-    /* Ensure logo is on the left */
+    /* Logo on the left */
     #section-2 .section__logo--header {
-        order: 1; /* Logo first */
+        flex: 0 0 auto; /* Don't grow/shrink */
+        margin-right: auto; /* Push to left */
     }
     
-    /* Ensure arrow is on the right */
+    /* Arrow centered */
     #section-2 .nav-arrow--up {
-        order: 2; /* Arrow second */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        flex: 0 0 auto; /* Don't grow/shrink */
     }
     
     /* Show logo in section 2 on desktop */

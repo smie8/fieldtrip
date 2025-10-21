@@ -15,18 +15,24 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5 !important;
     font-family: 'PP Agrandir Wide', 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    transition: none !important;
+    animation: none !important;
 }
 
 .app-container {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5 !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .layout-container {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5 !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 /* CSS Variables */

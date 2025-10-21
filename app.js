@@ -206,18 +206,26 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        // Load the new illustration (element is already created and hidden)
-        const cacheBuster = Date.now();
-        this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
-        this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
+        // Ensure image is completely hidden and cleared first
+        this.randomIllustration.src = '';
+        this.randomIllustration.alt = '';
+        this.randomIllustration.style.opacity = '0';
         
-        // Fade in image after it's loaded
-        this.randomIllustration.onload = () => {
-            setTimeout(() => {
-                this.randomIllustration.style.opacity = '1';
-                console.log('New illustration faded in');
-            }, 50);
-        };
+        // Small delay to ensure clearing is processed
+        setTimeout(() => {
+            // Load the new illustration with cache busting
+            const cacheBuster = Date.now();
+            this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
+            this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
+            
+            // Fade in image after it's loaded
+            this.randomIllustration.onload = () => {
+                setTimeout(() => {
+                    this.randomIllustration.style.opacity = '1';
+                    console.log('New illustration faded in');
+                }, 50);
+            };
+        }, 50);
         
         // Debug: Log the selection to verify sequential cycling
         console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
@@ -543,34 +551,8 @@ class FieldTripApp {
     
     /**
      * Clear section 1 illustration to prevent flash when returning
+     * REMOVED - This method is no longer used, container hiding approach is used instead
      */
-    clearSection1Illustration() {
-        if (this.randomIllustration) {
-            // Ultra-aggressive clearing to prevent any flash
-            this.randomIllustration.src = '';
-            this.randomIllustration.alt = '';
-            this.randomIllustration.style.display = 'none';
-            this.randomIllustration.style.opacity = '0';
-            this.randomIllustration.style.visibility = 'hidden';
-            
-            // Also clear the illustration container
-            const illustrationContainer = document.querySelector('.illustration-container');
-            if (illustrationContainer) {
-                illustrationContainer.style.opacity = '0';
-                illustrationContainer.style.visibility = 'hidden';
-            }
-            
-            // Force multiple reflows to ensure the image is completely cleared
-            this.randomIllustration.offsetHeight;
-            this.randomIllustration.offsetWidth;
-            
-            // Clear any cached image data
-            if (this.randomIllustration.complete) {
-                this.randomIllustration.onload = null;
-                this.randomIllustration.onerror = null;
-            }
-        }
-    }
 
     /**
      * Show new section content and arrows
@@ -601,11 +583,13 @@ class FieldTripApp {
                 this.randomIllustration = newImg;
                 console.log('Fresh illustration element created');
                 
-                // Load the new illustration
+                // Load the new illustration with a longer delay to ensure container is ready
                 setTimeout(() => {
                     console.log('Loading new illustration');
+                    // Reset the animation index to ensure we get the next one
+                    this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
                     this.selectRandomIllustration();
-                }, 100);
+                }, 200);
             }
             
             // Reveal rows 1,2,4 when returning to the first view

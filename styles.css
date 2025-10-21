@@ -159,8 +159,15 @@ body {
 /* Mobile-specific illustration sizing */
 @media (max-width: 768px) {
     .illustration {
-        max-width: 90vw !important; /* Use 90% of viewport width on mobile */
-        max-height: 60vh !important; /* Use 60% of viewport height on mobile */
+        max-width: 95vw !important; /* Use 95% of viewport width on mobile */
+        max-height: 70vh !important; /* Use 70% of viewport height on mobile */
+    }
+    
+    /* Mobile-specific logo sizing */
+    .section__logo {
+        width: 120px !important; /* Much smaller logo on mobile */
+        max-width: 120px !important;
+        height: auto;
     }
 }
 

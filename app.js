@@ -194,11 +194,13 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        this.randomIllustration.src = selectedIllustration;
+        // Force fresh load by adding cache-busting parameter
+        const cacheBuster = Date.now();
+        this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
         this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
         
         // Debug: Log the selection to verify sequential cycling
-        console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex})`);
+        console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
     }
 
     /**
@@ -514,29 +516,29 @@ class FieldTripApp {
      */
     clearSection1Illustration() {
         if (this.randomIllustration) {
-            // More aggressive clearing to prevent any flash
+            // Ultra-aggressive clearing to prevent any flash
             this.randomIllustration.src = '';
             this.randomIllustration.alt = '';
             this.randomIllustration.style.display = 'none';
             this.randomIllustration.style.opacity = '0';
+            this.randomIllustration.style.visibility = 'hidden';
             
             // Also clear the illustration container
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
                 illustrationContainer.style.opacity = '0';
+                illustrationContainer.style.visibility = 'hidden';
             }
             
-            // Force a reflow to ensure the image is cleared immediately
+            // Force multiple reflows to ensure the image is completely cleared
             this.randomIllustration.offsetHeight;
+            this.randomIllustration.offsetWidth;
             
-            // Restore display after clearing
-            setTimeout(() => {
-                this.randomIllustration.style.display = '';
-                this.randomIllustration.style.opacity = '';
-                if (illustrationContainer) {
-                    illustrationContainer.style.opacity = '';
-                }
-            }, 50);
+            // Clear any cached image data
+            if (this.randomIllustration.complete) {
+                this.randomIllustration.onload = null;
+                this.randomIllustration.onerror = null;
+            }
         }
     }
 
@@ -545,16 +547,36 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
-            // Reset illustration container opacity first
+            // Reset illustration container visibility first
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
                 illustrationContainer.style.opacity = '1';
+                illustrationContainer.style.visibility = 'visible';
             }
             
-            // Small delay before loading new illustration to ensure clean transition
+            // Reset image element visibility
+            if (this.randomIllustration) {
+                this.randomIllustration.style.display = '';
+                this.randomIllustration.style.opacity = '';
+                this.randomIllustration.style.visibility = 'visible';
+            }
+            
+            // Create a completely fresh image element to prevent any caching issues
             setTimeout(() => {
-                this.selectRandomIllustration();
-            }, 100);
+                if (this.randomIllustration) {
+                    // Create a completely fresh image element
+                    const newImg = this.randomIllustration.cloneNode(false);
+                    newImg.src = '';
+                    newImg.alt = '';
+                    
+                    // Replace the old image with the new one
+                    this.randomIllustration.parentNode.replaceChild(newImg, this.randomIllustration);
+                    this.randomIllustration = newImg;
+                    
+                    // Now load the new illustration
+                    this.selectRandomIllustration();
+                }
+            }, 200);
             
             // Reveal rows 1,2,4 when returning to the first view
             document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {

@@ -504,11 +504,11 @@ a {
         flex-direction: column;
         justify-content: flex-start; /* Start from top, no space distribution */
         align-items: center;
-        padding: var(--spacing-lg) 0; /* Consistent padding */
+        padding: var(--spacing-md) 0; /* Reduced padding to fit content */
         flex: 1; /* Take up remaining space */
         min-height: 0; /* Allow flex shrinking */
-        max-height: calc(100vh - 100px); /* More space for content with aggressive spacing */
-        overflow-y: auto; /* Allow scrolling if content is too tall */
+        /* REMOVED max-height constraint - let content flow naturally */
+        overflow-y: visible; /* Allow content to be visible */
         text-align: center; /* Center all content */
         width: 100%; /* Full width */
     }
@@ -521,16 +521,16 @@ a {
         align-items: center;
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
         width: 100%; /* Full width within constraints */
-        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
-        margin-bottom: var(--spacing-md); /* Minimal space between text and button */
+        padding: var(--spacing-sm) var(--spacing-sm); /* Reduced padding to fit content */
+        margin-bottom: var(--spacing-sm); /* Minimal space between text and button */
         text-align: center; /* Center text within container */
     }
     
     /* Contact button directly follows text block - always visible */
     .section#section-2 .cta-button {
         position: static !important; /* Use normal document flow */
-        margin-top: 1rem !important; /* Reduced space above button */
-        margin-bottom: 2rem !important; /* Reduced space for browser UI */
+        margin-top: 0.5rem !important; /* Minimal space above button */
+        margin-bottom: 1rem !important; /* Minimal space for browser UI */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10 !important; /* Ensure it's above other content */
         flex-shrink: 0 !important; /* Prevent button from shrinking */
@@ -544,9 +544,9 @@ a {
     
     /* Optimized font size for mobile section 2 text - respect line breaks */
     #section-2 .text-block p {
-        font-size: 0.9rem !important; /* Proper size for mobile */
-        line-height: 1.5; /* Better line height for readability */
-        margin-bottom: var(--spacing-sm); /* Reduced space between paragraphs */
+        font-size: 0.8rem !important; /* Smaller font to fit content */
+        line-height: 1.4; /* Tighter line height for compact display */
+        margin-bottom: 0.5rem !important; /* Minimal space between paragraphs */
         max-width: calc(100vw - 4rem); /* Constrain width to fit viewport with padding */
         width: 100%; /* Full width within constraints */
         margin-left: auto;
@@ -559,7 +559,7 @@ a {
     
     /* Last paragraph with minimal spacing */
     #section-2 .text-block p:last-child {
-        margin-bottom: var(--spacing-sm); /* Minimal spacing for last paragraph */
+        margin-bottom: 0.25rem !important; /* Minimal spacing for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
@@ -634,8 +634,8 @@ a {
 /* Very small screens - ensure contact button is always visible */
 @media (max-width: 480px) {
     #section-2 .row-3 {
-        max-height: calc(100vh - 100px); /* More space for content with aggressive spacing */
-        padding: var(--spacing-md) 0; /* Reduced padding */
+        /* REMOVED max-height constraint - let content flow naturally */
+        padding: var(--spacing-sm) 0; /* Minimal padding for very small screens */
     }
     
     #section-2 .text-block {

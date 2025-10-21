@@ -412,8 +412,8 @@ a {
     
     /* Mobile-specific logo sizing */
     .section__logo {
-        width: 80vw !important; /* Slightly wider than text block */
-        max-width: 80vw !important;
+        width: 90vw !important; /* Bigger logo */
+        max-width: 90vw !important;
         height: auto;
     }
     
@@ -668,7 +668,7 @@ a {
 /* Desktop: from 769px upward */
 @media (min-width: 769px) {
     .layout-container {
-        padding: var(--container-padding-desktop);
+        padding: 0; /* Consistent with mobile */
     }
     
     .section__description {

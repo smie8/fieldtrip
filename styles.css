@@ -522,44 +522,37 @@ a {
         align-items: center !important;
     }
     
-    /* Mobile section 2 specific styles - direct text-to-button flow */
+    /* Mobile section 2 specific styles - text and button in separate rows */
     #section-2 .row-3 {
-        flex-direction: column;
-        justify-content: flex-start; /* Start from top, no space distribution */
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        display: flex;
+        justify-content: center;
         align-items: center;
-        padding: 0.25rem 0; /* Minimal padding to fit content */
-        flex: 0 0 auto; /* Don't grow or shrink, use content size */
-        min-height: 0; /* Allow flex shrinking */
-        /* NO height constraints - let content flow naturally */
-        overflow-y: visible; /* Allow content to be visible */
-        text-align: center; /* Center all content */
-        width: 100%; /* Full width */
     }
     
     /* Text block with proper centering and width constraints */
     #section-2 .text-block {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Start from top */
+        justify-content: center;
         align-items: center;
-        max-width: calc(100vw - 1rem); /* Constrain width to fit viewport */
-        width: 100%; /* Full width within constraints */
-        padding: 0.25rem; /* Minimal padding to fit content */
-        margin-bottom: 0.25rem; /* Minimal space between text and button */
+        max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
+        width: 100%;
+        padding: var(--spacing-sm);
         text-align: center; /* Center text within container */
     }
     
-    /* Contact button directly follows text block - always visible */
+    /* Contact button in separate row - always visible */
     .section#section-2 .cta-button {
-        position: static !important; /* Use normal document flow */
-        margin-top: 0.25rem !important; /* Minimal space above button */
-        margin-bottom: 0.5rem !important; /* Minimal space for browser UI */
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
+        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
-        z-index: 10 !important; /* Ensure it's above other content */
-        flex-shrink: 0 !important; /* Prevent button from shrinking */
         min-height: 44px !important; /* Ensure minimum touch target */
-        max-width: calc(100vw - 1rem) !important; /* Prevent button from exceeding viewport */
-        display: block !important; /* Force display */
+        max-width: calc(100vw - 2rem) !important; /* Prevent button from exceeding viewport */
         visibility: visible !important; /* Force visibility */
     }
     

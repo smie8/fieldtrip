@@ -564,16 +564,16 @@ a {
         font-size: 1.5rem;
     }
     
-    .nav-arrow--down {
-        bottom: var(--spacing-md);
-        left: 50% !important; /* Ensure centering on mobile */
-        transform: translateX(-50%) !important; /* Perfect centering */
-    }
-    
+    /* Mobile arrows use same static positioning as desktop */
+    .nav-arrow--down,
     .nav-arrow--up {
-        top: var(--spacing-md);
-        left: 50% !important; /* Ensure centering on mobile */
-        transform: translateX(-50%) !important; /* Perfect centering */
+        position: static !important; /* Use normal flow instead of absolute */
+        left: auto !important;
+        transform: none !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto; /* Center horizontally */
     }
     
     /* Mobile contact overlay styles */

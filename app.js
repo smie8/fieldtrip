@@ -465,13 +465,7 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // Hide current content and arrows
-        this.hideCurrentContent(previousSection);
-        
-        // Update section visibility
-        this.updateSections();
-        
-        // CRITICAL: Hide illustration container immediately when leaving section 1
+        // CRITICAL: Hide illustration container IMMEDIATELY when leaving section 1
         if (previousSection === 1) {
             console.log('Hiding illustration container when leaving section 1');
             const illustrationContainer = document.querySelector('.illustration-container');
@@ -479,7 +473,20 @@ class FieldTripApp {
                 illustrationContainer.style.display = 'none';
                 console.log('Illustration container hidden');
             }
+            
+            // Also clear the image source immediately
+            if (this.randomIllustration) {
+                this.randomIllustration.src = '';
+                this.randomIllustration.alt = '';
+                console.log('Image source cleared');
+            }
         }
+        
+        // Hide current content and arrows
+        this.hideCurrentContent(previousSection);
+        
+        // Update section visibility
+        this.updateSections();
         
         // Show new content after transition
         setTimeout(() => {
@@ -564,6 +571,7 @@ class FieldTripApp {
             
             // Create a completely fresh image element to prevent any caching issues
             setTimeout(() => {
+                console.log('Creating fresh image element');
                 if (this.randomIllustration) {
                     // Create a completely fresh image element
                     const newImg = this.randomIllustration.cloneNode(false);
@@ -573,6 +581,7 @@ class FieldTripApp {
                     // Replace the old image with the new one
                     this.randomIllustration.parentNode.replaceChild(newImg, this.randomIllustration);
                     this.randomIllustration = newImg;
+                    console.log('Fresh image element created');
                     
                     // Now load the new illustration
                     this.selectRandomIllustration();

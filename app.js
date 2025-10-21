@@ -490,13 +490,13 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // CRITICAL: Completely empty section 1 when leaving it
+        // CRITICAL: Hide entire illustration container when leaving section 1
         if (previousSection === 1) {
-            console.log('Emptying section 1 when leaving');
-            if (this.randomIllustration) {
-                // Remove the image completely
-                this.randomIllustration.remove();
-                console.log('Illustration removed from DOM');
+            console.log('Hiding illustration container when leaving section 1');
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                illustrationContainer.style.display = 'none';
+                console.log('Illustration container hidden');
             }
         }
         
@@ -578,11 +578,18 @@ class FieldTripApp {
     showNewContent() {
         console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, recreating illustration');
+            console.log('Returning to section 1, restoring container and creating fresh image');
             
-            // Recreate the image element since it was removed
+            // Restore the illustration container
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
+                illustrationContainer.style.display = 'flex';
+                console.log('Illustration container restored');
+                
+                // Clear any existing content
+                illustrationContainer.innerHTML = '';
+                
+                // Create completely fresh image element
                 const newImg = document.createElement('img');
                 newImg.id = 'random-illustration';
                 newImg.alt = 'FieldTrip Illustration';
@@ -592,7 +599,7 @@ class FieldTripApp {
                 
                 illustrationContainer.appendChild(newImg);
                 this.randomIllustration = newImg;
-                console.log('New illustration element created');
+                console.log('Fresh illustration element created');
                 
                 // Load the new illustration
                 setTimeout(() => {

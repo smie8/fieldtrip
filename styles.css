@@ -80,7 +80,7 @@ body {
 
 /* 5-row layout system */
 .row {
-    padding: 25px;
+    padding: 15px; /* Reduced from 25px for tighter layout */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,8 +148,8 @@ body {
 }
 
 .illustration {
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 90vw; /* Use 90% of viewport width */
+    max-height: 60vh; /* Use 60% of viewport height */
     width: auto;
     height: auto;
     opacity: 1;
@@ -159,8 +159,8 @@ body {
 /* Mobile-specific illustration sizing */
 @media (max-width: 768px) {
     .illustration {
-        max-width: 250px; /* Smaller on mobile to prevent overlap */
-        max-height: 250px; /* Smaller on mobile to prevent overlap */
+        max-width: 85vw; /* Use 85% of viewport width on mobile */
+        max-height: 50vh; /* Use 50% of viewport height on mobile */
     }
 }
 
@@ -184,7 +184,7 @@ body {
 }
 
 .section__logo {
-    width: 300px;
+    width: 225px; /* Reduced from 300px to 75% */
     height: auto;
 }
 
@@ -424,12 +424,12 @@ a {
     .row {
         justify-content: center;
         text-align: center;
-        padding: 15px; /* Reduce padding for better mobile fit */
+        padding: 10px; /* Further reduced padding for tighter mobile layout */
     }
     
     /* Section 1 rows - ensure proper spacing */
     #section-1 .row {
-        padding: var(--spacing-sm); /* Consistent spacing */
+        padding: 8px; /* Reduced spacing for tighter layout */
     }
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
@@ -446,7 +446,7 @@ a {
     
     /* Section 2 rows need different padding */
     #section-2 .row {
-        padding: 10px; /* Even less padding for section 2 */
+        padding: 8px; /* Minimal padding for section 2 */
     }
     
     .row-1--header {

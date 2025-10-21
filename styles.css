@@ -485,7 +485,7 @@ a {
     .row-5 {
         flex-shrink: 0;
         min-height: 80px; /* Increased space for arrow */
-        padding: var(--spacing-md) 0; /* Consistent padding */
+        padding: var(--spacing-md) var(--spacing-md); /* Symmetric horizontal padding */
         padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 60px); /* Extra bottom padding to clear browser UI */
         display: flex !important;
         justify-content: center !important;

@@ -76,6 +76,8 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
+    /* RULE 3: Use full height by distributing space, not centering */
+    justify-content: space-between; /* Distribute rows across full height */
 }
 
 /* 5-row layout system - unified padding */
@@ -454,21 +456,26 @@ a {
     }
     
     /* MOBILE RULES: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
+    /* RULE 2: Prevent overlap by using simple flex behavior */
     .section#section-1 .row-2 {
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
     .section#section-1 .row-3 {
+        flex: 1; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
         min-height: 200px; /* Rule 5: Big animation - minimum space */
         max-height: 60vh; /* Rule 5: Big animation - use available space */
     }
     
     .section#section-1 .row-4 {
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
     .section#section-1 .row-5 {
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
         margin-bottom: var(--spacing-lg); /* Rule 1: Ensure visibility above browser UI */
     }
@@ -743,20 +750,24 @@ a {
     /* Force mobile styles with highest specificity */
     /* MOBILE RULES ENFORCEMENT - Force all 5 rules */
     body .section#section-1 .row-2 {
+        flex: 0 0 auto !important; /* Rule 2: Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
     }
     
     body .section#section-1 .row-3 {
+        flex: 1 !important; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
         min-height: 200px !important; /* Rule 5: Big animation - minimum space */
         max-height: 60vh !important; /* Rule 5: Big animation - use available space */
     }
     
     body .section#section-1 .row-4 {
+        flex: 0 0 auto !important; /* Rule 2: Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
     }
     
     body .section#section-1 .row-5 {
+        flex: 0 0 auto !important; /* Rule 2: Don't grow/shrink - prevent overlap */
         padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
         margin-bottom: var(--spacing-lg) !important; /* Rule 1: Ensure visibility above browser UI */
     }

@@ -178,7 +178,7 @@ body {
 }
 
 .section__logo {
-    width: clamp(200px, 15vw, 300px); /* Responsive logo: min 200px, max 300px, 15% viewport width */
+    width: 300px; /* Desktop size */
     height: auto;
     max-width: 300px;
 }
@@ -410,7 +410,12 @@ a {
         font-size: 1rem;
     }
     
-    /* Mobile logo sizing handled by global responsive rule above */
+    /* Mobile-specific logo sizing - works for both real mobile and Safari dev tools */
+    .section__logo {
+        width: clamp(250px, 20vw, 350px) !important; /* Bigger on mobile: min 250px, max 350px, 20% viewport */
+        max-width: 350px !important;
+        height: auto;
+    }
     
     /* Mobile-specific illustration sizing */
     .illustration {
@@ -663,7 +668,7 @@ a {
 /* Desktop: from 769px upward */
 @media (min-width: 769px) {
     .layout-container {
-        padding: 0; /* Consistent with mobile */
+        padding: var(--container-padding-desktop);
     }
     
     .section__description {

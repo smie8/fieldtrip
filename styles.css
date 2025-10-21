@@ -412,6 +412,11 @@ a {
 @media screen and (max-width: 768px) {
     
     
+    /* DEBUG: Test if mobile styles are being applied */
+    body {
+        border: 5px solid red !important; /* Red border for mobile testing */
+    }
+    
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
     }

@@ -181,12 +181,16 @@ class FieldTripApp {
      * Ensures no consecutive duplicates across page refreshes
      */
     selectRandomIllustration() {
+        console.log('selectRandomIllustration called - current index:', this.currentAnimationIndex);
+        
         // If this is the first selection, pick a random starting point
         if (this.currentAnimationIndex === -1) {
             this.currentAnimationIndex = Math.floor(Math.random() * this.illustrations.length);
+            console.log('First selection, random index:', this.currentAnimationIndex);
         } else {
             // Move to next animation in sequence
             this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
+            console.log('Next in sequence, new index:', this.currentAnimationIndex);
         }
         
         const selectedIllustration = this.illustrations[this.currentAnimationIndex];
@@ -558,6 +562,7 @@ class FieldTripApp {
      * Show new section content and arrows
      */
     showNewContent() {
+        console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
             console.log('Returning to section 1, resetting illustration container');
             // Reset illustration container visibility first

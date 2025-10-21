@@ -703,10 +703,10 @@ a {
         flex: 0 0 auto;
     }
     
-    /* Arrow centered - use absolute positioning */
+    /* Arrow centered - use viewport-relative positioning */
     #section-2 .nav-arrow--up {
         position: absolute;
-        left: 50%;
+        left: 50vw;
         transform: translateX(-50%);
     }
     

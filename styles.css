@@ -704,7 +704,9 @@ a {
     
     /* Arrow centered */
     #section-2 .nav-arrow--up {
-        justify-self: center; /* Center the arrow */
+        justify-self: center !important; /* Center the arrow */
+        display: block !important; /* Override global flex */
+        margin: 0 auto !important; /* Additional centering */
     }
     
     /* Show logo in section 2 on desktop */

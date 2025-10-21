@@ -687,6 +687,24 @@ a {
     
     /* Desktop uses unified padding from global .row rule */
     
+    /* Desktop section 2 - arrow in row 1 aligned with logo position */
+    #section-2 .row-1 {
+        justify-content: flex-start; /* Align arrow to left like logo */
+        align-items: center;
+        padding-left: var(--spacing-lg); /* Match logo positioning */
+    }
+    
+    #section-2 .row-3 {
+        flex: 1; /* Fill available space for text content */
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #section-2 .row-4 {
+        justify-content: center; /* Center contact button */
+        align-items: center;
+    }
+    
     .contact-form {
         padding: var(--spacing-xxl);
     }

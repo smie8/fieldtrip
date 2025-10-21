@@ -465,16 +465,21 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // CRITICAL: Clear section 1 illustration immediately when leaving to prevent flash
-        if (previousSection === 1) {
-            this.clearSection1Illustration();
-        }
-        
         // Hide current content and arrows
         this.hideCurrentContent(previousSection);
         
         // Update section visibility
         this.updateSections();
+        
+        // CRITICAL: Hide illustration container immediately when leaving section 1
+        if (previousSection === 1) {
+            console.log('Hiding illustration container when leaving section 1');
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                illustrationContainer.style.display = 'none';
+                console.log('Illustration container hidden');
+            }
+        }
         
         // Show new content after transition
         setTimeout(() => {
@@ -547,18 +552,14 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
+            console.log('Returning to section 1, resetting illustration container');
             // Reset illustration container visibility first
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
+                illustrationContainer.style.display = 'flex'; // Restore display
                 illustrationContainer.style.opacity = '1';
                 illustrationContainer.style.visibility = 'visible';
-            }
-            
-            // Reset image element visibility
-            if (this.randomIllustration) {
-                this.randomIllustration.style.display = '';
-                this.randomIllustration.style.opacity = '';
-                this.randomIllustration.style.visibility = 'visible';
+                console.log('Illustration container restored');
             }
             
             // Create a completely fresh image element to prevent any caching issues
@@ -576,7 +577,7 @@ class FieldTripApp {
                     // Now load the new illustration
                     this.selectRandomIllustration();
                 }
-            }, 200);
+            }, 100);
             
             // Reveal rows 1,2,4 when returning to the first view
             document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {

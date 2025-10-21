@@ -107,7 +107,7 @@ body {
 }
 
 .row-3 { /* Animation (section 1) or Text+Button (section 2) */
-    flex: 1;
+    flex: 0 0 auto; /* Don't grow or shrink, use content size */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -453,12 +453,13 @@ a {
         min-height: auto !important; /* Let content determine height */
     }
     
-    /* Section 1 row-3 (animation) - size after ensuring all content fits */
+    /* Section 1 row-3 (animation) - ensure proper separation from other elements */
     .section#section-1 .row-3 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
         min-height: clamp(120px, 15vh, 200px) !important; /* Smaller minimum to ensure content fits */
         max-height: clamp(25vh, 30vh, 40vh) !important; /* Reduced max height to ensure arrow is visible */
-        padding: clamp(0.25rem, 1vh, 0.5rem) 0 !important; /* Minimal padding to save space */
+        padding: clamp(1rem, 3vh, 2rem) 0 !important; /* Proper padding to prevent elements from touching */
+        margin: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Additional margin for separation */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
@@ -750,7 +751,8 @@ a {
         flex: 0 0 auto !important;
         min-height: clamp(120px, 15vh, 200px) !important; /* Smaller minimum to ensure content fits */
         max-height: clamp(25vh, 30vh, 40vh) !important; /* Reduced max height to ensure arrow is visible */
-        padding: clamp(0.25rem, 1vh, 0.5rem) 0 !important; /* Minimal padding to save space */
+        padding: clamp(1rem, 3vh, 2rem) 0 !important; /* Proper padding to prevent elements from touching */
+        margin: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Additional margin for separation */
     }
     
     body .section#section-1 .row-4 {

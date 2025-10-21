@@ -148,8 +148,8 @@ body {
 }
 
 .illustration {
-    max-width: 95vw !important; /* Use 95% of viewport width */
-    max-height: 70vh !important; /* Use 70% of viewport height */
+    max-width: 400px; /* Smaller default size for desktop */
+    max-height: 400px; /* Smaller default size for desktop */
     width: auto;
     height: auto;
     opacity: 1;
@@ -178,9 +178,9 @@ body {
 }
 
 .section__logo {
-    width: 180px !important; /* Further reduced to 60% of original 300px */
+    width: 300px; /* Original desktop size */
     height: auto;
-    max-width: 180px !important;
+    max-width: 300px;
 }
 
 .section__logo--header {
@@ -609,16 +609,9 @@ a {
         font-size: clamp(0.7rem, 4.6vw, 1.38rem); /* 115% of intro font size */
         white-space: nowrap;
     }
-}
-
-/* Ensure proper text flow on mobile */
-@media (max-width: 768px) {
-    #section-2 .text-block {
-        margin-bottom: var(--spacing-sm); /* Minimal space before button */
-    }
     
+    /* Additional mobile button and arrow styles */
     #section-2 .cta-button {
-        margin-top: var(--spacing-sm); /* Minimal space above button */
         margin-bottom: calc(var(--spacing-xl) + 120px) !important; /* Much more space for real mobile browser UI */
     }
     
@@ -640,6 +633,8 @@ a {
         min-height: calc(100vh + 120px); /* Ensure content height accounts for browser UI */
     }
 }
+
+/* Additional mobile styles consolidated into main mobile block above */
 
 /* Very small screens - ensure contact button is always visible */
 @media (max-width: 480px) {

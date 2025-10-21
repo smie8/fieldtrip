@@ -86,21 +86,23 @@ body {
     justify-content: center;
 }
 
+/* UNIFIED ROW SYSTEM - Consistent flex behavior for all rows */
 .row-1 { /* Logo */
-    flex-shrink: 0;
+    flex: 0 0 auto; /* Don't grow or shrink, use content size */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .row-1--header {
+    flex: 0 0 auto; /* Consistent with other rows */
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
 .row-2 { /* Description */
-    flex-shrink: 0;
+    flex: 0 0 auto; /* Don't grow or shrink, use content size */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,14 +117,14 @@ body {
 }
 
 .row-4 { /* CTA Button */
-    flex-shrink: 0;
+    flex: 0 0 auto; /* Don't grow or shrink, use content size */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .row-5 { /* Down Arrow */
-    flex-shrink: 0;
+    flex: 0 0 auto; /* Don't grow or shrink, use content size */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -445,37 +447,24 @@ a {
         text-align: center;
     }
     
-    /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
+    /* UNIFIED MOBILE SPACING - Simple, consistent padding for all rows */
     .section#section-1 .row-2 {
-        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-bottom: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space before animation */
-        margin-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
-        min-height: auto !important; /* Let content determine height */
+        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
     }
     
-    /* Section 1 row-3 (animation) - ensure proper separation from other elements */
     .section#section-1 .row-3 {
-        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        min-height: clamp(120px, 15vh, 200px) !important; /* Smaller minimum to ensure content fits */
-        max-height: clamp(25vh, 30vh, 40vh) !important; /* Reduced max height to ensure arrow is visible */
-        padding: clamp(1rem, 3vh, 2rem) 0 !important; /* Proper padding to prevent elements from touching */
-        margin: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Additional margin for separation */
+        padding: var(--spacing-xl) var(--spacing-md); /* More padding around animation */
+        min-height: 150px; /* Minimum space for animation */
+        max-height: 50vh; /* Maximum height to ensure content fits */
     }
     
-    /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
-        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-top: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space after animation */
-        margin-top: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
-        min-height: auto !important; /* Let content determine height */
+        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
     }
     
-    /* Section 1 row-5 (arrow) - ensure it's visible and not under address bar */
     .section#section-1 .row-5 {
-        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        min-height: clamp(60px, 10vh, 80px) !important; /* Ensure arrow has more space */
-        padding: clamp(1rem, 3vh, 1.5rem) 0 !important; /* More padding for arrow */
-        margin-bottom: clamp(1rem, 5vh, 2rem) !important; /* More space above browser UI */
+        padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
+        margin-bottom: var(--spacing-xl); /* Extra space above browser UI */
     }
     
     /* Section 2 rows use unified padding from global .row rule */
@@ -484,18 +473,7 @@ a {
         justify-content: center;
     }
     
-    /* Ensure row-3 (animation) gets proper space and respect */
-    .row-3 {
-        flex: 1;
-        min-height: 200px; /* Minimum space for animation */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        z-index: 1;
-        padding: var(--spacing-xl) 0 !important; /* Much more padding around animation */
-    }
+    /* Desktop row-3 uses unified flex behavior from global styles */
     
     /* Ensure row-4 (button) stays centered */
     .row-4 {
@@ -740,33 +718,24 @@ a {
 /* Universal mobile styles - ensure mobile styles work on all devices */
 @media screen and (max-width: 768px) {
     /* Force mobile styles with highest specificity */
+    /* UNIFIED MOBILE SPACING - Force consistent padding for all rows */
     body .section#section-1 .row-2 {
-        flex: 0 0 auto !important;
-        padding-bottom: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space before animation */
-        margin-bottom: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
-        min-height: auto !important;
+        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
     }
     
     body .section#section-1 .row-3 {
-        flex: 0 0 auto !important;
-        min-height: clamp(120px, 15vh, 200px) !important; /* Smaller minimum to ensure content fits */
-        max-height: clamp(25vh, 30vh, 40vh) !important; /* Reduced max height to ensure arrow is visible */
-        padding: clamp(1rem, 3vh, 2rem) 0 !important; /* Proper padding to prevent elements from touching */
-        margin: clamp(0.5rem, 2vh, 1rem) 0 !important; /* Additional margin for separation */
+        padding: var(--spacing-xl) var(--spacing-md) !important; /* More padding around animation */
+        min-height: 150px !important; /* Minimum space for animation */
+        max-height: 50vh !important; /* Maximum height to ensure content fits */
     }
     
     body .section#section-1 .row-4 {
-        flex: 0 0 auto !important;
-        padding-top: clamp(1rem, 4vh, 2rem) !important; /* Restore proper space after animation */
-        margin-top: clamp(0.5rem, 2vh, 1rem) !important; /* Restore proper margin for separation */
-        min-height: auto !important;
+        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
     }
     
     body .section#section-1 .row-5 {
-        flex: 0 0 auto !important;
-        min-height: clamp(60px, 10vh, 80px) !important; /* Ensure arrow has more space */
-        padding: clamp(1rem, 3vh, 1.5rem) 0 !important; /* More padding for arrow */
-        margin-bottom: clamp(1rem, 5vh, 2rem) !important; /* More space above browser UI */
+        padding: var(--spacing-lg) var(--spacing-md) !important; /* Consistent padding */
+        margin-bottom: var(--spacing-xl) !important; /* Extra space above browser UI */
     }
     
     body .section#section-2 .cta-button {

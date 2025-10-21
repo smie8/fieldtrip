@@ -482,20 +482,15 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // CRITICAL: Hide illustration container IMMEDIATELY when leaving section 1
+        // CRITICAL: Hide illustration IMMEDIATELY when leaving section 1
         if (previousSection === 1) {
-            console.log('Hiding illustration container when leaving section 1');
-            const illustrationContainer = document.querySelector('.illustration-container');
-            if (illustrationContainer) {
-                illustrationContainer.style.display = 'none';
-                console.log('Illustration container hidden');
-            }
-            
-            // Also clear the image source immediately
+            console.log('Hiding illustration when leaving section 1');
             if (this.randomIllustration) {
-                this.randomIllustration.src = '';
-                this.randomIllustration.alt = '';
-                console.log('Image source cleared');
+                // Hide the image element itself
+                this.randomIllustration.style.display = 'none';
+                this.randomIllustration.style.visibility = 'hidden';
+                this.randomIllustration.style.opacity = '0';
+                console.log('Illustration hidden');
             }
         }
         
@@ -577,14 +572,13 @@ class FieldTripApp {
     showNewContent() {
         console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, resetting illustration container');
-            // Reset illustration container visibility first
-            const illustrationContainer = document.querySelector('.illustration-container');
-            if (illustrationContainer) {
-                illustrationContainer.style.display = 'flex'; // Restore display
-                illustrationContainer.style.opacity = '1';
-                illustrationContainer.style.visibility = 'visible';
-                console.log('Illustration container restored');
+            console.log('Returning to section 1, resetting illustration');
+            // Reset illustration visibility first
+            if (this.randomIllustration) {
+                this.randomIllustration.style.display = '';
+                this.randomIllustration.style.visibility = 'visible';
+                this.randomIllustration.style.opacity = '1';
+                console.log('Illustration visibility restored');
             }
             
             // Create a completely fresh image element to prevent any caching issues

@@ -452,6 +452,13 @@ a {
         min-height: auto !important; /* Let content determine height */
     }
     
+    /* Section 1 row-3 (animation) - don't take up all space */
+    .section#section-1 .row-3 {
+        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
+        min-height: 200px !important; /* Minimum space for animation */
+        max-height: 60vh !important; /* Maximum height to prevent taking all space */
+    }
+    
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
@@ -727,6 +734,12 @@ a {
         padding-bottom: 0.5rem !important;
         margin-bottom: 0.25rem !important;
         min-height: auto !important;
+    }
+    
+    body .section#section-1 .row-3 {
+        flex: 0 0 auto !important;
+        min-height: 200px !important;
+        max-height: 60vh !important;
     }
     
     body .section#section-1 .row-4 {

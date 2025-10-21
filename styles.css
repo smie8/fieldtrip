@@ -689,24 +689,25 @@ a {
     
     /* Desktop uses unified padding from global .row rule */
     
-    /* Desktop section 2 - logo left, arrow centered in row 1 */
+    /* Desktop section 2 - simple flex layout */
     #section-2 .row-1 {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr; /* Left space, center content, right space */
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         padding: var(--spacing-md);
+        position: relative; /* For absolute positioning of arrow */
     }
     
     /* Logo on the left */
     #section-2 .section__logo--header {
-        justify-self: start; /* Align to left */
+        flex: 0 0 auto;
     }
     
-    /* Arrow centered */
+    /* Arrow centered - use absolute positioning */
     #section-2 .nav-arrow--up {
-        justify-self: center !important; /* Center the arrow */
-        display: block !important; /* Override global flex */
-        margin: 0 auto !important; /* Additional centering */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     /* Show logo in section 2 on desktop */

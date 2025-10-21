@@ -201,23 +201,9 @@ body {
     transform: translateY(-50%);
 }
 
-/* Navigation arrow positioning */
-.nav-arrow--down {
-    position: absolute;
-    bottom: var(--spacing-lg);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    width: 24px; /* Ensure consistent width */
-    height: 24px; /* Ensure consistent height */
-}
-
+/* Navigation arrow positioning - now handled by row-based centering */
+.nav-arrow--down,
 .nav-arrow--up {
-    position: absolute;
-    top: var(--spacing-lg);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
     width: 24px; /* Ensure consistent width */
     height: 24px; /* Ensure consistent height */
 }

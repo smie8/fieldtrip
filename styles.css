@@ -283,6 +283,12 @@ a {
     opacity: 0;
     transform: translateY(10px);
     transition: all var(--animation-duration) var(--animation-easing);
+    /* Reset button defaults that might affect centering */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-arrow--visible {

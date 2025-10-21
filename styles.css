@@ -114,6 +114,9 @@ body {
 
 .row-5 { /* Down Arrow */
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Section styles */
@@ -468,6 +471,9 @@ a {
         flex-shrink: 0;
         min-height: 80px; /* Increased space for arrow */
         padding-bottom: 20px; /* Extra bottom padding to clear browser UI */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
     
     /* Mobile section 2 specific styles - direct text-to-button flow */
@@ -610,11 +616,13 @@ a {
     /* Ensure navigation arrows are perfectly centered on mobile */
     .nav-arrow--down,
     .nav-arrow--up {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        position: static !important; /* Use normal flow instead of absolute */
+        left: auto !important;
+        transform: none !important;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 0 auto; /* Center horizontally */
     }
 }
 

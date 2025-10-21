@@ -412,8 +412,8 @@ a {
     
     /* Mobile-specific logo sizing */
     .section__logo {
-        width: 120px !important; /* Much smaller logo on mobile */
-        max-width: 120px !important;
+        width: 80vw !important; /* Slightly wider than text block */
+        max-width: 80vw !important;
         height: auto;
     }
     
@@ -432,29 +432,29 @@ a {
     .row {
         justify-content: center;
         text-align: center;
-        padding: 10px; /* Further reduced padding for tighter mobile layout */
+        padding: var(--spacing-md); /* Consistent spacing */
     }
     
     /* Section 1 rows - ensure proper spacing */
     #section-1 .row {
-        padding: 8px; /* Reduced spacing for tighter layout */
+        padding: var(--spacing-md); /* Consistent spacing */
     }
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     #section-1 .row-2 {
         flex-shrink: 0;
-        padding-bottom: var(--spacing-md); /* Space before animation */
+        padding-bottom: var(--spacing-md); /* Consistent space before animation */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     #section-1 .row-4 {
         flex-shrink: 0;
-        padding-top: var(--spacing-md); /* Space after animation */
+        padding-top: var(--spacing-md); /* Consistent space after animation */
     }
     
     /* Section 2 rows need different padding */
     #section-2 .row {
-        padding: 8px; /* Minimal padding for section 2 */
+        padding: var(--spacing-md); /* Consistent spacing */
     }
     
     .row-1--header {
@@ -471,14 +471,15 @@ a {
         align-items: center;
         position: relative;
         z-index: 1;
-        padding: var(--spacing-md) 0; /* Add padding around animation */
+        padding: var(--spacing-md) 0; /* Consistent padding around animation */
     }
     
     /* Ensure row-5 (down arrow) stays visible */
     .row-5 {
         flex-shrink: 0;
         min-height: 80px; /* Increased space for arrow */
-        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px) + 60px); /* Extra bottom padding to clear browser UI */
+        padding: var(--spacing-md) 0; /* Consistent padding */
+        padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 60px); /* Extra bottom padding to clear browser UI */
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;

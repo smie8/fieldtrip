@@ -114,7 +114,7 @@ body {
 }
 
 .row-3 { /* Animation (section 1) or Text+Button (section 2) */
-    flex: 0 0 auto; /* Rule 2: Don't grow/shrink to prevent overlap (mobile) */
+    flex: 1; /* Allow growth for animation space */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -465,8 +465,8 @@ a {
     .section#section-1 .row-3 {
         flex: 1; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        min-height: 200px; /* Rule 5: Big animation - minimum space */
-        max-height: 60vh; /* Rule 5: Big animation - use available space */
+        min-height: 300px; /* Rule 5: Big animation - minimum space */
+        max-height: 80vh; /* Rule 5: Big animation - use available space */
     }
     
     .section#section-1 .row-4 {
@@ -799,7 +799,6 @@ a {
 
 /* Universal mobile styles - ensure mobile styles work on all devices */
 @media screen and (max-width: 768px) {
-    /* Force mobile styles with highest specificity */
     /* MOBILE RULES ENFORCEMENT - Force all 5 rules */
     body .section#section-1 .row-2 {
         flex: 0 0 auto !important; /* Rule 2: Don't grow/shrink - prevent overlap */
@@ -809,8 +808,8 @@ a {
     body .section#section-1 .row-3 {
         flex: 1 !important; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md) !important; /* Rule 4: Uniform padding */
-        min-height: 200px !important; /* Rule 5: Big animation - minimum space */
-        max-height: 60vh !important; /* Rule 5: Big animation - use available space */
+        min-height: 300px !important; /* Rule 5: Big animation - minimum space */
+        max-height: 80vh !important; /* Rule 5: Big animation - use available space */
     }
     
     body .section#section-1 .row-4 {

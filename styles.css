@@ -674,6 +674,13 @@ a {
         padding: var(--spacing-xxl);
     }
     
+    /* Desktop row-5 - remove mobile padding that affects centering */
+    .row-5 {
+        padding: var(--spacing-md) !important; /* Use global row padding only */
+        min-height: auto !important; /* Remove mobile min-height */
+        padding-bottom: var(--spacing-md) !important; /* Remove mobile extra bottom padding */
+    }
+    
     /* Desktop arrows use same row-based centering as mobile */
     .nav-arrow--down,
     .nav-arrow--up {

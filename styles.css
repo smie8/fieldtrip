@@ -486,13 +486,13 @@ a {
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let content determine width */
         padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xxl) var(--spacing-md); /* Extra bottom padding for button clearance */
-        margin-bottom: 80px; /* Ensure space for absolutely positioned button */
+        margin-bottom: 120px; /* Increased space for absolutely positioned button */
     }
     
     /* Anchor contact button to bottom of page with proper spacing */
     #section-2 .cta-button {
         position: absolute; /* Position absolutely */
-        bottom: 40px; /* Increased from 20px to 40px for more clearance */
+        bottom: 60px; /* Increased from 40px to 60px for more clearance */
         left: 50%; /* Center horizontally */
         transform: translateX(-50%); /* Perfect centering */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
@@ -517,8 +517,8 @@ a {
     
     /* Extra spacing for the last paragraph to prevent contact button overlap */
     #section-2 .text-block p:last-child {
-        margin-bottom: var(--spacing-xl); /* Extra space before contact button */
-        padding-bottom: var(--spacing-lg); /* Additional padding for last paragraph */
+        margin-bottom: var(--spacing-xxl); /* Increased space before contact button */
+        padding-bottom: var(--spacing-xl); /* Additional padding for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */

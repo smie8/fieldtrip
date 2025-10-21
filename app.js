@@ -463,6 +463,11 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
+        // CRITICAL: Clear section 1 illustration immediately when leaving to prevent flash
+        if (previousSection === 1) {
+            this.clearSection1Illustration();
+        }
+        
         // Hide current content and arrows
         this.hideCurrentContent(previousSection);
         
@@ -502,11 +507,6 @@ class FieldTripApp {
         document.querySelectorAll('.cta-button').forEach(btn => {
             btn.classList.remove('cta-button--visible');
         });
-        
-        // Clear section 1 illustration when navigating away to prevent flash
-        if (sectionNumber === 1) {
-            this.clearSection1Illustration();
-        }
     }
     
     /**
@@ -514,8 +514,29 @@ class FieldTripApp {
      */
     clearSection1Illustration() {
         if (this.randomIllustration) {
+            // More aggressive clearing to prevent any flash
             this.randomIllustration.src = '';
             this.randomIllustration.alt = '';
+            this.randomIllustration.style.display = 'none';
+            this.randomIllustration.style.opacity = '0';
+            
+            // Also clear the illustration container
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                illustrationContainer.style.opacity = '0';
+            }
+            
+            // Force a reflow to ensure the image is cleared immediately
+            this.randomIllustration.offsetHeight;
+            
+            // Restore display after clearing
+            setTimeout(() => {
+                this.randomIllustration.style.display = '';
+                this.randomIllustration.style.opacity = '';
+                if (illustrationContainer) {
+                    illustrationContainer.style.opacity = '';
+                }
+            }, 50);
         }
     }
 
@@ -524,6 +545,12 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
+            // Reset illustration container opacity first
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                illustrationContainer.style.opacity = '1';
+            }
+            
             // Small delay before loading new illustration to ensure clean transition
             setTimeout(() => {
                 this.selectRandomIllustration();

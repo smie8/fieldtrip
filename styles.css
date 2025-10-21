@@ -473,7 +473,23 @@ a {
         justify-content: center;
     }
     
-    /* Desktop row-3 uses unified flex behavior from global styles */
+    /* Desktop row-3 - use flex: 1 to fill available space */
+    .row-3 {
+        flex: 1 !important; /* Grow to fill available space on desktop */
+        min-height: 200px; /* Minimum space for animation */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        padding: var(--spacing-xl) 0; /* Proper padding around animation */
+    }
+    
+    /* Desktop row-1, row-2, row-4 - ensure they don't grow */
+    .row-1, .row-2, .row-4 {
+        flex-shrink: 0; /* Don't shrink on desktop */
+    }
     
     /* Ensure row-4 (button) stays centered */
     .row-4 {
@@ -669,8 +685,9 @@ a {
         padding: var(--spacing-xxl);
     }
     
-    /* Desktop row-5 - remove mobile padding that affects centering */
+    /* Desktop row-5 - ensure it stays at bottom */
     .row-5 {
+        flex-shrink: 0; /* Don't shrink, stay at bottom */
         padding: var(--spacing-md) !important; /* Use global row padding only */
         min-height: auto !important; /* Remove mobile min-height */
         padding-bottom: var(--spacing-md) !important; /* Remove mobile extra bottom padding */

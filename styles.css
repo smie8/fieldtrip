@@ -692,11 +692,22 @@ a {
         justify-content: space-between; /* Logo on left, arrow on right */
         align-items: center;
         padding: var(--spacing-md);
+        display: flex;
     }
     
-    /* Hide logo in section 2 on mobile, show on desktop */
+    /* Ensure logo is on the left */
     #section-2 .section__logo--header {
-        display: block; /* Show logo on desktop */
+        order: 1; /* Logo first */
+    }
+    
+    /* Ensure arrow is on the right */
+    #section-2 .nav-arrow--up {
+        order: 2; /* Arrow second */
+    }
+    
+    /* Show logo in section 2 on desktop */
+    #section-2 .section__logo--header {
+        display: block !important; /* Force show logo on desktop */
     }
     
     #section-2 .row-3 {

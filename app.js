@@ -382,6 +382,9 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
+            // Select a new random illustration when returning to section 1
+            this.selectRandomIllustration();
+            
             // Reveal rows 1,2,4 when returning to the first view
             document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
                 row.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';

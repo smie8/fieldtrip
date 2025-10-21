@@ -501,7 +501,7 @@ a {
         padding: var(--spacing-lg) 0; /* Consistent padding */
         flex: 1; /* Take up remaining space */
         min-height: 0; /* Allow flex shrinking */
-        max-height: calc(100vh - 200px); /* Ensure content fits in viewport */
+        max-height: calc(100vh - 100px); /* More space for content with aggressive spacing */
         overflow-y: auto; /* Allow scrolling if content is too tall */
         text-align: center; /* Center all content */
         width: 100%; /* Full width */
@@ -523,8 +523,8 @@ a {
     /* Contact button directly follows text block - always visible */
     #section-2 .cta-button {
         position: static; /* Use normal document flow */
-        margin-top: var(--spacing-md); /* Minimal space above button */
-        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 60px); /* Extra space for browser UI */
+        margin-top: var(--spacing-sm); /* Reduced space above button */
+        margin-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px) + 40px); /* Reduced space for browser UI */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
         flex-shrink: 0; /* Prevent button from shrinking */
@@ -610,7 +610,7 @@ a {
     
     /* Additional mobile button and arrow styles */
     #section-2 .cta-button {
-        margin-bottom: calc(var(--spacing-xl) + 120px) !important; /* Much more space for real mobile browser UI */
+        margin-bottom: calc(var(--spacing-lg) + 60px) !important; /* Reduced space for real mobile browser UI */
     }
     
     
@@ -626,7 +626,7 @@ a {
 /* Very small screens - ensure contact button is always visible */
 @media (max-width: 480px) {
     #section-2 .row-3 {
-        max-height: calc(100vh - 200px); /* More space for content */
+        max-height: calc(100vh - 100px); /* More space for content with aggressive spacing */
         padding: var(--spacing-md) 0; /* Reduced padding */
     }
     

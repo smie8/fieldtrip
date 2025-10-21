@@ -448,24 +448,24 @@ a {
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     .section#section-1 .row-2 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-bottom: 1rem !important; /* Reasonable space before animation */
-        margin-bottom: 0.5rem !important; /* Reasonable margin for separation */
+        padding-bottom: clamp(0.5rem, 3vh, 2rem) !important; /* Dynamic space before animation */
+        margin-bottom: clamp(0.25rem, 1.5vh, 1rem) !important; /* Dynamic margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
     /* Section 1 row-3 (animation) - don't take up all space */
     .section#section-1 .row-3 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        min-height: 200px !important; /* Minimum space for animation */
-        max-height: 50vh !important; /* Reduced max height to fit content */
-        padding: 0.5rem 0 !important; /* Minimal padding around animation */
+        min-height: clamp(150px, 20vh, 300px) !important; /* Dynamic minimum space for animation */
+        max-height: clamp(30vh, 40vh, 60vh) !important; /* Dynamic max height to fit content */
+        padding: clamp(0.25rem, 2vh, 1rem) 0 !important; /* Dynamic padding around animation */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-top: 1rem !important; /* Reasonable space after animation */
-        margin-top: 0.5rem !important; /* Reasonable margin for separation */
+        padding-top: clamp(0.5rem, 3vh, 2rem) !important; /* Dynamic space after animation */
+        margin-top: clamp(0.25rem, 1.5vh, 1rem) !important; /* Dynamic margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
@@ -733,22 +733,22 @@ a {
     /* Force mobile styles with highest specificity */
     body .section#section-1 .row-2 {
         flex: 0 0 auto !important;
-        padding-bottom: 1rem !important;
-        margin-bottom: 0.5rem !important;
+        padding-bottom: clamp(0.5rem, 3vh, 2rem) !important;
+        margin-bottom: clamp(0.25rem, 1.5vh, 1rem) !important;
         min-height: auto !important;
     }
     
     body .section#section-1 .row-3 {
         flex: 0 0 auto !important;
-        min-height: 200px !important;
-        max-height: 50vh !important;
-        padding: 0.5rem 0 !important;
+        min-height: clamp(150px, 20vh, 300px) !important;
+        max-height: clamp(30vh, 40vh, 60vh) !important;
+        padding: clamp(0.25rem, 2vh, 1rem) 0 !important;
     }
     
     body .section#section-1 .row-4 {
         flex: 0 0 auto !important;
-        padding-top: 1rem !important;
-        margin-top: 0.5rem !important;
+        padding-top: clamp(0.5rem, 3vh, 2rem) !important;
+        margin-top: clamp(0.25rem, 1.5vh, 1rem) !important;
         min-height: auto !important;
     }
     

@@ -546,12 +546,12 @@ a {
     /* Contact button in separate row - always visible */
     .section#section-2 .cta-button {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-sm) var(--spacing-md); /* Reduced vertical padding */
+        padding: var(--spacing-sm) var(--spacing-lg); /* Same as global CTA button */
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
-        min-height: 32px !important; /* Reduced height for better proportions */
+        min-height: auto !important; /* Use global button height */
         max-width: calc(100vw - 2rem) !important; /* Prevent button from exceeding viewport */
         visibility: visible !important; /* Force visibility */
     }
@@ -664,8 +664,8 @@ a {
     
     #section-2 .cta-button {
         font-size: 0.7rem !important; /* Smaller button text */
-        padding: var(--spacing-xs) var(--spacing-sm); /* Even smaller button padding */
-        min-height: 28px !important; /* Reduced height for very small screens */
+        padding: var(--spacing-sm) var(--spacing-md); /* Consistent with global button */
+        min-height: auto !important; /* Use global button height */
         margin-bottom: calc(var(--spacing-xl) + 150px) !important; /* Extra space for very small screens */
     }
     

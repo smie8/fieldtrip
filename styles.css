@@ -675,7 +675,22 @@ a {
         font-size: 1.2rem;
     }
     
-    /* Illustration at 1:1 size for layout study */
+    /* Desktop-specific spacing fixes */
+    .row-1 {
+        padding-top: var(--spacing-xl); /* More space above logo */
+    }
+    
+    .row-3 {
+        padding: var(--spacing-sm) 0; /* Less space around animation */
+    }
+    
+    .row-4 {
+        padding-bottom: var(--spacing-lg); /* Space between button and arrow */
+    }
+    
+    .row-5 {
+        padding-top: var(--spacing-md); /* Space above arrow */
+    }
     
     .contact-form {
         padding: var(--spacing-xxl);

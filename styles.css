@@ -412,10 +412,6 @@ a {
 @media screen and (max-width: 768px) {
     
     
-    /* DEBUG: Test if mobile styles are being applied */
-    body {
-        border: 5px solid red !important; /* Red border for mobile testing */
-    }
     
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
@@ -452,8 +448,8 @@ a {
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     .section#section-1 .row-2 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-bottom: 2rem !important; /* Guaranteed space before animation */
-        margin-bottom: 1rem !important; /* Guaranteed margin for separation */
+        padding-bottom: 1rem !important; /* Reasonable space before animation */
+        margin-bottom: 0.5rem !important; /* Reasonable margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
@@ -461,15 +457,15 @@ a {
     .section#section-1 .row-3 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
         min-height: 200px !important; /* Minimum space for animation */
-        max-height: 60vh !important; /* Maximum height to prevent taking all space */
-        padding: 1rem 0 !important; /* Guaranteed padding around animation */
+        max-height: 50vh !important; /* Reduced max height to fit content */
+        padding: 0.5rem 0 !important; /* Minimal padding around animation */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
         flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
-        padding-top: 2rem !important; /* Guaranteed space after animation */
-        margin-top: 1rem !important; /* Guaranteed margin for separation */
+        padding-top: 1rem !important; /* Reasonable space after animation */
+        margin-top: 0.5rem !important; /* Reasonable margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
@@ -737,22 +733,22 @@ a {
     /* Force mobile styles with highest specificity */
     body .section#section-1 .row-2 {
         flex: 0 0 auto !important;
-        padding-bottom: 2rem !important;
-        margin-bottom: 1rem !important;
+        padding-bottom: 1rem !important;
+        margin-bottom: 0.5rem !important;
         min-height: auto !important;
     }
     
     body .section#section-1 .row-3 {
         flex: 0 0 auto !important;
         min-height: 200px !important;
-        max-height: 60vh !important;
-        padding: 1rem 0 !important;
+        max-height: 50vh !important;
+        padding: 0.5rem 0 !important;
     }
     
     body .section#section-1 .row-4 {
         flex: 0 0 auto !important;
-        padding-top: 2rem !important;
-        margin-top: 1rem !important;
+        padding-top: 1rem !important;
+        margin-top: 0.5rem !important;
         min-height: auto !important;
     }
     

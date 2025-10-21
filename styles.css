@@ -156,20 +156,7 @@ body {
     transition: opacity var(--animation-duration) var(--animation-easing);
 }
 
-/* Mobile-specific illustration sizing */
-@media (max-width: 768px) {
-    .illustration {
-        max-width: 95vw !important; /* Use 95% of viewport width on mobile */
-        max-height: 70vh !important; /* Use 70% of viewport height on mobile */
-    }
-    
-    /* Mobile-specific logo sizing */
-    .section__logo {
-        width: 120px !important; /* Much smaller logo on mobile */
-        max-width: 120px !important;
-        height: auto;
-    }
-}
+/* Mobile-specific illustration sizing - moved to main mobile block */
 
 /* Content visibility states */
 .section__content--hidden {
@@ -421,6 +408,19 @@ a {
     
     .section__description {
         font-size: 1rem;
+    }
+    
+    /* Mobile-specific logo sizing */
+    .section__logo {
+        width: 120px !important; /* Much smaller logo on mobile */
+        max-width: 120px !important;
+        height: auto;
+    }
+    
+    /* Mobile-specific illustration sizing */
+    .illustration {
+        max-width: 95vw !important; /* Use 95% of viewport width on mobile */
+        max-height: 70vh !important; /* Use 70% of viewport height on mobile */
     }
     
     /* Hide logo in section 2 on mobile */

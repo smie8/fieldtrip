@@ -471,7 +471,7 @@ a {
     .row-5 {
         flex-shrink: 0;
         min-height: 80px; /* Increased space for arrow */
-        padding-bottom: 20px; /* Extra bottom padding to clear browser UI */
+        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px) + 60px); /* Extra bottom padding to clear browser UI */
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -508,7 +508,7 @@ a {
     #section-2 .cta-button {
         position: static; /* Use normal document flow */
         margin-top: var(--spacing-md); /* Minimal space above button */
-        margin-bottom: var(--spacing-lg); /* Space below button */
+        margin-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px) + 60px); /* Extra space for browser UI */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
         flex-shrink: 0; /* Prevent button from shrinking */
@@ -612,6 +612,7 @@ a {
     
     #section-2 .cta-button {
         margin-top: var(--spacing-sm); /* Minimal space above button */
+        margin-bottom: calc(var(--spacing-xl) + 80px) !important; /* Extra space for browser UI */
     }
     
     /* Ensure navigation arrows are perfectly centered on mobile */
@@ -624,6 +625,11 @@ a {
         align-items: center;
         justify-content: center;
         margin: 0 auto; /* Center horizontally */
+    }
+    
+    /* Add bottom padding to prevent content from being cut by browser UI */
+    .app-container {
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
     }
 }
 

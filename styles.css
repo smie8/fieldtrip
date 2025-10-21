@@ -201,6 +201,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    width: 24px; /* Ensure consistent width */
+    height: 24px; /* Ensure consistent height */
 }
 
 .nav-arrow--up {
@@ -209,6 +211,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    width: 24px; /* Ensure consistent width */
+    height: 24px; /* Ensure consistent height */
 }
 
 /* Removed unused .section__title - using logo instead */
@@ -554,10 +558,14 @@ a {
     
     .nav-arrow--down {
         bottom: var(--spacing-md);
+        left: 50% !important; /* Ensure centering on mobile */
+        transform: translateX(-50%) !important; /* Perfect centering */
     }
     
     .nav-arrow--up {
         top: var(--spacing-md);
+        left: 50% !important; /* Ensure centering on mobile */
+        transform: translateX(-50%) !important; /* Perfect centering */
     }
     
     /* Mobile contact overlay styles */
@@ -597,6 +605,16 @@ a {
     
     #section-2 .cta-button {
         margin-top: var(--spacing-sm); /* Minimal space above button */
+    }
+    
+    /* Ensure navigation arrows are perfectly centered on mobile */
+    .nav-arrow--down,
+    .nav-arrow--up {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 

@@ -612,7 +612,7 @@ a {
     
     #section-2 .cta-button {
         margin-top: var(--spacing-sm); /* Minimal space above button */
-        margin-bottom: calc(var(--spacing-xl) + 80px) !important; /* Extra space for browser UI */
+        margin-bottom: calc(var(--spacing-xl) + 120px) !important; /* Much more space for real mobile browser UI */
     }
     
     /* Ensure navigation arrows are perfectly centered on mobile */
@@ -629,14 +629,15 @@ a {
     
     /* Add bottom padding to prevent content from being cut by browser UI */
     .app-container {
-        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
+        min-height: calc(100vh + 120px); /* Ensure content height accounts for browser UI */
     }
 }
 
 /* Very small screens - ensure contact button is always visible */
 @media (max-width: 480px) {
     #section-2 .row-3 {
-        max-height: calc(100vh - 150px); /* More space for content */
+        max-height: calc(100vh - 200px); /* More space for content */
         padding: var(--spacing-md) 0; /* Reduced padding */
     }
     
@@ -651,6 +652,13 @@ a {
     #section-2 .cta-button {
         font-size: 0.7rem !important; /* Smaller button text */
         padding: var(--spacing-sm) var(--spacing-md); /* Smaller button padding */
+        margin-bottom: calc(var(--spacing-xl) + 150px) !important; /* Extra space for very small screens */
+    }
+    
+    /* Extra aggressive padding for very small screens */
+    .app-container {
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 150px) !important;
+        min-height: calc(100vh + 150px) !important;
     }
 }
 

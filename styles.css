@@ -176,6 +176,9 @@ body {
     height: auto;
     opacity: 1;
     transition: opacity var(--animation-duration) var(--animation-easing);
+    /* Prevent compositing glitches during re-paint */
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 /* Mobile-specific illustration sizing - moved to main mobile block */

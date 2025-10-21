@@ -176,6 +176,21 @@ class FieldTripApp {
     }
 
     /**
+     * Get the next illustration in sequence without loading it
+     */
+    getNextIllustration() {
+        // Move to next animation in sequence
+        this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
+        const selectedIllustration = this.illustrations[this.currentAnimationIndex];
+        
+        // Update the last selected illustration
+        this.lastSelectedIllustration = selectedIllustration;
+        
+        console.log(`Next illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex})`);
+        return selectedIllustration;
+    }
+
+    /**
      * Select and display the next illustration in sequence
      * Cycles through animations 1,2,3,4,5 with random starting point
      * Ensures no consecutive duplicates across page refreshes
@@ -560,7 +575,7 @@ class FieldTripApp {
     showNewContent() {
         console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, restoring container and creating fresh image');
+            console.log('Returning to section 1, pre-loading new image');
             
             // Restore the illustration container
             const illustrationContainer = document.querySelector('.illustration-container');
@@ -571,25 +586,28 @@ class FieldTripApp {
                 // Clear any existing content
                 illustrationContainer.innerHTML = '';
                 
-                // Create completely fresh image element
-                const newImg = document.createElement('img');
-                newImg.id = 'random-illustration';
+                // Pre-load new image off-screen
+                const newImg = new Image();
+                const selectedIllustration = this.getNextIllustration();
+                const cacheBuster = Date.now();
+                newImg.src = `${selectedIllustration}?v=${cacheBuster}`;
                 newImg.alt = 'FieldTrip Illustration';
                 newImg.className = 'illustration';
+                newImg.id = 'random-illustration';
+                
                 newImg.style.opacity = '0';
-                newImg.style.transition = 'opacity 0.3s ease-in';
+                newImg.onload = () => {
+                    console.log('New image fully loaded, swapping instantly');
+                    // Once fully loaded, replace instantly
+                    illustrationContainer.innerHTML = '';
+                    newImg.style.transition = 'opacity 0.3s ease';
+                    newImg.style.opacity = '1';
+                    illustrationContainer.appendChild(newImg);
+                    this.randomIllustration = newImg;
+                    console.log('Image swapped successfully');
+                };
                 
-                illustrationContainer.appendChild(newImg);
-                this.randomIllustration = newImg;
-                console.log('Fresh illustration element created');
-                
-                // Load the new illustration with a longer delay to ensure container is ready
-                setTimeout(() => {
-                    console.log('Loading new illustration');
-                    // Reset the animation index to ensure we get the next one
-                    this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
-                    this.selectRandomIllustration();
-                }, 200);
+                console.log('Pre-loading image:', selectedIllustration);
             }
             
             // Reveal rows 1,2,4 when returning to the first view

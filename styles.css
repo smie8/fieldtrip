@@ -110,6 +110,9 @@ body {
 
 .row-4 { /* CTA Button */
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .row-5 { /* Down Arrow */

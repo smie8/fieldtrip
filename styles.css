@@ -1,0 +1,625 @@
+/* FieldTrip - Responsive Foundation Styles */
+
+/* Custom Font Loading */
+@font-face {
+    font-family: 'PP Agrandir Wide';
+    src: url('FONT/PPAgrandir-WideRegular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* JavaScript-calculated viewport height */
+    overflow: hidden; /* Prevent scrolling */
+    position: fixed;
+    width: 100%;
+}
+
+body {
+    font-family: 'PP Agrandir Wide', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+/* CSS Custom Properties for consistent spacing and animation timing */
+:root {
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-xxl: 4rem;
+    
+    --container-padding-mobile: 1rem;
+    --container-padding-desktop: 2rem;
+    
+    --nav-bottom-mobile: 1.5rem;
+    --nav-bottom-desktop: 2rem;
+    
+    /* Animation timing and easing */
+    --animation-duration: 0.8s;
+    --animation-duration-fast: 0.4s;
+    --animation-duration-slow: 1.2s;
+    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Colors */
+    --color-primary: #083521;
+    --color-text: #083521;
+    --color-background: #d7d3c1;
+    --color-overlay-bg: rgba(245, 243, 240, 0.9);
+}
+
+/* Main app container */
+.app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Layout containers for consistent structure */
+.layout-container {
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* JavaScript-calculated viewport height */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+/* 5-row layout system */
+.row {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row-1 { /* Logo */
+    flex-shrink: 0;
+}
+
+.row-1--header {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.row-2 { /* Description */
+    flex-shrink: 0;
+}
+
+.row-3 { /* Animation (section 1) or Text+Button (section 2) */
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row-4 { /* CTA Button */
+    flex-shrink: 0;
+}
+
+.row-5 { /* Down Arrow */
+    flex-shrink: 0;
+}
+
+/* Section styles */
+.section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* JavaScript-calculated viewport height */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--animation-duration) var(--animation-easing), 
+                visibility var(--animation-duration) var(--animation-easing);
+}
+
+.section--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Illustration container - now part of row-3 */
+.illustration-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration {
+    max-width: 400px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    opacity: 1;
+    transition: opacity var(--animation-duration) var(--animation-easing);
+}
+
+/* Mobile-specific illustration sizing */
+@media (max-width: 768px) {
+    .illustration {
+        max-width: 250px; /* Smaller on mobile to prevent overlap */
+        max-height: 250px; /* Smaller on mobile to prevent overlap */
+    }
+}
+
+/* Content visibility states */
+.section__content--hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--animation-duration) var(--animation-easing),
+                transform var(--animation-duration) var(--animation-easing);
+}
+
+.section__content--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section__content {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.section__logo {
+    width: 300px;
+    height: auto;
+}
+
+.section__logo--header {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Up arrow positioning - same as down arrow */
+.nav-arrow--up {
+    top: var(--spacing-lg);
+}
+
+/* Removed unused .section__title - using logo instead */
+
+.section__description {
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.7;
+    max-width: 400px;
+    margin: 0 auto var(--spacing-lg);
+    line-height: 1.5;
+}
+
+/* Base font size for the site - derived from section description */
+:root {
+    --base-font-size: 1.1rem;
+}
+
+/* Text block for section 2 */
+.text-block {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    text-align: center;
+}
+
+.text-block p {
+    margin-bottom: var(--spacing-md);
+    font-size: var(--base-font-size);
+    line-height: 1.6;
+}
+
+/* Links use 50% of base font size */
+a {
+    font-size: calc(var(--base-font-size) * 0.8);
+}
+
+/* CTA Button */
+.cta-button {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-family: inherit;
+    font-size: calc(var(--base-font-size) * 0.8);
+    cursor: pointer;
+    border-radius: 0;
+    transition: all var(--animation-duration-fast) var(--animation-easing);
+    opacity: 0;
+    transform: translateY(20px);
+    position: relative;
+    z-index: 2; /* Ensure button stays above animations */
+}
+
+.cta-button--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cta-button:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.cta-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Navigation Arrows */
+.nav-arrow {
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+
+.nav-arrow--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-arrow:hover {
+    color: var(--color-text);
+    transform: translateY(-5px);
+}
+
+.nav-arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Up arrow for section 2 - now part of row layout */
+
+/* Contact Overlay */
+.contact-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--animation-duration) var(--animation-easing),
+                visibility var(--animation-duration) var(--animation-easing);
+}
+
+.contact-overlay--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-overlay-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.overlay-close {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: 0;
+    transition: all var(--animation-duration-fast) var(--animation-easing);
+    z-index: 1001;
+}
+
+.overlay-close:hover {
+    transform: rotate(90deg);
+}
+
+.contact-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity var(--animation-duration) var(--animation-easing);
+    max-width: 500px; /* Default desktop width */
+    width: 100%;
+    padding: var(--spacing-lg);
+}
+
+.contact-overlay--visible .contact-info {
+    opacity: 1;
+}
+
+.contact-intro {
+    font-size: var(--base-font-size);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+    white-space: pre-line; /* Preserve line breaks from HTML */
+}
+
+.contact-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xl);
+}
+
+.contact-email,
+.contact-phone {
+    font-size: calc(var(--base-font-size) * 1.15);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.contact-email:hover {
+    text-decoration: none;
+}
+
+/* Removed unused environment flagging classes */
+
+/* Mobile-first responsive design */
+/* Mobile: up to 768px */
+@media (max-width: 768px) {
+    .layout-container {
+        padding: 0; /* Remove padding to fit viewport properly */
+    }
+    
+    .section__description {
+        font-size: 1rem;
+    }
+    
+    /* Hide logo in section 2 on mobile */
+    #section-2 .section__logo--header {
+        display: none;
+    }
+    
+    /* Center everything on mobile */
+    .row {
+        justify-content: center;
+        text-align: center;
+        padding: 15px; /* Reduce padding for better mobile fit */
+    }
+    
+    /* Section 1 rows - ensure proper spacing */
+    #section-1 .row {
+        padding: var(--spacing-sm); /* Consistent spacing */
+    }
+    
+    /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
+    #section-1 .row-2 {
+        flex-shrink: 0;
+        padding-bottom: var(--spacing-md); /* Space before animation */
+    }
+    
+    /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
+    #section-1 .row-4 {
+        flex-shrink: 0;
+        padding-top: var(--spacing-md); /* Space after animation */
+    }
+    
+    /* Section 2 rows need different padding */
+    #section-2 .row {
+        padding: 10px; /* Even less padding for section 2 */
+    }
+    
+    .row-1--header {
+        justify-content: center;
+    }
+    
+    /* Ensure row-3 (animation) gets proper space and respect */
+    .row-3 {
+        flex: 1;
+        min-height: 200px; /* Minimum space for animation */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        padding: var(--spacing-md) 0; /* Add padding around animation */
+    }
+    
+    /* Ensure row-5 (down arrow) stays visible */
+    .row-5 {
+        flex-shrink: 0;
+        min-height: 80px; /* Increased space for arrow */
+        padding-bottom: 20px; /* Extra bottom padding to clear browser UI */
+    }
+    
+    /* Mobile section 2 specific styles - restructure for proper centering */
+    #section-2 .row-3 {
+        flex-direction: column;
+        justify-content: center; /* Center the text content */
+        align-items: center;
+        padding: var(--spacing-lg) 0; /* Add vertical padding */
+        flex: 1; /* Take up remaining space */
+        position: relative; /* Enable absolute positioning for button */
+    }
+    
+    /* Center text in available space with more breathing room */
+    #section-2 .text-block {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: none; /* Remove width constraint to let content determine width */
+        width: auto; /* Let content determine width */
+        padding: var(--spacing-lg) var(--spacing-md); /* Less side padding for more text space */
+    }
+    
+    /* Anchor contact button to bottom of page */
+    #section-2 .cta-button {
+        position: absolute; /* Position absolutely */
+        bottom: 20px; /* 20px from bottom of viewport */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Perfect centering */
+        font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
+        z-index: 10; /* Ensure it's above other content */
+    }
+    
+    /* Auto-sizing text block container - consolidated with centering styles above */
+    
+    /* Optimized font size for mobile section 2 text - better space usage */
+    #section-2 .text-block p {
+        font-size: 0.9rem !important; /* Larger size to better use available space */
+        line-height: 1.4; /* Better line height for readability */
+        margin-bottom: var(--spacing-sm); /* Proper space between paragraphs */
+        max-width: none; /* Remove width constraint to let content determine width */
+        width: auto; /* Let text determine width */
+        margin-left: auto;
+        margin-right: auto;
+        white-space: pre-line; /* Preserve line breaks from JSON */
+    }
+    
+    /* Fixed font size for section 1 description on mobile - preserves line breaks */
+    #section-1 .section__description {
+        font-size: 0.9rem !important; /* Match section 2 font size */
+        line-height: 1.4;
+        max-width: calc(100vw - 2rem); /* Full width minus padding */
+        margin: 0 auto;
+        white-space: pre-line; /* Preserve line breaks from JSON */
+    }
+    
+    /* Auto-sizing font for all mobile text */
+    .section__description {
+        font-size: clamp(0.6rem, 4vw, 1.2rem) !important;
+        max-width: calc(100vw - 2rem);
+        margin: 0 auto;
+    }
+    
+    .contact-form {
+        padding: var(--spacing-lg);
+        margin: var(--spacing-sm);
+    }
+    
+    .contact-form h2 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-arrow--down {
+        bottom: var(--spacing-md);
+    }
+    
+    .nav-arrow--up {
+        top: var(--spacing-md);
+    }
+    
+    /* Mobile contact overlay styles */
+    .contact-overlay .contact-info {
+        max-width: calc(100vw - 4rem) !important; /* Increased padding from 2rem to 4rem */
+        width: 100% !important;
+        padding: var(--spacing-xl) !important; /* Even more internal padding for breathing room */
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    .contact-intro {
+        font-size: clamp(0.6rem, 4vw, 1.2rem);
+        margin-bottom: var(--spacing-xl);
+        white-space: pre-line; /* Preserve line breaks from HTML */
+    }
+    
+    .contact-details {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: center;
+        text-align: center;
+    }
+    
+    .contact-email,
+    .contact-phone {
+        font-size: clamp(0.7rem, 4.6vw, 1.38rem); /* 115% of intro font size */
+        white-space: nowrap;
+    }
+}
+
+/* Desktop: from 769px upward */
+@media (min-width: 769px) {
+    .layout-container {
+        padding: var(--container-padding-desktop);
+    }
+    
+    .section__description {
+        font-size: 1.2rem;
+    }
+    
+    /* Illustration at 1:1 size for layout study */
+    
+    .contact-form {
+        padding: var(--spacing-xxl);
+    }
+    
+    .nav-arrow--down {
+        bottom: var(--spacing-lg);
+    }
+    
+    .nav-arrow--up {
+        top: calc(var(--spacing-lg) + env(safe-area-inset-top, 0px));
+    }
+}
+
+/* Large desktop optimizations */
+@media (min-width: 1200px) {
+    .section__description {
+        font-size: 1.3rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .section {
+        transition: none;
+    }
+    
+    .nav-arrow {
+        transition: none;
+    }
+    
+    .cta-button {
+        transition: none;
+    }
+}
+
+/* Desktop section 1 description - full width */
+@media (min-width: 769px) {
+    #section-1 .section__description {
+        max-width: none; /* Remove width constraint on desktop */
+        white-space: nowrap; /* Keep on one line */
+    }
+}
+
+/* Focus styles for accessibility */
+.nav-arrow:focus,
+.cta-button:focus {
+    outline: 2px solid #007acc;
+    outline-offset: 2px;
+}

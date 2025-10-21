@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FieldTrip</title>
+    <link rel="stylesheet" href="styles.css?v=17">
+</head>
+<body>
+    <!-- Main container to prevent scrolling -->
+    <div class="app-container">
+        <!-- Section 1: Landing/Intro -->
+        <section class="section section--active" id="section-1" data-section="1">
+            <div class="layout-container">
+                <!-- Row 1: Logo -->
+                <div class="row row-1">
+                    <img src="fieldtrip.png" alt="FieldTrip" class="section__logo">
+                </div>
+                
+                <!-- Row 2: Description -->
+                <div class="row row-2">
+                    <p class="section__description" id="section1-description"></p>
+                </div>
+                
+                <!-- Row 3: Animation (flexible height) -->
+                <div class="row row-3">
+                    <div class="illustration-container">
+                        <img id="random-illustration" src="" alt="FieldTrip Illustration" class="illustration">
+                    </div>
+                </div>
+                
+                <!-- Row 4: CTA Button -->
+                <div class="row row-4">
+                    <button class="cta-button" id="request-references"></button>
+                </div>
+                
+                <!-- Row 5: Down Arrow -->
+                <div class="row row-5">
+                    <button class="nav-arrow nav-arrow--down" id="arrow-down" aria-label="Go to next section">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Content/Experience -->
+        <section class="section" id="section-2" data-section="2">
+            <div class="layout-container">
+                <!-- Row 1: Logo -->
+                <div class="row row-1 row-1--header">
+                    <img src="fieldtrip.png" alt="FieldTrip" class="section__logo section__logo--header">
+                </div>
+                
+                <!-- Row 0: Up Arrow (dedicated row like down arrow) -->
+                <div class="row row-0">
+                    <button class="nav-arrow nav-arrow--up" id="arrow-up" aria-label="Go to previous section">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18,15 12,9 6,15"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Row 2: Empty -->
+                <div class="row row-2">
+                </div>
+                
+                <!-- Row 3: Text and Contact Button -->
+                <div class="row row-3">
+                    <div class="text-block" id="section2-text">
+                    </div>
+                    <button class="cta-button" id="contact-us"></button>
+                </div>
+                
+                <!-- Row 4: Empty -->
+                <div class="row row-4">
+                </div>
+                
+                <!-- Row 5: Empty -->
+                <div class="row row-5">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Overlay -->
+    <div class="contact-overlay" id="contact-overlay">
+        <div class="overlay-background"></div>
+        <button class="overlay-close" id="overlay-close" aria-label="Close contact information">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="contact-info">
+            <p class="contact-intro" id="contact-intro"></p>
+            <div class="contact-details">
+                <a href="" class="contact-email" id="contact-email"></a>
+                <span class="contact-phone" id="contact-phone"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=16"></script>
+</body>
+</html>

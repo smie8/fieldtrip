@@ -206,29 +206,18 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        // CRITICAL: Clear the image source FIRST to prevent showing old image
-        this.randomIllustration.src = '';
-        this.randomIllustration.alt = '';
+        // Load the new illustration (element is already created and hidden)
+        const cacheBuster = Date.now();
+        this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
+        this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
         
-        // Keep image hidden until new one is loaded
-        this.randomIllustration.style.opacity = '0';
-        this.randomIllustration.style.transition = 'opacity 0.3s ease-in';
-        
-        // Small delay to ensure old image is cleared
-        setTimeout(() => {
-            // Force fresh load by adding cache-busting parameter
-            const cacheBuster = Date.now();
-            this.randomIllustration.src = `${selectedIllustration}?v=${cacheBuster}`;
-            this.randomIllustration.alt = `FieldTrip Illustration - ${selectedIllustration.split('/').pop().split('.')[0]}`;
-            
-            // Fade in image after it's loaded
-            this.randomIllustration.onload = () => {
-                setTimeout(() => {
-                    this.randomIllustration.style.opacity = '1';
-                    console.log('New illustration faded in');
-                }, 50);
-            };
-        }, 100);
+        // Fade in image after it's loaded
+        this.randomIllustration.onload = () => {
+            setTimeout(() => {
+                this.randomIllustration.style.opacity = '1';
+                console.log('New illustration faded in');
+            }, 50);
+        };
         
         // Debug: Log the selection to verify sequential cycling
         console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
@@ -501,14 +490,13 @@ class FieldTripApp {
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         
-        // CRITICAL: Fade out illustration when leaving section 1
+        // CRITICAL: Completely empty section 1 when leaving it
         if (previousSection === 1) {
-            console.log('Fading out illustration when leaving section 1');
+            console.log('Emptying section 1 when leaving');
             if (this.randomIllustration) {
-                // Add smooth fade out transition
-                this.randomIllustration.style.transition = 'opacity 0.2s ease-out';
-                this.randomIllustration.style.opacity = '0';
-                console.log('Illustration fading out');
+                // Remove the image completely
+                this.randomIllustration.remove();
+                console.log('Illustration removed from DOM');
             }
         }
         
@@ -590,14 +578,28 @@ class FieldTripApp {
     showNewContent() {
         console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, will load fresh illustration');
-            // Don't restore visibility here - let the onload handler do it
+            console.log('Returning to section 1, recreating illustration');
             
-            // Load the new illustration (which will create a fresh element)
-            setTimeout(() => {
-                console.log('Loading new illustration');
-                this.selectRandomIllustration();
-            }, 100);
+            // Recreate the image element since it was removed
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                const newImg = document.createElement('img');
+                newImg.id = 'random-illustration';
+                newImg.alt = 'FieldTrip Illustration';
+                newImg.className = 'illustration';
+                newImg.style.opacity = '0';
+                newImg.style.transition = 'opacity 0.3s ease-in';
+                
+                illustrationContainer.appendChild(newImg);
+                this.randomIllustration = newImg;
+                console.log('New illustration element created');
+                
+                // Load the new illustration
+                setTimeout(() => {
+                    console.log('Loading new illustration');
+                    this.selectRandomIllustration();
+                }, 100);
+            }
             
             // Reveal rows 1,2,4 when returning to the first view
             document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {

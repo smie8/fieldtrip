@@ -76,8 +76,8 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
-    /* RULE 3: Use full height by distributing space, not centering */
-    justify-content: space-between; /* Distribute rows across full height */
+    /* Mobile: Use normal flow to prevent overlap */
+    justify-content: flex-start;
 }
 
 /* 5-row layout system - unified padding */
@@ -679,6 +679,8 @@ a {
 @media (min-width: 769px) {
     .layout-container {
         padding: var(--container-padding-desktop);
+        /* Desktop: Use space-between to fill full height */
+        justify-content: space-between;
     }
     
     .section__description {

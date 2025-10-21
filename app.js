@@ -183,6 +183,14 @@ class FieldTripApp {
     selectRandomIllustration() {
         console.log('selectRandomIllustration called - current index:', this.currentAnimationIndex);
         
+        // Prevent multiple rapid calls
+        if (this.isSelectingIllustration) {
+            console.log('Already selecting illustration, skipping...');
+            return;
+        }
+        
+        this.isSelectingIllustration = true;
+        
         // If this is the first selection, pick a random starting point
         if (this.currentAnimationIndex === -1) {
             this.currentAnimationIndex = Math.floor(Math.random() * this.illustrations.length);
@@ -205,6 +213,11 @@ class FieldTripApp {
         
         // Debug: Log the selection to verify sequential cycling
         console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
+        
+        // Reset the flag after a short delay
+        setTimeout(() => {
+            this.isSelectingIllustration = false;
+        }, 100);
     }
 
     /**

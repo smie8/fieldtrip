@@ -411,10 +411,6 @@ a {
 /* Mobile: up to 768px - Universal mobile styles for all devices */
 @media screen and (max-width: 768px) {
     
-    /* DEBUG: Test if mobile styles are being applied */
-    body {
-        background-color: #f0f0f0 !important; /* Light gray background for mobile testing */
-    }
     
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
@@ -450,17 +446,17 @@ a {
     
     /* Section 1 row-2 (description) - ensure it doesn't overlap animation */
     .section#section-1 .row-2 {
-        flex-shrink: 0 !important;
-        padding-bottom: 1rem !important; /* Minimal space before animation */
-        margin-bottom: 0.5rem !important; /* Minimal margin for separation */
+        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
+        padding-bottom: 0.5rem !important; /* Minimal space before animation */
+        margin-bottom: 0.25rem !important; /* Minimal margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
     /* Section 1 row-4 (button) - ensure it doesn't overlap animation */
     .section#section-1 .row-4 {
-        flex-shrink: 0 !important;
-        padding-top: 1rem !important; /* Minimal space after animation */
-        margin-top: 0.5rem !important; /* Minimal margin for separation */
+        flex: 0 0 auto !important; /* Don't grow or shrink, use content size */
+        padding-top: 0.5rem !important; /* Minimal space after animation */
+        margin-top: 0.25rem !important; /* Minimal margin for separation */
         min-height: auto !important; /* Let content determine height */
     }
     
@@ -506,8 +502,8 @@ a {
         flex-direction: column;
         justify-content: flex-start; /* Start from top, no space distribution */
         align-items: center;
-        padding: 0.5rem 0; /* Minimal padding to fit content */
-        flex: 1; /* Take up remaining space */
+        padding: 0.25rem 0; /* Minimal padding to fit content */
+        flex: 0 0 auto; /* Don't grow or shrink, use content size */
         min-height: 0; /* Allow flex shrinking */
         /* NO height constraints - let content flow naturally */
         overflow-y: visible; /* Allow content to be visible */
@@ -727,14 +723,16 @@ a {
 @media screen and (max-width: 768px) {
     /* Force mobile styles with highest specificity */
     body .section#section-1 .row-2 {
-        padding-bottom: 1rem !important;
-        margin-bottom: 0.5rem !important;
+        flex: 0 0 auto !important;
+        padding-bottom: 0.5rem !important;
+        margin-bottom: 0.25rem !important;
         min-height: auto !important;
     }
     
     body .section#section-1 .row-4 {
-        padding-top: 1rem !important;
-        margin-top: 0.5rem !important;
+        flex: 0 0 auto !important;
+        padding-top: 0.5rem !important;
+        margin-top: 0.25rem !important;
         min-height: auto !important;
     }
     

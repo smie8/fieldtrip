@@ -466,32 +466,31 @@ a {
         padding-bottom: 20px; /* Extra bottom padding to clear browser UI */
     }
     
-    /* Mobile section 2 specific styles - proper flexbox layout */
+    /* Mobile section 2 specific styles - direct text-to-button flow */
     #section-2 .row-3 {
         flex-direction: column;
-        justify-content: space-between; /* Distribute space between text and button */
+        justify-content: flex-start; /* Start from top, no space distribution */
         align-items: center;
         padding: var(--spacing-lg) 0; /* Consistent padding */
         flex: 1; /* Take up remaining space */
     }
     
-    /* Text block with proper spacing */
+    /* Text block with minimal spacing */
     #section-2 .text-block {
-        flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Center text vertically in available space */
+        justify-content: flex-start; /* Start from top */
         align-items: center;
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let content determine width */
         padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
-        margin-bottom: var(--spacing-xl); /* Space between text and button */
+        margin-bottom: var(--spacing-md); /* Minimal space between text and button */
     }
     
-    /* Contact button positioned below text with proper spacing */
+    /* Contact button directly follows text block */
     #section-2 .cta-button {
-        position: static; /* Use normal document flow instead of absolute */
-        margin-top: var(--spacing-xl); /* Space above button */
+        position: static; /* Use normal document flow */
+        margin-top: var(--spacing-md); /* Minimal space above button */
         margin-bottom: var(--spacing-lg); /* Space below button */
         font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
         z-index: 10; /* Ensure it's above other content */
@@ -502,8 +501,8 @@ a {
     /* Optimized font size for mobile section 2 text - proper typography */
     #section-2 .text-block p {
         font-size: 0.9rem !important; /* Proper size for mobile */
-        line-height: 1.6; /* Better line height for readability */
-        margin-bottom: var(--spacing-lg); /* Consistent space between paragraphs */
+        line-height: 1.5; /* Better line height for readability */
+        margin-bottom: var(--spacing-sm); /* Reduced space between paragraphs */
         max-width: none; /* Remove width constraint to let content determine width */
         width: auto; /* Let text determine width */
         margin-left: auto;
@@ -511,9 +510,9 @@ a {
         white-space: pre-line; /* Preserve line breaks from JSON */
     }
     
-    /* Last paragraph with proper spacing */
+    /* Last paragraph with minimal spacing */
     #section-2 .text-block p:last-child {
-        margin-bottom: var(--spacing-lg); /* Consistent spacing for last paragraph */
+        margin-bottom: var(--spacing-sm); /* Minimal spacing for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
@@ -578,14 +577,14 @@ a {
     }
 }
 
-/* Additional mobile spacing for better text-button separation */
+/* Ensure proper text flow on mobile */
 @media (max-width: 768px) {
     #section-2 .text-block {
-        margin-bottom: var(--spacing-xxl); /* Extra space before button */
+        margin-bottom: var(--spacing-sm); /* Minimal space before button */
     }
     
     #section-2 .cta-button {
-        margin-top: var(--spacing-xxl); /* Extra space above button */
+        margin-top: var(--spacing-sm); /* Minimal space above button */
     }
 }
 

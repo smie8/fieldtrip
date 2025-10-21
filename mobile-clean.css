@@ -1,9 +1,24 @@
 /* CLEAN MOBILE-ONLY CSS FOR SECTION 1 */
 /* Based on 5 hard rules: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
 
+/* Font import */
+@font-face {
+    font-family: 'PP Agrandir Wide';
+    src: url('FONT/PPAgrandir-WideRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* Reset and base styles */
 * {
     box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'PP Agrandir Wide', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* CSS Variables */
@@ -74,7 +89,7 @@
 .row-3 {
     flex: 1;
     min-height: 200px;
-    max-height: 60vh;
+    max-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +111,7 @@
 
 /* Logo styling */
 .section__logo {
-    max-width: 300px;
+    max-width: 120px;
     height: auto;
 }
 
@@ -107,6 +122,7 @@
     max-width: calc(100vw - 2rem);
     margin: 0 auto;
     white-space: pre-line;
+    font-family: 'PP Agrandir Wide', Arial, sans-serif;
 }
 
 /* Animation container */
@@ -123,6 +139,8 @@
     max-height: 100%;
     width: auto;
     height: auto;
+    object-fit: contain;
+    min-height: 200px;
 }
 
 /* CTA Button */
@@ -161,6 +179,8 @@
     width: 24px;
     height: 24px;
     margin: 0 auto;
+    visibility: visible;
+    opacity: 1;
 }
 
 .nav-arrow:hover {
@@ -194,7 +214,7 @@ body .section#section-1 .row-3 {
     flex: 1 !important;
     padding: var(--spacing-md) !important;
     min-height: 200px !important;
-    max-height: 60vh !important;
+    max-height: 70vh !important;
 }
 
 /* App container bottom padding for browser UI */

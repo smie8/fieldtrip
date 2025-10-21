@@ -556,6 +556,19 @@ a {
         visibility: visible !important; /* Force visibility */
     }
     
+    /* Request references button - same sizing as Contact Us */
+    .section#section-1 .cta-button {
+        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
+        padding: 0.5rem 1rem; /* Same smaller padding for mobile */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(0.6rem, 3vw, 0.9rem) !important; /* Properly sized button text */
+        min-height: auto !important; /* Use global button height */
+        max-width: calc(100vw - 2rem) !important; /* Prevent button from exceeding viewport */
+        visibility: visible !important; /* Force visibility */
+    }
+    
     /* Auto-sizing text block container - consolidated with centering styles above */
     
     /* Optimized font size for mobile section 2 text - respect line breaks */
@@ -667,6 +680,12 @@ a {
         padding: 0.4rem 0.8rem; /* Even smaller padding for very small screens */
         min-height: auto !important; /* Use global button height */
         margin-bottom: calc(var(--spacing-xl) + 150px) !important; /* Extra space for very small screens */
+    }
+    
+    #section-1 .cta-button {
+        font-size: 0.7rem !important; /* Smaller button text */
+        padding: 0.4rem 0.8rem; /* Even smaller padding for very small screens */
+        min-height: auto !important; /* Use global button height */
     }
     
     /* Extra aggressive padding for very small screens */

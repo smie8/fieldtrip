@@ -468,6 +468,13 @@ a {
         padding: var(--spacing-md) 0; /* Consistent padding around animation */
     }
     
+    /* Ensure row-4 (button) stays centered */
+    .row-4 {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
     /* Ensure row-5 (down arrow) stays visible */
     .row-5 {
         flex-shrink: 0;

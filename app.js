@@ -215,6 +215,43 @@ class FieldTripApp {
     }
 
     /**
+     * Reset Section 1 content to clean state
+     */
+    resetSection1Content() {
+        // Remove all animation classes and inline styles
+        document.querySelectorAll('#section-1 .row-1, #section-1 .row-2, #section-1 .row-3, #section-1 .row-4, #section-1 .row-5').forEach(row => {
+            row.classList.remove('fade-in', 'fade-out');
+            row.style.opacity = '';
+            row.style.transform = '';
+            row.style.transition = '';
+        });
+        
+        // Reset illustration
+        if (this.randomIllustration) {
+            this.randomIllustration.classList.remove('fade-in', 'fade-out');
+            this.randomIllustration.style.opacity = '';
+            this.randomIllustration.style.transform = '';
+            this.randomIllustration.style.transition = '';
+        }
+        
+        // Reset CTA button
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.classList.remove('fade-in', 'fade-out', 'cta-button--visible');
+            this.requestReferencesBtn.style.opacity = '';
+            this.requestReferencesBtn.style.transform = '';
+            this.requestReferencesBtn.style.transition = '';
+        }
+        
+        // Reset arrow
+        if (this.arrowDown) {
+            this.arrowDown.classList.remove('fade-in', 'fade-out', 'nav-arrow--visible');
+            this.arrowDown.style.opacity = '';
+            this.arrowDown.style.transform = '';
+            this.arrowDown.style.transition = '';
+        }
+    }
+
+    /**
      * Fade in content in the correct sequence (Section 1 only)
      */
     fadeInContentSequence() {
@@ -652,6 +689,15 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
+            // First, ensure illustration container is visible
+            const illustrationContainer = document.querySelector('.illustration-container');
+            if (illustrationContainer) {
+                illustrationContainer.style.display = 'flex';
+            }
+            
+            // Reset all content to hidden state first
+            this.resetSection1Content();
+            
             // Use the same animation sequence as initial load
             this.hideAllContentForAnimation();
             this.selectRandomIllustration();

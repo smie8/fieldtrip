@@ -38,7 +38,7 @@ html, body {
 }
 
 .app-container {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--spacing-container));
 }
 
 /* Debug code removed - content visibility handled by JavaScript */
@@ -59,6 +59,14 @@ body {
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-xxl: 4rem;
+    --spacing-container: 2.5rem; /* 40px equivalent */
+    
+    /* Common sizes */
+    --size-icon: 24px;
+    --size-logo-mobile: 200px;
+    --size-logo-desktop: 300px;
+    --size-illustration-desktop: 400px;
+    --size-contact-max: 600px;
 
     /* Typography */
     --base-font-size: 1.1rem;
@@ -78,14 +86,17 @@ body {
 
 /* Main app container */
 .app-container {
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    
+    /* Spacing */
     height: 100dvh;
     min-height: 100dvh;
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -106,10 +117,13 @@ body {
 
 /* 5-row layout system - unified padding */
 .row {
-    padding: var(--spacing-md); /* Unified spacing: 1.5rem everywhere */
+    /* Layout */
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* Spacing */
+    padding: var(--spacing-md); /* Unified spacing: 1.5rem everywhere */
 }
 
 /* RULE-BASED ROW SYSTEM - Follows 5 rules: visibility, no overlap, full height, uniform padding, big animation */
@@ -210,7 +224,7 @@ body {
 /* Desktop illustration constraint */
 @media (min-width: 769px) {
     .illustration {
-        max-width: 400px; /* Reasonable desktop constraint */
+        max-width: var(--size-illustration-desktop); /* Reasonable desktop constraint */
     }
 }
 
@@ -267,18 +281,18 @@ body {
 
 .section__content {
     text-align: center;
-    max-width: 600px;
+    max-width: var(--size-contact-max);
     width: 100%;
 }
 
 .section__logo {
-    width: 300px; /* Desktop size */
+    width: var(--size-logo-desktop); /* Desktop size */
     height: auto;
-    max-width: 300px;
+    max-width: var(--size-logo-desktop);
 }
 
 .section__logo--header {
-    width: 200px;
+    width: var(--size-logo-mobile);
     height: auto;
     position: absolute;
     left: 25px;
@@ -289,8 +303,8 @@ body {
 /* Navigation arrow positioning - unified centering for all screen sizes */
 .nav-arrow--down,
 .nav-arrow--up {
-    width: 24px; /* Ensure consistent width */
-    height: 24px; /* Ensure consistent height */
+    width: var(--size-icon); /* Ensure consistent width */
+    height: var(--size-icon); /* Ensure consistent height */
     position: static; /* Use normal flow */
     left: auto;
     transform: none;

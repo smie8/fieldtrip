@@ -78,10 +78,13 @@ body {
 
 /* Main app container */
 .app-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Layout containers for consistent structure */
@@ -117,16 +120,13 @@ body {
     padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
-.row-3 { 
-    flex: 1 1 auto; /* Allow growth and shrink for animation space */
+.row-3 {
+    flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    padding-block: 0; /* Remove vertical padding */
-    padding-inline: var(--spacing-md); /* Keep horizontal padding */
-    min-height: 0; /* Critical for inner shrink */
-    max-height: none; /* Remove height cap */
+    padding-block: var(--spacing-sm);
 }
 
 .row-1--header {
@@ -176,15 +176,16 @@ body {
 }
 
 .illustration {
-    height: 100%; /* Fill container height */
-    max-height: none; /* Remove height constraint */
-    width: auto; /* Maintain aspect ratio */
+    height: auto;
+    max-height: 65dvh;      /* cap relative to dynamic viewport */
+    min-height: 45dvh;      /* avoid shrinking too much on short screens */
+    width: auto;
+    object-fit: contain;
     opacity: 1;
     transition: opacity var(--animation-duration) var(--animation-easing);
     /* Prevent compositing glitches during re-paint */
     backface-visibility: hidden;
     transform: translateZ(0);
-    object-fit: contain; /* Safe containment without distortion */
 }
 
 /* Desktop illustration constraint */

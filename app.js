@@ -3,15 +3,27 @@
  * Implements all animation sequences, navigation, and overlay functionality
  */
 
-/* === Viewport Fallback (Phase 3) === */
+// --- Fix: iOS Safari viewport height normalization ---
 function setVHVar() {
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  // Use visualViewport when available (iOS 15+)
+  const vh = window.visualViewport
+    ? window.visualViewport.height * 0.01
+    : window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
-window.addEventListener('resize', setVHVar, { passive: true });
-window.addEventListener('orientationchange', setVHVar, { passive: true });
-window.addEventListener('focus', setVHVar, { passive: true });
-window.addEventListener('visibilitychange', setVHVar, { passive: true });
 setVHVar();
+
+// Keep updated when bars expand/collapse or rotation changes
+window.visualViewport?.addEventListener('resize', setVHVar);
+window.addEventListener('orientationchange', setVHVar);
+window.addEventListener('resize', setVHVar);
+
+// Optional verification snippet
+console.log('Viewport test', {
+  innerHeight: window.innerHeight,
+  visualViewport: window.visualViewport?.height,
+  vhVar: getComputedStyle(document.documentElement).getPropertyValue('--vh'),
+});
 
 class FieldTripApp {
     constructor() {

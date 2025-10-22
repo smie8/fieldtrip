@@ -185,11 +185,11 @@ class FieldTripApp {
     }
 
     /**
-     * Hide all content for animation sequence
+     * Hide all content for animation sequence (Section 1 only)
      */
     hideAllContentForAnimation() {
-        // Hide ALL rows including row-3 (illustration)
-        document.querySelectorAll('.row-1, .row-2, .row-3, .row-4, .row-5').forEach(row => {
+        // Hide Section 1 rows including row-3 (illustration)
+        document.querySelectorAll('#section-1 .row-1, #section-1 .row-2, #section-1 .row-3, #section-1 .row-4, #section-1 .row-5').forEach(row => {
             row.classList.add('fade-out');
             row.style.opacity = '0';
             row.style.transform = 'translateY(20px)';
@@ -215,7 +215,7 @@ class FieldTripApp {
     }
 
     /**
-     * Fade in content in the correct sequence
+     * Fade in content in the correct sequence (Section 1 only)
      */
     fadeInContentSequence() {
         const fadeIn = (selector, delay) => {
@@ -229,7 +229,7 @@ class FieldTripApp {
         };
 
         // Step 1: Illustration fades in first
-        fadeIn('.row-3', 0);
+        fadeIn('#section-1 .row-3', 0);
         setTimeout(() => {
             if (this.randomIllustration) {
                 this.randomIllustration.classList.add('fade-in');
@@ -237,16 +237,16 @@ class FieldTripApp {
         }, 0);
         
         // Step 2: Logo (row-1) fades in after illustration
-        fadeIn('.row-1', 800);
+        fadeIn('#section-1 .row-1', 800);
         
         // Step 3: Text (row-2) fades in
-        fadeIn('.row-2', 1000);
+        fadeIn('#section-1 .row-2', 1000);
         
         // Step 4: CTA button (row-4) fades in
-        fadeIn('.row-4', 1600);
+        fadeIn('#section-1 .row-4', 1600);
         
         // Step 5: Arrow (row-5) fades in last
-        fadeIn('.row-5', 2000);
+        fadeIn('#section-1 .row-5', 2000);
         
         // Also fade in CTA button and arrow with their respective rows
         setTimeout(() => {

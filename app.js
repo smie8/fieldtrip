@@ -215,6 +215,39 @@ class FieldTripApp {
     }
 
     /**
+     * Immediately hide all content to prevent flash (no transitions)
+     */
+    hideAllContentImmediately() {
+        // Hide all Section 1 rows immediately with no transition
+        document.querySelectorAll('#section-1 .row-1, #section-1 .row-2, #section-1 .row-3, #section-1 .row-4, #section-1 .row-5').forEach(row => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+            row.style.transition = 'none';
+        });
+        
+        // Hide illustration immediately
+        if (this.randomIllustration) {
+            this.randomIllustration.style.opacity = '0';
+            this.randomIllustration.style.transform = 'translateY(20px)';
+            this.randomIllustration.style.transition = 'none';
+        }
+        
+        // Hide CTA button immediately
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.style.opacity = '0';
+            this.requestReferencesBtn.style.transform = 'translateY(20px)';
+            this.requestReferencesBtn.style.transition = 'none';
+        }
+        
+        // Hide arrow immediately
+        if (this.arrowDown) {
+            this.arrowDown.style.opacity = '0';
+            this.arrowDown.style.transform = 'translateY(10px)';
+            this.arrowDown.style.transition = 'none';
+        }
+    }
+
+    /**
      * Reset Section 1 content to clean state
      */
     resetSection1Content() {
@@ -689,6 +722,9 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
+            // IMMEDIATELY hide all content to prevent flash
+            this.hideAllContentImmediately();
+            
             // First, ensure illustration container is visible
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {

@@ -251,11 +251,10 @@ class FieldTripApp {
      * Initialize Section 1 exactly like a fresh page load
      */
     initializeSection1LikeFreshLoad() {
-        // First, completely reset all content to hidden state
         const section1 = document.querySelector('#section-1');
         const allElements = section1.querySelectorAll('.row-1, .row-2, .row-3, .row-4, .row-5, .illustration, .cta-button, .nav-arrow');
         
-        // Force all elements to hidden state with no transitions
+        // STEP 1: Hide all elements BEFORE making section visible (prevents flash)
         allElements.forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
@@ -263,21 +262,19 @@ class FieldTripApp {
             el.classList.remove('fade-in', 'fade-out', 'cta-button--visible', 'nav-arrow--visible');
         });
         
-        // Ensure illustration container is visible
-        const illustrationContainer = document.querySelector('.illustration-container');
-        if (illustrationContainer) {
-            illustrationContainer.style.display = 'flex';
-        }
+        // STEP 2: Make section visible but content is already hidden
+        section1.style.display = 'flex';
+        section1.style.opacity = '1';
         
-        // Force a reflow to ensure hidden state is applied
+        // STEP 3: Force reflow to ensure hidden state is committed
         void section1.offsetHeight;
         
-        // Re-enable transitions
+        // STEP 4: Re-enable transitions
         allElements.forEach(el => {
             el.style.transition = '';
         });
         
-        // Now start the animation sequence
+        // STEP 5: Start animation sequence
         this.selectRandomIllustration();
         this.fadeInContentSequence();
     }

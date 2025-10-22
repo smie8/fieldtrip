@@ -829,18 +829,22 @@ a {
         padding-block: 0; /* Remove vertical padding */
         padding-inline: var(--spacing-md); /* Keep horizontal padding */
         min-height: 0; /* Critical for inner shrink */
-        max-height: none; /* Remove height constraint */
+        max-height: 60vh; /* Prevent illustration from taking too much space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     body .section#section-1 .row-4 {
         flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding to match mobile fix */
     }
     
     body .section#section-1 .row-5 {
         flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        margin-bottom: var(--spacing-lg); /* Rule 1: Ensure visibility above browser UI */
+        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Minimal padding to match mobile fix */
+        margin-bottom: 0; /* Remove margin that was causing spacing issues */
+        min-height: 30px; /* Reduced height to match mobile fix */
     }
     
     body .section#section-2 .cta-button {

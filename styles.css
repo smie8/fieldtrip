@@ -122,14 +122,26 @@ body {
     padding: var(--spacing-md); /* Rule 4: Uniform padding */
 }
 
-.row-3 {
+/* Section 1: illustration column */
+#section-1 .row-3 {
     flex: 1 1 auto;
     min-height: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-block: var(--spacing-sm);
     max-height: none; /* Remove any height constraints */
+}
+
+/* Section 2: text block (static) */
+#section-2 .row-3 {
+    flex: 0 0 auto;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
 }
 
 .row-1--header {
@@ -230,6 +242,7 @@ body {
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+/* Section 1 rows — canonical */
 /* Initial state - hide content until animation starts (Section 1 only) */
 #section-1 .row-1, 
 #section-1 .row-2, 
@@ -254,16 +267,6 @@ body {
 #section-1.hidden .row-5 {
     opacity: 0;
     transition: none;
-}
-
-/* Initial state - hide content until animation starts (Section 1 only) */
-#section-1 .row-1, 
-#section-1 .row-2, 
-#section-1 .row-3, 
-#section-1 .row-4, 
-#section-1 .row-5 {
-    opacity: 0;
-    transform: translateY(20px);
 }
 
 /* Ensure illustration starts hidden (Section 1 only) */
@@ -554,39 +557,6 @@ a {
     
     /* MOBILE RULES: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
     /* RULE 2: Prevent overlap by using simple flex behavior */
-    .section#section-1 .row-2 {
-        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
-    }
-    
-    .section#section-1 .row-3 {
-        flex: 1 1 auto; /* Rule 3: Fill available space for full height */
-        padding-block: 0; /* Remove vertical padding */
-        padding-inline: var(--spacing-md); /* Keep horizontal padding */
-        min-height: 0; /* Critical for inner shrink */
-        max-height: none; /* Remove height constraint */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .section#section-1 .row-4 {
-        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding */
-    }
-    
-    /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
-    .section#section-1 .row-5 {
-        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Minimal padding all around */
-        padding-bottom: env(safe-area-inset-bottom); /* Safe area for iPhone */
-        position: relative; /* Enable z-index stacking */
-        z-index: 10; /* Ensure arrow stays above other content */
-        min-height: 30px; /* Further reduced height */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
     
     /* Section 2 rows use unified padding from global .row rule */
     
@@ -651,41 +621,31 @@ a {
         margin-right: auto; /* Push to left side */
     }
     
-    /* Mobile section 2 specific styles - OVERRIDE universal .row-3 rules */
+    /* Section 2 rows — canonical */
+    /* Mobile section 2 specific styles - now using section-specific .row-3 rule */
     #section-2 .row-3 {
-        /* OVERRIDE universal .row-3 rules completely */
-        flex: 0 0 auto !important; /* Don't grow/shrink - prevent overlap */
-        min-height: fit-content !important; /* Override universal min-height: 0 */
-        display: flex !important;
-        flex-direction: row !important; /* Override universal flex-direction: column */
-        justify-content: center !important;
-        align-items: center !important;
-        padding: var(--spacing-md) !important; /* Override universal padding-block */
-        max-height: none !important;
-        position: static !important;
-        z-index: auto !important; /* Override universal z-index: 1 */
         /* COMPLETELY STATIC - no animations, transitions, or transforms */
-        transition: none !important;
-        transform: none !important;
-        animation: none !important;
-        will-change: auto !important;
-        backface-visibility: visible !important;
+        transition: none;
+        transform: none;
+        animation: none;
+        will-change: auto;
+        backface-visibility: visible;
     }
     
     /* Mobile up arrow - centered but positioned to prevent layout shifts */
     #section-2 .nav-arrow--up {
-        position: absolute !important;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        z-index: 10 !important;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
         /* Ensure arrow doesn't affect layout */
         pointer-events: auto;
         /* Prevent any layout impact */
-        width: 24px !important;
-        height: 24px !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        padding: 0;
     }
     
     /* Text block with proper centering and width constraints - COMPLETELY STATIC */
@@ -744,9 +704,9 @@ a {
     
     /* Optimized font size for mobile section 2 text - respect line breaks */
     #section-2 .text-block p {
-        font-size: 0.75rem !important; /* Smaller font to fit content */
+        font-size: 0.75rem; /* Smaller font to fit content */
         line-height: 1.3; /* Tighter line height for compact display */
-        margin-bottom: 0.25rem !important; /* Minimal space between paragraphs */
+        margin-bottom: 0.25rem; /* Minimal space between paragraphs */
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport with padding */
         width: 100%; /* Full width within constraints */
         margin-left: auto;
@@ -754,18 +714,18 @@ a {
         text-align: center; /* Center text within paragraphs */
         white-space: pre-line; /* Respect line breaks from JSON */
         /* COMPLETELY STATIC - no animations, transitions, or transforms */
-        transition: none !important;
-        transform: none !important;
-        animation: none !important;
-        will-change: auto !important;
-        backface-visibility: visible !important;
+        transition: none;
+        transform: none;
+        animation: none;
+        will-change: auto;
+        backface-visibility: visible;
         word-wrap: break-word; /* Break long words if needed */
         overflow-wrap: break-word; /* Additional word breaking support */
     }
     
     /* Last paragraph with minimal spacing */
     #section-2 .text-block p:last-child {
-        margin-bottom: 0.25rem !important; /* Minimal spacing for last paragraph */
+        margin-bottom: 0.25rem; /* Minimal spacing for last paragraph */
     }
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
@@ -856,11 +816,6 @@ a {
         min-height: 100vh;
     }
     
-    /* MOBILE RULES ENFORCEMENT - Force all 5 rules */
-    body .section#section-1 .row-2 {
-        flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
-    }
     
     /* High-specificity overrides removed - using unified mobile rules above */
     
@@ -974,19 +929,12 @@ a {
     }
     
     #section-2 .row-3 {
-        /* OVERRIDE desktop universal .row-3 rules for Section 2 */
-        flex: 0 0 auto !important; /* Override universal flex: 1 */
-        min-height: fit-content !important; /* Override universal min-height: 0 */
-        flex-direction: row !important; /* Override universal flex-direction: column */
-        position: static !important; /* Override universal position: relative */
-        z-index: auto !important; /* Override universal z-index: 1 */
-        padding: var(--spacing-md) !important; /* Override universal padding-block: 0 */
         /* COMPLETELY STATIC - no animations, transitions, or transforms */
-        transition: none !important;
-        transform: none !important;
-        animation: none !important;
-        will-change: auto !important;
-        backface-visibility: visible !important;
+        transition: none;
+        transform: none;
+        animation: none;
+        will-change: auto;
+        backface-visibility: visible;
         justify-content: center;
         align-items: center;
     }
@@ -1046,4 +994,13 @@ a {
 }
 
 /* Merged into first @media (max-width: 768px) block above */
+
+/*
+QA console:
+['.app-container','.layout-container','.section','#section-1 .row-3','#section-2 .row-3','#section-1 .row-4','#section-1 .row-5'].forEach(s=>{
+  const n=document.querySelector(s); if(!n) return;
+  const cs=getComputedStyle(n), r=n.getBoundingClientRect();
+  console.log(s,{disp:cs.display,fd:cs.flexDirection,jc:cs.justifyContent,flex:cs.flex,h:Math.round(r.height)});
+});
+*/
 

@@ -179,7 +179,7 @@ body {
     height: 100%; /* Fill container height */
     max-height: none; /* Remove height constraint */
     width: auto; /* Maintain aspect ratio */
-    max-width: none; /* Remove width constraint */
+    max-width: 400px; /* Reasonable desktop constraint */
     opacity: 1;
     transition: opacity var(--animation-duration) var(--animation-easing);
     /* Prevent compositing glitches during re-paint */

@@ -635,6 +635,17 @@ a {
         position: relative;
     }
     
+    /* Mobile up arrow - prevent layout shifts */
+    #section-2 .nav-arrow--up {
+        position: absolute !important;
+        left: 50vw !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 10 !important;
+        /* Ensure arrow doesn't affect layout */
+        pointer-events: auto;
+    }
+    
     /* Text block with proper centering and width constraints */
     #section-2 .text-block {
         display: flex;

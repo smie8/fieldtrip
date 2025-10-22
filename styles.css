@@ -154,7 +154,7 @@ body {
     /* Flex layout for proper space distribution */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     /* Allow inner flex shrink to prevent clipping */
     flex: 1 1 auto;
     min-height: 0;
@@ -570,6 +570,7 @@ a {
     .section#section-1 .row-4 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding */
+        margin-top: auto; /* Push to bottom of available space */
     }
     
     /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
@@ -838,6 +839,7 @@ a {
     body .section#section-1 .row-4 {
         flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding to match mobile fix */
+        margin-top: auto; /* Push to bottom of available space */
     }
     
     body .section#section-1 .row-5 {

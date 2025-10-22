@@ -3,6 +3,16 @@
  * Implements all animation sequences, navigation, and overlay functionality
  */
 
+/* === Viewport Fallback (Phase 3) === */
+function setVHVar() {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+}
+window.addEventListener('resize', setVHVar, { passive: true });
+window.addEventListener('orientationchange', setVHVar, { passive: true });
+window.addEventListener('focus', setVHVar, { passive: true });
+window.addEventListener('visibilitychange', setVHVar, { passive: true });
+setVHVar();
+
 class FieldTripApp {
     constructor() {
         this.currentSection = 1;
@@ -115,9 +125,13 @@ class FieldTripApp {
         const section1Description = document.getElementById('section1-description');
         if (section1Description) {
             section1Description.innerHTML = currentCopytexts.section1.description.replace(/\n/g, '<br>');
+        } else {
+            console.error('section1-description element not found!');
         }
         if (this.requestReferencesBtn) {
             this.requestReferencesBtn.textContent = currentCopytexts.section1.ctaButton;
+        } else {
+            console.error('request-references button not found!');
         }
 
         // Section 2 content
@@ -142,10 +156,11 @@ class FieldTripApp {
      * Setup initial state - hide all content except illustration and down arrow
      */
     setupInitialState() {
-        // Hide rows 1, 2, 4 initially (keep row-3 animation and row-5 arrow visible)
+        // DEBUG: Show all content immediately instead of hiding it
         document.querySelectorAll('.row-1, .row-2, .row-4').forEach(row => {
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(20px)';
+            row.style.opacity = '1';
+            row.style.transform = 'translateY(0)';
+            row.style.transition = 'none';
         });
         
         // Keep down arrow always visible and ensure it's protected
@@ -158,7 +173,7 @@ class FieldTripApp {
         // Hide contact overlay
         this.contactOverlay.classList.remove('contact-overlay--visible');
         
-        // Show CTA button immediately (it's in row-4 which will be hidden initially)
+        // Show CTA button immediately
         this.requestReferencesBtn.classList.add('cta-button--visible');
     }
 
@@ -169,10 +184,19 @@ class FieldTripApp {
         // Select and display random illustration
         this.selectRandomIllustration();
         
-        // After delay, fade in content
-        setTimeout(() => {
-            this.fadeInContent();
-        }, 1500);
+        // Show content immediately without delay
+        document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
+            row.style.opacity = '1';
+            row.style.transform = 'translateY(0)';
+            row.style.transition = 'none';
+        });
+        
+        // Also ensure CTA button is visible
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.style.opacity = '1';
+            this.requestReferencesBtn.style.transform = 'translateY(0)';
+            this.requestReferencesBtn.classList.add('cta-button--visible');
+        }
     }
 
     /**
@@ -186,7 +210,6 @@ class FieldTripApp {
         // Update the last selected illustration
         this.lastSelectedIllustration = selectedIllustration;
         
-        console.log(`Next illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex})`);
         return selectedIllustration;
     }
 
@@ -196,11 +219,8 @@ class FieldTripApp {
      * Ensures no consecutive duplicates across page refreshes
      */
     selectRandomIllustration() {
-        console.log('selectRandomIllustration called - current index:', this.currentAnimationIndex);
-        
         // Prevent multiple rapid calls
         if (this.isSelectingIllustration) {
-            console.log('Already selecting illustration, skipping...');
             return;
         }
         
@@ -209,11 +229,9 @@ class FieldTripApp {
         // If this is the first selection, pick a random starting point
         if (this.currentAnimationIndex === -1) {
             this.currentAnimationIndex = Math.floor(Math.random() * this.illustrations.length);
-            console.log('First selection, random index:', this.currentAnimationIndex);
         } else {
             // Move to next animation in sequence
             this.currentAnimationIndex = (this.currentAnimationIndex + 1) % this.illustrations.length;
-            console.log('Next in sequence, new index:', this.currentAnimationIndex);
         }
         
         const selectedIllustration = this.illustrations[this.currentAnimationIndex];
@@ -237,13 +255,9 @@ class FieldTripApp {
             this.randomIllustration.onload = () => {
                 setTimeout(() => {
                     this.randomIllustration.style.opacity = '1';
-                    console.log('New illustration faded in');
                 }, 50);
             };
         }, 50);
-        
-        // Debug: Log the selection to verify sequential cycling
-        console.log(`Selected illustration: ${selectedIllustration.split('/').pop().split('.')[0]} (index: ${this.currentAnimationIndex}) with cache-buster: ${cacheBuster}`);
         
         // Reset the flag after a short delay
         setTimeout(() => {
@@ -257,7 +271,8 @@ class FieldTripApp {
     fadeInContent() {
         // Fade in rows 1, 2, 4 for section 1 (row-3 animation and row-5 arrow already visible)
         if (this.currentSection === 1) {
-            document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
+            const rows = document.querySelectorAll('.row-1, .row-2, .row-4');
+            rows.forEach((row, index) => {
                 setTimeout(() => {
                     row.style.opacity = '1';
                     row.style.transform = 'translateY(0)';
@@ -312,14 +327,16 @@ class FieldTripApp {
             e.stopPropagation();
         }, { passive: false });
         
-        // Window resize - update content for mobile/desktop
-        window.addEventListener('resize', () => {
-            // Viewport resize detected
+        // Consolidated viewport handling - --vh is handled by global setVHVar()
+        const handleViewportChange = () => {
             setTimeout(() => {
                 this.populateContent();
                 this.adjustMobileViewport();
-            }, 100); // Small delay to ensure resize is complete
-        });
+            }, 100);
+        };
+        
+        // Window resize - update content for mobile/desktop
+        window.addEventListener('resize', handleViewportChange);
         
         // Handle mobile viewport changes (address bar show/hide)
         window.addEventListener('orientationchange', () => {
@@ -364,10 +381,7 @@ class FieldTripApp {
      */
     adjustMobileViewport() {
         if (this.isMobile()) {
-            // Set CSS custom property for dynamic viewport height
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            
+            // --vh is now handled by global setVHVar() function
             // Calculate if content needs scaling
             this.scaleContentToFitViewport();
         }
@@ -447,8 +461,7 @@ class FieldTripApp {
             section.style.transition = 'transform 0.3s ease-out';
         });
         
-        // Log scaling for debugging
-        console.log(`Content scaled to ${(finalScale * 100).toFixed(1)}% to fit viewport`);
+        // Content scaled to fit viewport
     }
     
     /**
@@ -470,7 +483,7 @@ class FieldTripApp {
             section.style.transition = 'transform 0.3s ease-out';
         });
         
-        console.log('Content scaling reset to 100%');
+        // Content scaling reset to 100%
     }
 
     /**
@@ -515,11 +528,9 @@ class FieldTripApp {
         
         // CRITICAL: Hide entire illustration container when leaving section 1
         if (previousSection === 1) {
-            console.log('Hiding illustration container when leaving section 1');
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
                 illustrationContainer.style.display = 'none';
-                console.log('Illustration container hidden');
             }
         }
         
@@ -573,15 +584,11 @@ class FieldTripApp {
      * Show new section content and arrows
      */
     showNewContent() {
-        console.log('showNewContent called for section:', this.currentSection);
         if (this.currentSection === 1) {
-            console.log('Returning to section 1, pre-loading new image');
-            
             // Restore the illustration container
             const illustrationContainer = document.querySelector('.illustration-container');
             if (illustrationContainer) {
                 illustrationContainer.style.display = 'flex';
-                console.log('Illustration container restored');
                 
                 // Clear any existing content
                 illustrationContainer.innerHTML = '';
@@ -597,17 +604,13 @@ class FieldTripApp {
                 
                 newImg.style.opacity = '0';
                 newImg.onload = () => {
-                    console.log('New image fully loaded, swapping instantly');
                     // Once fully loaded, replace instantly
                     illustrationContainer.innerHTML = '';
                     newImg.style.transition = 'opacity 0.3s ease';
                     newImg.style.opacity = '1';
                     illustrationContainer.appendChild(newImg);
                     this.randomIllustration = newImg;
-                    console.log('Image swapped successfully');
                 };
-                
-                console.log('Pre-loading image:', selectedIllustration);
             }
             
             // Reveal rows 1,2,4 when returning to the first view

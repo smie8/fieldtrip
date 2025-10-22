@@ -248,6 +248,55 @@ class FieldTripApp {
     }
 
     /**
+     * Initialize Section 1 exactly like a fresh page load
+     */
+    initializeSection1LikeFreshLoad() {
+        // First, ensure illustration container is visible
+        const illustrationContainer = document.querySelector('.illustration-container');
+        if (illustrationContainer) {
+            illustrationContainer.style.display = 'flex';
+        }
+        
+        // Reset ALL content to the exact same state as fresh load
+        document.querySelectorAll('#section-1 .row-1, #section-1 .row-2, #section-1 .row-3, #section-1 .row-4, #section-1 .row-5').forEach(row => {
+            // Remove all classes and inline styles
+            row.classList.remove('fade-in', 'fade-out');
+            row.removeAttribute('style');
+            // Apply the same initial state as CSS
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+        });
+        
+        // Reset illustration to same state as fresh load
+        if (this.randomIllustration) {
+            this.randomIllustration.classList.remove('fade-in', 'fade-out');
+            this.randomIllustration.removeAttribute('style');
+            this.randomIllustration.style.opacity = '0';
+            this.randomIllustration.style.transform = 'translateY(20px)';
+        }
+        
+        // Reset CTA button
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.classList.remove('fade-in', 'fade-out', 'cta-button--visible');
+            this.requestReferencesBtn.removeAttribute('style');
+            this.requestReferencesBtn.style.opacity = '0';
+            this.requestReferencesBtn.style.transform = 'translateY(20px)';
+        }
+        
+        // Reset arrow
+        if (this.arrowDown) {
+            this.arrowDown.classList.remove('fade-in', 'fade-out', 'nav-arrow--visible');
+            this.arrowDown.removeAttribute('style');
+            this.arrowDown.style.opacity = '0';
+            this.arrowDown.style.transform = 'translateY(10px)';
+        }
+        
+        // Now run the exact same sequence as fresh load
+        this.selectRandomIllustration();
+        this.fadeInContentSequence();
+    }
+
+    /**
      * Reset Section 1 content to clean state
      */
     resetSection1Content() {
@@ -722,22 +771,8 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
-            // IMMEDIATELY hide all content to prevent flash
-            this.hideAllContentImmediately();
-            
-            // First, ensure illustration container is visible
-            const illustrationContainer = document.querySelector('.illustration-container');
-            if (illustrationContainer) {
-                illustrationContainer.style.display = 'flex';
-            }
-            
-            // Reset all content to hidden state first
-            this.resetSection1Content();
-            
-            // Use the same animation sequence as initial load
-            this.hideAllContentForAnimation();
-            this.selectRandomIllustration();
-            this.fadeInContentSequence();
+            // Treat this like a fresh page load - start completely clean
+            this.initializeSection1LikeFreshLoad();
         } else if (this.currentSection === 2) {
             // Show logo and up arrow immediately
             const section2Logo = document.querySelector('#section-2 .section__logo--header');

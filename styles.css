@@ -123,9 +123,10 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: var(--spacing-md); /* Rule 4: Uniform padding */
+    padding-block: 0; /* Remove vertical padding */
+    padding-inline: var(--spacing-md); /* Keep horizontal padding */
     min-height: 0; /* Critical for inner shrink */
-    max-height: 55dvh; /* Cap to allow breathing room for bottom rows */
+    max-height: none; /* Remove height cap */
 }
 
 .row-1--header {
@@ -171,16 +172,16 @@ body {
 }
 
 .illustration {
-    max-width: 400px; /* Smaller default size for desktop */
-    max-height: 100%; /* Respect container height */
-    width: auto;
-    height: auto;
+    height: 100%; /* Fill container height */
+    max-height: none; /* Remove height constraint */
+    width: auto; /* Maintain aspect ratio */
+    max-width: none; /* Remove width constraint */
     opacity: 1;
     transition: opacity var(--animation-duration) var(--animation-easing);
     /* Prevent compositing glitches during re-paint */
     backface-visibility: hidden;
     transform: translateZ(0);
-    object-fit: contain; /* Ensure image fits within container */
+    object-fit: contain; /* Safe containment without distortion */
 }
 
 /* Mobile-specific illustration sizing - moved to main mobile block */
@@ -452,9 +453,11 @@ a {
     
     /* Mobile-specific illustration sizing */
     .illustration {
-        max-width: 95vw !important; /* Use 95% of viewport width on mobile */
-        max-height: 100% !important; /* Respect container height */
-        object-fit: contain !important; /* Ensure image fits within container */
+        height: 100% !important; /* Fill container height */
+        max-height: none !important; /* Remove height constraint */
+        width: auto !important; /* Maintain aspect ratio */
+        max-width: none !important; /* Remove width constraint */
+        object-fit: contain !important; /* Safe containment without distortion */
     }
     
     /* Hide logo in section 2 on mobile */
@@ -477,9 +480,10 @@ a {
     
     .section#section-1 .row-3 {
         flex: 1 1 auto; /* Rule 3: Fill available space for full height */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        padding-block: 0; /* Remove vertical padding */
+        padding-inline: var(--spacing-md); /* Keep horizontal padding */
         min-height: 0; /* Critical for inner shrink */
-        max-height: 50dvh; /* Mobile: More restrictive to ensure bottom elements visible */
+        max-height: none; /* Remove height constraint */
     }
     
     .section#section-1 .row-4 {
@@ -511,14 +515,16 @@ a {
     /* DESKTOP RULES: 1.Visible 2.No overlap 3.Full height 4.Uniform padding 5.Big animation */
     .row-3 {
         flex: 1 !important; /* Rule 3: Fill available space to use full height */
-        min-height: 200px; /* Rule 5: Big animation - minimum space */
+        min-height: 0; /* Allow flex shrinking */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: relative;
         z-index: 1;
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        padding-block: 0; /* Remove vertical padding */
+        padding-inline: var(--spacing-md); /* Keep horizontal padding */
+        max-height: none; /* Remove height constraint */
     }
     
     /* Desktop other rows - don't grow but don't shrink either */
@@ -709,9 +715,10 @@ a {
     
     body .section#section-1 .row-3 {
         flex: 1 1 auto; /* Rule 3: Fill available space for full height */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        padding-block: 0; /* Remove vertical padding */
+        padding-inline: var(--spacing-md); /* Keep horizontal padding */
         min-height: 0; /* Critical for inner shrink */
-        max-height: 50dvh; /* Mobile: More restrictive to ensure bottom elements visible */
+        max-height: none; /* Remove height constraint */
     }
     
     body .section#section-1 .row-4 {

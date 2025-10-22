@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustration Fix Test</title>
+    <link rel="stylesheet" href="styles.css?v=50">
+    <style>
+        body { margin: 0; padding: 20px; font-family: monospace; background: #f0f0f0; }
+        .test-container { max-width: 1200px; margin: 0 auto; }
+        .test-section { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button { background: #007cba; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a87; }
+        .results { background: #f8f9fa; padding: 15px; border-radius: 4px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; }
+        .status { padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 Illustration Scaling Fix Test</h1>
+        
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <button onclick="measureEfficiency()">Measure Efficiency</button>
+            <button onclick="openMainSite()">Open Main Site</button>
+            <button onclick="visualDebug()">Visual Debug</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Results</h2>
+            <div id="results" class="results">Click "Measure Efficiency" to test the fixes...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>Applied Fixes</h2>
+            <div class="results">
+✅ REMOVED vertical padding from .row-3
+✅ REMOVED max-height constraints from .row-3  
+✅ SET illustration height: 100%
+✅ REMOVED max-height from illustration
+✅ REMOVED max-width constraints from illustration
+✅ SET object-fit: contain for safe scaling
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=18"></script>
+    <script src="measure-illustration.js"></script>
+    <script>
+        function measureEfficiency() {
+            const results = document.getElementById('results');
+            
+            // Run the measurement script
+            try {
+                eval(measurementScript);
+                
+                // Display results
+                results.innerHTML = 'Measurement completed. Check console for detailed results.';
+                
+            } catch (error) {
+                results.innerHTML = 'Error running measurement: ' + error.message;
+            }
+        }
+
+        function openMainSite() {
+            window.open('index.html', '_blank');
+        }
+
+        function visualDebug() {
+            // Remove existing debug elements
+            document.querySelectorAll('.debug-tag').forEach(el => el.remove());
+            document.querySelectorAll('.row-1,.row-2,.row-3,.row-4,.row-5').forEach(el => {
+                el.style.outline = '';
+            });
+
+            // Add visual debug to main site
+            const mainWindow = window.open('index.html', '_blank');
+            if (mainWindow) {
+                mainWindow.addEventListener('load', function() {
+                    setTimeout(() => {
+                        mainWindow.document.querySelectorAll('.row-1,.row-2,.row-3,.row-4,.row-5').forEach(n=>{
+                            n.style.outline='2px dashed rgba(255,0,0,0.5)';
+                            n.style.position='relative';
+                            const tag=mainWindow.document.createElement('div');
+                            tag.className = 'debug-tag';
+                            tag.textContent=n.className + ' (' + Math.round(n.getBoundingClientRect().height) + 'px)';
+                            Object.assign(tag.style,{
+                                position:'absolute',
+                                top:'0',
+                                left:'0',
+                                fontSize:'10px',
+                                background:'rgba(255,0,0,0.8)',
+                                color:'white',
+                                padding:'2px',
+                                zIndex:'1000'
+                            });
+                            n.appendChild(tag);
+                        });
+                    }, 1000);
+                });
+            }
+        }
+
+        // Store the measurement script for re-running
+        const measurementScript = `
+console.log('🔍 ILLUSTRATION EFFICIENCY MEASUREMENT');
+console.log('=====================================');
+
+const section = document.querySelector('.section.section--active');
+const row3 = document.querySelector('.row-3');
+const img = row3?.querySelector('img');
+
+if (section && row3 && img) {
+    const sectionRect = section.getBoundingClientRect();
+    const row3Rect = row3.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+    
+    const efficiency = Math.round((imgRect.height / row3Rect.height) * 100);
+    
+    console.log('MEASUREMENTS:');
+    console.log('Section height:', Math.round(sectionRect.height));
+    console.log('Row-3 height:', Math.round(row3Rect.height));
+    console.log('Image height:', Math.round(imgRect.height));
+    console.log('EFFICIENCY:', efficiency + '%');
+    
+    if (efficiency < 90) {
+        console.log('⚠️  LOW EFFICIENCY DETECTED - May need additional fixes');
+    } else {
+        console.log('✅ Good efficiency - fixes working!');
+    }
+} else {
+    console.log('❌ Missing elements');
+}
+        `;
+    </script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustration Scaling Diagnostic</title>
+    <link rel="stylesheet" href="styles.css?v=49">
+    <style>
+        body { margin: 0; padding: 20px; font-family: monospace; background: #f0f0f0; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button { background: #007cba; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a87; }
+        .results { background: #f8f9fa; padding: 15px; border-radius: 4px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; }
+        .status { padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Illustration Scaling Diagnostic</h1>
+        
+        <div class="section">
+            <h2>Test Controls</h2>
+            <button onclick="runDiagnostic()">Run Full Diagnostic</button>
+            <button onclick="clearResults()">Clear Results</button>
+            <button onclick="openMainSite()">Open Main Site</button>
+        </div>
+
+        <div class="section">
+            <h2>Quick Tests</h2>
+            <button onclick="measureHeights()">Measure Heights</button>
+            <button onclick="checkConstraints()">Check Constraints</button>
+            <button onclick="testFlexBehavior()">Test Flex Behavior</button>
+            <button onclick="visualDebug()">Visual Debug</button>
+        </div>
+
+        <div class="section">
+            <h2>Results</h2>
+            <div id="results" class="results">Click "Run Full Diagnostic" to start analysis...</div>
+        </div>
+
+        <div class="section">
+            <h2>Recommendations</h2>
+            <div id="recommendations" class="results">Run diagnostic first to get recommendations...</div>
+        </div>
+    </div>
+
+    <script src="app.js?v=18"></script>
+    <script src="illustration-diagnostic.js"></script>
+    <script>
+        function runDiagnostic() {
+            const results = document.getElementById('results');
+            const recommendations = document.getElementById('recommendations');
+            
+            // Clear previous results
+            results.innerHTML = '';
+            recommendations.innerHTML = '';
+            
+            // Capture console output
+            const originalLog = console.log;
+            let output = '';
+            console.log = function(...args) {
+                output += args.join(' ') + '\n';
+                originalLog.apply(console, args);
+            };
+            
+            // Run the diagnostic
+            try {
+                // Re-run the diagnostic script
+                eval(illustrationDiagnosticScript);
+                
+                // Restore console.log
+                console.log = originalLog;
+                
+                // Display results
+                results.innerHTML = output;
+                
+                // Generate recommendations
+                generateRecommendations();
+                
+            } catch (error) {
+                results.innerHTML = 'Error running diagnostic: ' + error.message;
+            }
+        }
+
+        function measureHeights() {
+            const app = document.querySelector('.app-container');
+            const layout = document.querySelector('.layout-container');
+            const section = document.querySelector('.section.section--active');
+            const row3 = document.querySelector('.row-3');
+            const ill = row3?.querySelector('img, video, canvas');
+
+            let output = 'HEIGHT MEASUREMENTS:\n';
+            output += '===================\n\n';
+
+            function box(name, el) {
+                if (!el) return output += name + ' MISSING\n';
+                const r = el.getBoundingClientRect();
+                const cs = getComputedStyle(el);
+                output += name + ': ' + Math.round(r.height) + 'px (padding: ' + cs.paddingTop + ' + ' + cs.paddingBottom + ')\n';
+            }
+
+            box('app', app);
+            box('layout', layout);
+            box('section', section);
+            box('row-3', row3);
+            if (ill) box('illustration', ill);
+
+            document.getElementById('results').innerHTML = output;
+        }
+
+        function checkConstraints() {
+            let output = 'HEIGHT CONSTRAINTS:\n';
+            output += '===================\n\n';
+
+            ['.row-3','.row-3 img','.row-3 picture','.illustration'].forEach(sel=>{
+                const n=document.querySelector(sel);
+                if(!n) return;
+                const cs=getComputedStyle(n);
+                output += sel + ':\n';
+                output += '  maxHeight: ' + cs.maxHeight + '\n';
+                output += '  minHeight: ' + cs.minHeight + '\n';
+                output += '  height: ' + cs.height + '\n';
+                output += '  objectFit: ' + cs.objectFit + '\n';
+                output += '  aspectRatio: ' + cs.aspectRatio + '\n\n';
+            });
+
+            document.getElementById('results').innerHTML = output;
+        }
+
+        function testFlexBehavior() {
+            let output = 'FLEX BEHAVIOR:\n';
+            output += '==============\n\n';
+
+            ['.layout-container','.section.section--active','.row-3'].forEach(sel=>{
+                const n=document.querySelector(sel);
+                if(n){
+                    const cs=getComputedStyle(n);
+                    output += sel + ':\n';
+                    output += '  display: ' + cs.display + '\n';
+                    output += '  flexDirection: ' + cs.flexDirection + '\n';
+                    output += '  alignItems: ' + cs.alignItems + '\n';
+                    output += '  justifyContent: ' + cs.justifyContent + '\n';
+                    output += '  flex: ' + cs.flex + '\n\n';
+                }
+            });
+
+            document.getElementById('results').innerHTML = output;
+        }
+
+        function visualDebug() {
+            // Remove existing debug elements
+            document.querySelectorAll('.debug-tag').forEach(el => el.remove());
+            document.querySelectorAll('.row-1,.row-2,.row-3,.row-4,.row-5').forEach(el => {
+                el.style.outline = '';
+            });
+
+            // Add visual debug
+            document.querySelectorAll('.row-1,.row-2,.row-3,.row-4,.row-5').forEach(n=>{
+                n.style.outline='2px dashed rgba(255,0,0,0.5)';
+                n.style.position='relative';
+                const tag=document.createElement('div');
+                tag.className = 'debug-tag';
+                tag.textContent=n.className + ' (' + Math.round(n.getBoundingClientRect().height) + 'px)';
+                Object.assign(tag.style,{
+                    position:'absolute',
+                    top:'0',
+                    left:'0',
+                    fontSize:'10px',
+                    background:'rgba(255,0,0,0.8)',
+                    color:'white',
+                    padding:'2px',
+                    zIndex:'1000'
+                });
+                n.appendChild(tag);
+            });
+
+            document.getElementById('results').innerHTML = 'Visual debug applied! Check the main site for red outlines showing row heights.';
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = 'Results cleared.';
+            document.getElementById('recommendations').innerHTML = 'Run diagnostic first to get recommendations...';
+            
+            // Remove visual debug
+            document.querySelectorAll('.debug-tag').forEach(el => el.remove());
+            document.querySelectorAll('.row-1,.row-2,.row-3,.row-4,.row-5').forEach(el => {
+                el.style.outline = '';
+            });
+        }
+
+        function openMainSite() {
+            window.open('index.html', '_blank');
+        }
+
+        function generateRecommendations() {
+            const row3 = document.querySelector('.row-3');
+            const ill = row3?.querySelector('img, video, canvas');
+            
+            if (!row3 || !ill) {
+                document.getElementById('recommendations').innerHTML = 'Cannot generate recommendations - missing elements.';
+                return;
+            }
+
+            const row3Rect = row3.getBoundingClientRect();
+            const illRect = ill.getBoundingClientRect();
+            const row3Style = getComputedStyle(row3);
+            const illStyle = getComputedStyle(ill);
+            
+            const paddingTop = parseFloat(row3Style.paddingTop) || 0;
+            const paddingBottom = parseFloat(row3Style.paddingBottom) || 0;
+            const availableHeight = row3Rect.height - paddingTop - paddingBottom;
+            const usedHeight = illRect.height;
+            const efficiency = Math.round((usedHeight / availableHeight) * 100);
+            
+            let recommendations = 'RECOMMENDATIONS:\n';
+            recommendations += '================\n\n';
+            
+            if (efficiency < 80) {
+                recommendations += '⚠️  LOW EFFICIENCY: Illustration uses only ' + efficiency + '% of available space\n\n';
+                
+                if (parseFloat(row3Style.maxHeight) < 60) {
+                    recommendations += '🔧 INCREASE max-height: .row-3 { max-height: 60dvh; }\n';
+                }
+                
+                if (illStyle.objectFit !== 'contain') {
+                    recommendations += '🔧 SET object-fit: .illustration { object-fit: contain; }\n';
+                }
+                
+                if (illStyle.height !== '100%') {
+                    recommendations += '🔧 SET height: .illustration { height: 100%; }\n';
+                }
+                
+                if (paddingTop > 0 || paddingBottom > 0) {
+                    recommendations += '🔧 REDUCE padding: .row-3 { padding-block: 0; }\n';
+                }
+                
+                if (row3Style.alignItems !== 'stretch') {
+                    recommendations += '🔧 SET alignment: .row-3 { align-items: stretch; }\n';
+                }
+            } else {
+                recommendations += '✅ GOOD EFFICIENCY: Illustration uses ' + efficiency + '% of available space\n';
+            }
+            
+            recommendations += '\n📊 SPACE ANALYSIS:\n';
+            recommendations += 'Available height: ' + Math.round(availableHeight) + 'px\n';
+            recommendations += 'Used height: ' + Math.round(usedHeight) + 'px\n';
+            recommendations += 'Wasted space: ' + Math.round(availableHeight - usedHeight) + 'px\n';
+            
+            document.getElementById('recommendations').innerHTML = recommendations;
+        }
+
+        // Store the diagnostic script for re-running
+        const illustrationDiagnosticScript = `
+console.log('🔍 ILLUSTRATION SCALING DIAGNOSTIC');
+console.log('=====================================');
+
+// A. Measure Available vs Used Space
+console.log('\\n📏 A. HEIGHT CHAIN ANALYSIS');
+console.log('----------------------------');
+
+const app = document.querySelector('.app-container');
+const layout = document.querySelector('.layout-container');
+const section = document.querySelector('.section.section--active');
+const row3 = document.querySelector('.row-3');
+const ill = row3?.querySelector('img, video, canvas');
+
+function box(name, el) {
+  if (!el) return console.log(name, 'MISSING');
+  const r = el.getBoundingClientRect();
+  const cs = getComputedStyle(el);
+  console.log(name, {
+    height: Math.round(r.height),
+    paddingTop: cs.paddingTop,
+    paddingBottom: cs.paddingBottom,
+    marginTop: cs.marginTop,
+    marginBottom: cs.marginBottom
+  });
+}
+
+box('app', app);
+box('layout', layout);
+box('section', section);
+box('row-3', row3);
+if (ill) box('illustration', ill);
+
+// B. Identify Height Constraints
+console.log('\\n🔒 B. HEIGHT CONSTRAINTS ANALYSIS');
+console.log('----------------------------------');
+
+['.row-3','.row-3 img','.row-3 picture','.illustration'].forEach(sel=>{
+  const n=document.querySelector(sel);
+  if(!n) return;
+  const cs=getComputedStyle(n);
+  console.log(sel,{
+    maxHeight: cs.maxHeight,
+    minHeight: cs.minHeight,
+    height: cs.height,
+    flex: cs.flex,
+    alignItems: cs.alignItems,
+    justifyContent: cs.justifyContent,
+    objectFit: cs.objectFit,
+    aspectRatio: cs.aspectRatio,
+    width: cs.width
+  });
+});
+
+// C. Check Flex Behavior
+console.log('\\n📐 C. FLEX BEHAVIOR ANALYSIS');
+console.log('-----------------------------');
+
+['.layout-container','.section.section--active','.row-3'].forEach(sel=>{
+  const n=document.querySelector(sel);
+  if(n){
+    const cs=getComputedStyle(n);
+    console.log(sel,{
+      display: cs.display,
+      flexDirection: cs.flexDirection,
+      alignItems: cs.alignItems,
+      justifyContent: cs.justifyContent,
+      flex: cs.flex,
+      flexGrow: cs.flexGrow,
+      flexShrink: cs.flexShrink,
+      flexBasis: cs.flexBasis
+    });
+  }
+});
+
+// D. Padding & Margin Audit
+console.log('\\n📦 D. SPACING AUDIT');
+console.log('--------------------');
+
+const el=document.querySelector('.row-3');
+if(el){
+  const cs=getComputedStyle(el);
+  console.log('row-3 spacing',{
+    paddingTop: cs.paddingTop,
+    paddingBottom: cs.paddingBottom,
+    paddingLeft: cs.paddingLeft,
+    paddingRight: cs.paddingRight,
+    marginTop: cs.marginTop,
+    marginBottom: cs.marginBottom,
+    marginLeft: cs.marginLeft,
+    marginRight: cs.marginRight
+  });
+}
+
+// E. Calculate Available Space
+console.log('\\n🧮 E. AVAILABLE SPACE CALCULATION');
+console.log('----------------------------------');
+
+if (row3 && ill) {
+  const row3Rect = row3.getBoundingClientRect();
+  const illRect = ill.getBoundingClientRect();
+  const row3Style = getComputedStyle(row3);
+  
+  const paddingTop = parseFloat(row3Style.paddingTop) || 0;
+  const paddingBottom = parseFloat(row3Style.paddingBottom) || 0;
+  const availableHeight = row3Rect.height - paddingTop - paddingBottom;
+  const usedHeight = illRect.height;
+  const efficiency = Math.round((usedHeight / availableHeight) * 100);
+  
+  console.log('Space utilization:', {
+    availableHeight: Math.round(availableHeight),
+    usedHeight: Math.round(usedHeight),
+    efficiency: efficiency + '%',
+    wastedSpace: Math.round(availableHeight - usedHeight)
+  });
+}
+
+// F. Viewport Context
+console.log('\\n📱 F. VIEWPORT CONTEXT');
+console.log('------------------------');
+
+console.log('Viewport info:', {
+  innerHeight: window.innerHeight,
+  visualViewportHeight: window.visualViewport?.height || 'N/A',
+  dvh: window.innerHeight,
+  cssVh: getComputedStyle(document.documentElement).getPropertyValue('--vh'),
+  devicePixelRatio: window.devicePixelRatio
+});
+
+// G. Media Query Status
+console.log('\\n📺 G. MEDIA QUERY STATUS');
+console.log('-------------------------');
+
+['(max-width: 480px)','(max-width: 768px)','(min-width: 769px)'].forEach(q=>{
+  console.log(q, matchMedia(q).matches);
+});
+
+console.log('\\n✅ DIAGNOSTIC COMPLETE');
+console.log('======================');
+        `;
+    </script>
+</body>
+</html>

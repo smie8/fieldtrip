@@ -94,6 +94,9 @@ body {
     padding: 0;
     /* Mobile: Use normal flow to prevent overlap */
     justify-content: flex-start;
+    /* Allow inner flex shrink to prevent clipping */
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 /* 5-row layout system - unified padding */
@@ -115,12 +118,14 @@ body {
 }
 
 .row-3 { 
-    flex: 1; /* Allow growth for animation space */
+    flex: 1 1 auto; /* Allow growth and shrink for animation space */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: var(--spacing-md); /* Rule 4: Uniform padding */
+    min-height: 0; /* Critical for inner shrink */
+    max-height: 55dvh; /* Cap to allow breathing room for bottom rows */
 }
 
 .row-1--header {
@@ -145,6 +150,9 @@ body {
     transition: opacity var(--animation-duration) var(--animation-easing), 
                 visibility var(--animation-duration) var(--animation-easing),
                 transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Allow inner flex shrink to prevent clipping */
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .section--active {
@@ -164,7 +172,7 @@ body {
 
 .illustration {
     max-width: 400px; /* Smaller default size for desktop */
-    max-height: 400px; /* Smaller default size for desktop */
+    max-height: 100%; /* Respect container height */
     width: auto;
     height: auto;
     opacity: 1;
@@ -172,6 +180,7 @@ body {
     /* Prevent compositing glitches during re-paint */
     backface-visibility: hidden;
     transform: translateZ(0);
+    object-fit: contain; /* Ensure image fits within container */
 }
 
 /* Mobile-specific illustration sizing - moved to main mobile block */
@@ -444,7 +453,8 @@ a {
     /* Mobile-specific illustration sizing */
     .illustration {
         max-width: 95vw !important; /* Use 95% of viewport width on mobile */
-        max-height: 70vh !important; /* Use 70% of viewport height on mobile */
+        max-height: 100% !important; /* Respect container height */
+        object-fit: contain !important; /* Ensure image fits within container */
     }
     
     /* Hide logo in section 2 on mobile */
@@ -466,10 +476,10 @@ a {
     }
     
     .section#section-1 .row-3 {
-        flex: 1; /* Rule 3: Fill available space for full height */
+        flex: 1 1 auto; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        min-height: 300px; /* Rule 5: Big animation - minimum space */
-        max-height: 80vh; /* Rule 5: Big animation - use available space */
+        min-height: 0; /* Critical for inner shrink */
+        max-height: 50dvh; /* Mobile: More restrictive to ensure bottom elements visible */
     }
     
     .section#section-1 .row-4 {
@@ -698,10 +708,10 @@ a {
     }
     
     body .section#section-1 .row-3 {
-        flex: 1; /* Rule 3: Fill available space for full height */
+        flex: 1 1 auto; /* Rule 3: Fill available space for full height */
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        min-height: 300px; /* Rule 5: Big animation - minimum space */
-        max-height: 80vh; /* Rule 5: Big animation - use available space */
+        min-height: 0; /* Critical for inner shrink */
+        max-height: 50dvh; /* Mobile: More restrictive to ensure bottom elements visible */
     }
     
     body .section#section-1 .row-4 {

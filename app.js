@@ -251,13 +251,33 @@ class FieldTripApp {
      * Initialize Section 1 exactly like a fresh page load
      */
     initializeSection1LikeFreshLoad() {
+        // First, completely reset all content to hidden state
+        const section1 = document.querySelector('#section-1');
+        const allElements = section1.querySelectorAll('.row-1, .row-2, .row-3, .row-4, .row-5, .illustration, .cta-button, .nav-arrow');
+        
+        // Force all elements to hidden state with no transitions
+        allElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'none';
+            el.classList.remove('fade-in', 'fade-out', 'cta-button--visible', 'nav-arrow--visible');
+        });
+        
         // Ensure illustration container is visible
         const illustrationContainer = document.querySelector('.illustration-container');
         if (illustrationContainer) {
             illustrationContainer.style.display = 'flex';
         }
         
-        // Use the same animation sequence as initial load
+        // Force a reflow to ensure hidden state is applied
+        void section1.offsetHeight;
+        
+        // Re-enable transitions
+        allElements.forEach(el => {
+            el.style.transition = '';
+        });
+        
+        // Now start the animation sequence
         this.selectRandomIllustration();
         this.fadeInContentSequence();
     }

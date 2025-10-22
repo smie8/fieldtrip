@@ -251,54 +251,13 @@ class FieldTripApp {
      * Initialize Section 1 exactly like a fresh page load
      */
     initializeSection1LikeFreshLoad() {
-        const section1 = document.querySelector('#section-1');
-        
-        // STEP 1: Hide all elements BEFORE making section visible (prevents flash)
-        // Hide rows but NOT illustration (it needs to be visible for selectRandomIllustration to work)
-        const rows = section1.querySelectorAll('.row-1, .row-2, .row-4, .row-5');
-        rows.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'none';
-            el.classList.remove('fade-in', 'fade-out', 'cta-button--visible', 'nav-arrow--visible');
-        });
-        
-        // Hide CTA button and arrow
-        if (this.requestReferencesBtn) {
-            this.requestReferencesBtn.style.opacity = '0';
-            this.requestReferencesBtn.style.transform = 'translateY(20px)';
-            this.requestReferencesBtn.style.transition = 'none';
-            this.requestReferencesBtn.classList.remove('fade-in', 'fade-out', 'cta-button--visible');
+        // Ensure illustration container is visible
+        const illustrationContainer = document.querySelector('.illustration-container');
+        if (illustrationContainer) {
+            illustrationContainer.style.display = 'flex';
         }
         
-        if (this.arrowDown) {
-            this.arrowDown.style.opacity = '0';
-            this.arrowDown.style.transform = 'translateY(10px)';
-            this.arrowDown.style.transition = 'none';
-            this.arrowDown.classList.remove('fade-in', 'fade-out', 'nav-arrow--visible');
-        }
-        
-        // STEP 2: Make section visible but content is already hidden
-        section1.style.display = 'flex';
-        section1.style.opacity = '1';
-        
-        // STEP 3: Force reflow to ensure hidden state is committed
-        void section1.offsetHeight;
-        
-        // STEP 4: Re-enable transitions
-        rows.forEach(el => {
-            el.style.transition = '';
-        });
-        
-        if (this.requestReferencesBtn) {
-            this.requestReferencesBtn.style.transition = '';
-        }
-        
-        if (this.arrowDown) {
-            this.arrowDown.style.transition = '';
-        }
-        
-        // STEP 5: Start animation sequence
+        // Use the same animation sequence as initial load
         this.selectRandomIllustration();
         this.fadeInContentSequence();
     }

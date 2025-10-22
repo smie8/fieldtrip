@@ -224,10 +224,6 @@ body {
                 transform var(--animation-duration) var(--animation-easing);
 }
 
-.section__content--visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 /* Load animation sequence classes */
 .fade-in {
@@ -267,12 +263,6 @@ body {
 #section-1.hidden .row-5 {
     opacity: 0;
     transition: none;
-}
-
-/* Ensure illustration starts hidden (Section 1 only) */
-#section-1 .illustration {
-    opacity: 0;
-    transform: translateY(20px);
 }
 
 .section__content {
@@ -535,13 +525,6 @@ a {
         max-width: none !important; /* Remove width constraint - as big as possible */
         min-width: 250px !important; /* Ensure minimum size */
         object-fit: contain !important; /* Safe containment without distortion */
-    }
-    
-    /* Additional mobile illustration override */
-    #section-1 .illustration {
-        max-width: none !important;
-        width: auto !important;
-        height: 100% !important;
     }
     
     /* Hide logo in section 2 on mobile */
@@ -818,15 +801,6 @@ a {
     
     
     /* High-specificity overrides removed - using unified mobile rules above */
-    
-    body .section#section-2 .cta-button {
-        display: block !important;
-        visibility: visible !important;
-        margin-top: 0.25rem !important;
-        margin-bottom: 0.5rem !important;
-        min-height: auto !important; /* Use global button height */
-        padding: 0.5rem 1rem !important; /* Smaller padding for mobile */
-    }
 }
 
 /* Additional mobile styles consolidated into main mobile block above */
@@ -915,17 +889,11 @@ a {
         transform: none;
     }
     
-    /* Arrow centered - use viewport-relative positioning */
-    #section-2 .nav-arrow--up {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
+    /* Arrow centered - inherits mobile positioning */
     
     /* Show logo in section 2 on desktop */
     #section-2 .section__logo--header {
-        display: block !important; /* Force show logo on desktop */
+        display: block; /* Override mobile display: none */
     }
     
     #section-2 .row-3 {

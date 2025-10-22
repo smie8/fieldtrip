@@ -819,20 +819,25 @@ a {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: var(--spacing-md);
+        padding: var(--spacing-xl) var(--spacing-md) var(--spacing-md) var(--spacing-md); /* More top padding for desktop */
         position: relative; /* For absolute positioning of arrow */
     }
     
     /* Logo on the left */
     #section-2 .section__logo--header {
         flex: 0 0 auto;
+        position: static; /* Use normal flow instead of absolute positioning */
+        left: auto;
+        top: auto;
+        transform: none;
     }
     
     /* Arrow centered - use viewport-relative positioning */
     #section-2 .nav-arrow--up {
         position: absolute;
         left: 50vw;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
     
     /* Show logo in section 2 on desktop */

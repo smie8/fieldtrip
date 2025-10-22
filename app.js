@@ -156,13 +156,7 @@ class FieldTripApp {
      * Setup initial state - hide all content except illustration and down arrow
      */
     setupInitialState() {
-        // DEBUG: Show all content immediately instead of hiding it
-        document.querySelectorAll('.row-1, .row-2, .row-4').forEach(row => {
-            row.style.opacity = '1';
-            row.style.transform = 'translateY(0)';
-            row.style.transition = 'none';
-        });
-        
+        // Set up initial state without showing content (animation will handle visibility)
         // Keep down arrow always visible and ensure it's protected
         this.arrowDown.classList.add('nav-arrow--visible');
         this.ensureBottomArrowVisibility();
@@ -173,30 +167,88 @@ class FieldTripApp {
         // Hide contact overlay
         this.contactOverlay.classList.remove('contact-overlay--visible');
         
-        // Show CTA button immediately
-        this.requestReferencesBtn.classList.add('cta-button--visible');
+        // CTA button will be shown by animation sequence
     }
 
     /**
      * Start the initial load animation sequence
      */
     startInitialLoadSequence() {
-        // Select and display random illustration
+        // First, hide all content except illustration
+        this.hideAllContentForAnimation();
+        
+        // Step 1: Select and display random illustration first
         this.selectRandomIllustration();
         
-        // Show content immediately without delay
-        document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
-            row.style.opacity = '1';
-            row.style.transform = 'translateY(0)';
-            row.style.transition = 'none';
+        // Step 2-5: Fade in other rows in sequence after illustration is ready
+        this.fadeInContentSequence();
+    }
+
+    /**
+     * Hide all content for animation sequence
+     */
+    hideAllContentForAnimation() {
+        // Hide all rows except row-3 (illustration)
+        document.querySelectorAll('.row-1, .row-2, .row-4, .row-5').forEach(row => {
+            row.classList.add('fade-out');
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
         });
         
-        // Also ensure CTA button is visible
+        // Hide CTA button
         if (this.requestReferencesBtn) {
-            this.requestReferencesBtn.style.opacity = '1';
-            this.requestReferencesBtn.style.transform = 'translateY(0)';
-            this.requestReferencesBtn.classList.add('cta-button--visible');
+            this.requestReferencesBtn.style.opacity = '0';
+            this.requestReferencesBtn.style.transform = 'translateY(20px)';
         }
+        
+        // Hide down arrow
+        if (this.arrowDown) {
+            this.arrowDown.style.opacity = '0';
+            this.arrowDown.style.transform = 'translateY(10px)';
+        }
+    }
+
+    /**
+     * Fade in content in the correct sequence
+     */
+    fadeInContentSequence() {
+        const fadeIn = (selector, delay) => {
+            setTimeout(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.classList.remove('fade-out');
+                    element.classList.add('fade-in');
+                }
+            }, delay);
+        };
+
+        // Step 1: Illustration fades in first (handled by selectRandomIllustration)
+        // Step 2: Logo (row-1) fades in after illustration
+        fadeIn('.row-1', 800);
+        
+        // Step 3: Text (row-2) fades in
+        fadeIn('.row-2', 1000);
+        
+        // Step 4: CTA button (row-4) fades in
+        fadeIn('.row-4', 1600);
+        
+        // Step 5: Arrow (row-5) fades in last
+        fadeIn('.row-5', 2000);
+        
+        // Also fade in CTA button and arrow with their respective rows
+        setTimeout(() => {
+            if (this.requestReferencesBtn) {
+                this.requestReferencesBtn.classList.add('fade-in');
+                this.requestReferencesBtn.classList.add('cta-button--visible');
+            }
+        }, 1600);
+        
+        setTimeout(() => {
+            if (this.arrowDown) {
+                this.arrowDown.classList.add('fade-in');
+                this.arrowDown.classList.add('nav-arrow--visible');
+            }
+        }, 2000);
     }
 
     /**
@@ -254,7 +306,7 @@ class FieldTripApp {
             // Fade in image after it's loaded
             this.randomIllustration.onload = () => {
                 setTimeout(() => {
-                    this.randomIllustration.style.opacity = '1';
+                    this.randomIllustration.classList.add('fade-in');
                 }, 50);
             };
         }, 50);

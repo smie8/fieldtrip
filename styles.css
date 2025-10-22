@@ -510,13 +510,21 @@ a {
         height: auto;
     }
     
-    /* Mobile-specific illustration sizing */
+    /* Mobile-specific illustration sizing - FORCE LARGE SIZE */
     .illustration {
         height: 100% !important; /* Fill container height */
         max-height: none !important; /* Remove height constraint */
         width: auto !important; /* Maintain aspect ratio */
         max-width: none !important; /* Remove width constraint - as big as possible */
+        min-width: 250px !important; /* Ensure minimum size */
         object-fit: contain !important; /* Safe containment without distortion */
+    }
+    
+    /* Additional mobile illustration override */
+    #section-1 .illustration {
+        max-width: none !important;
+        width: auto !important;
+        height: 100% !important;
     }
     
     /* Hide logo in section 2 on mobile */

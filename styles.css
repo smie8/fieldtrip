@@ -78,6 +78,8 @@ body {
 
 /* Main app container */
 .app-container {
+    height: 100dvh;
+    min-height: 100dvh;
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
@@ -90,14 +92,14 @@ body {
 /* Layout containers for consistent structure */
 .layout-container {
     width: 100%;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100); /* JavaScript-calculated viewport height */
+    height: 100dvh;
+    min-height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 0;
-    /* Mobile: Use normal flow to prevent overlap */
-    justify-content: flex-start;
-    /* Allow inner flex shrink to prevent clipping */
     flex: 1 1 auto;
     min-height: 0;
 }
@@ -127,6 +129,7 @@ body {
     align-items: center;
     justify-content: center;
     padding-block: var(--spacing-sm);
+    max-height: none; /* Remove any height constraints */
 }
 
 .row-1--header {
@@ -154,7 +157,7 @@ body {
     /* Flex layout for proper space distribution */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     /* Allow inner flex shrink to prevent clipping */
     flex: 1 1 auto;
     min-height: 0;
@@ -561,7 +564,7 @@ a {
         padding-block: 0; /* Remove vertical padding */
         padding-inline: var(--spacing-md); /* Keep horizontal padding */
         min-height: 0; /* Critical for inner shrink */
-        max-height: 60vh; /* Prevent illustration from taking too much space */
+        max-height: none; /* Remove height constraint */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -570,14 +573,13 @@ a {
     .section#section-1 .row-4 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding */
-        margin-top: auto; /* Push to bottom of available space */
     }
     
     /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Minimal padding all around */
-        margin-bottom: 0; /* Remove margin, use padding instead */
+        padding-bottom: env(safe-area-inset-bottom); /* Safe area for iPhone */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure arrow stays above other content */
         min-height: 30px; /* Further reduced height */
@@ -825,29 +827,7 @@ a {
         padding: var(--spacing-md); /* Rule 4: Uniform padding */
     }
     
-    body .section#section-1 .row-3 {
-        flex: 1 1 auto; /* Rule 3: Fill available space for full height */
-        padding-block: 0; /* Remove vertical padding */
-        padding-inline: var(--spacing-md); /* Keep horizontal padding */
-        min-height: 0; /* Critical for inner shrink */
-        max-height: 60vh; /* Prevent illustration from taking too much space */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    body .section#section-1 .row-4 {
-        flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding to match mobile fix */
-        margin-top: auto; /* Push to bottom of available space */
-    }
-    
-    body .section#section-1 .row-5 {
-        flex: 0 0 auto; /* Rule 2: Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Minimal padding to match mobile fix */
-        margin-bottom: 0; /* Remove margin that was causing spacing issues */
-        min-height: 30px; /* Reduced height to match mobile fix */
-    }
+    /* High-specificity overrides removed - using unified mobile rules above */
     
     body .section#section-2 .cta-button {
         display: block !important;

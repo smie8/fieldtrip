@@ -3,20 +3,16 @@
  * Implements all animation sequences, navigation, and overlay functionality
  */
 
-// --- Fix: iOS Safari viewport height normalization ---
+// Simplified viewport height handling for consistent behavior
 function setVHVar() {
-  // Use visualViewport when available (iOS 15+)
-  const vh = window.visualViewport
-    ? window.visualViewport.height * 0.01
-    : window.innerHeight * 0.01;
+  const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 setVHVar();
 
-// Keep updated when bars expand/collapse or rotation changes
-window.visualViewport?.addEventListener('resize', setVHVar);
-window.addEventListener('orientationchange', setVHVar);
+// Update on resize and orientation change
 window.addEventListener('resize', setVHVar);
+window.addEventListener('orientationchange', setVHVar);
 
 // Optional verification snippet
 console.log('Viewport test', {

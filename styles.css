@@ -176,9 +176,9 @@ body {
 }
 
 .illustration {
-    height: auto;
-    max-height: 65dvh;      /* cap relative to dynamic viewport */
-    min-height: 45dvh;      /* avoid shrinking too much on short screens */
+    height: 100%;           /* Fill container height */
+    max-height: 70dvh;      /* Allow more space */
+    min-height: 50dvh;       /* Ensure minimum size */
     width: auto;
     object-fit: contain;
     opacity: 1;
@@ -568,13 +568,11 @@ a {
     /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        /* Basic protection - scaling will handle the rest */
-        padding-bottom: var(--spacing-md); /* Minimal bottom padding */
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Reduced top/bottom padding */
         margin-bottom: 0; /* Remove margin, use padding instead */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure arrow stays above other content */
-        min-height: 80px; /* Reduced since scaling handles fit */
+        min-height: 60px; /* Reduced height */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -647,12 +645,12 @@ a {
         position: relative;
     }
     
-    /* Mobile up arrow - positioned in header row */
+    /* Mobile up arrow - centered in header row */
     #section-2 .nav-arrow--up {
-        position: static !important;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
         z-index: 10 !important;
         /* Ensure arrow doesn't affect layout */
         pointer-events: auto;

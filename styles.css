@@ -666,12 +666,12 @@ a {
         transform: none !important;
     }
     
-    /* Mobile up arrow - positioned to prevent layout shifts */
+    /* Mobile up arrow - centered but positioned to prevent layout shifts */
     #section-2 .nav-arrow--up {
         position: absolute !important;
-        right: var(--spacing-md) !important;
+        left: 50% !important;
         top: 50% !important;
-        transform: translateY(-50%) !important;
+        transform: translate(-50%, -50%) !important;
         z-index: 10 !important;
         /* Ensure arrow doesn't affect layout */
         pointer-events: auto;

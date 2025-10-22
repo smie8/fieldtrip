@@ -252,15 +252,31 @@ class FieldTripApp {
      */
     initializeSection1LikeFreshLoad() {
         const section1 = document.querySelector('#section-1');
-        const allElements = section1.querySelectorAll('.row-1, .row-2, .row-3, .row-4, .row-5, .illustration, .cta-button, .nav-arrow');
         
         // STEP 1: Hide all elements BEFORE making section visible (prevents flash)
-        allElements.forEach(el => {
+        // Hide rows but NOT illustration (it needs to be visible for selectRandomIllustration to work)
+        const rows = section1.querySelectorAll('.row-1, .row-2, .row-4, .row-5');
+        rows.forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'none';
             el.classList.remove('fade-in', 'fade-out', 'cta-button--visible', 'nav-arrow--visible');
         });
+        
+        // Hide CTA button and arrow
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.style.opacity = '0';
+            this.requestReferencesBtn.style.transform = 'translateY(20px)';
+            this.requestReferencesBtn.style.transition = 'none';
+            this.requestReferencesBtn.classList.remove('fade-in', 'fade-out', 'cta-button--visible');
+        }
+        
+        if (this.arrowDown) {
+            this.arrowDown.style.opacity = '0';
+            this.arrowDown.style.transform = 'translateY(10px)';
+            this.arrowDown.style.transition = 'none';
+            this.arrowDown.classList.remove('fade-in', 'fade-out', 'nav-arrow--visible');
+        }
         
         // STEP 2: Make section visible but content is already hidden
         section1.style.display = 'flex';
@@ -270,9 +286,17 @@ class FieldTripApp {
         void section1.offsetHeight;
         
         // STEP 4: Re-enable transitions
-        allElements.forEach(el => {
+        rows.forEach(el => {
             el.style.transition = '';
         });
+        
+        if (this.requestReferencesBtn) {
+            this.requestReferencesBtn.style.transition = '';
+        }
+        
+        if (this.arrowDown) {
+            this.arrowDown.style.transition = '';
+        }
         
         // STEP 5: Start animation sequence
         this.selectRandomIllustration();

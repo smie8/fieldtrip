@@ -561,23 +561,25 @@ a {
         padding-block: 0; /* Remove vertical padding */
         padding-inline: var(--spacing-md); /* Keep horizontal padding */
         min-height: 0; /* Critical for inner shrink */
-        max-height: none; /* Remove height constraint */
+        max-height: 60vh; /* Prevent illustration from taking too much space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .section#section-1 .row-4 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding */
-        margin-top: auto; /* Push to bottom */
     }
     
     /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Minimal padding */
+        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Minimal padding all around */
         margin-bottom: 0; /* Remove margin, use padding instead */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure arrow stays above other content */
-        min-height: 40px; /* Reduced height for better space usage */
+        min-height: 30px; /* Further reduced height */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -967,7 +969,6 @@ a {
     
     /* Desktop row-4 and row-5 - efficient bottom spacing */
     .row-4 {
-        margin-top: auto; /* Push to bottom */
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md);
     }
     

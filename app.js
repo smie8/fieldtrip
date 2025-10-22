@@ -188,12 +188,18 @@ class FieldTripApp {
      * Hide all content for animation sequence
      */
     hideAllContentForAnimation() {
-        // Hide all rows except row-3 (illustration)
-        document.querySelectorAll('.row-1, .row-2, .row-4, .row-5').forEach(row => {
+        // Hide ALL rows including row-3 (illustration)
+        document.querySelectorAll('.row-1, .row-2, .row-3, .row-4, .row-5').forEach(row => {
             row.classList.add('fade-out');
             row.style.opacity = '0';
             row.style.transform = 'translateY(20px)';
         });
+        
+        // Hide illustration specifically
+        if (this.randomIllustration) {
+            this.randomIllustration.style.opacity = '0';
+            this.randomIllustration.style.transform = 'translateY(20px)';
+        }
         
         // Hide CTA button
         if (this.requestReferencesBtn) {
@@ -222,7 +228,14 @@ class FieldTripApp {
             }, delay);
         };
 
-        // Step 1: Illustration fades in first (handled by selectRandomIllustration)
+        // Step 1: Illustration fades in first
+        fadeIn('.row-3', 0);
+        setTimeout(() => {
+            if (this.randomIllustration) {
+                this.randomIllustration.classList.add('fade-in');
+            }
+        }, 0);
+        
         // Step 2: Logo (row-1) fades in after illustration
         fadeIn('.row-1', 800);
         
@@ -685,7 +698,13 @@ class FieldTripApp {
             this.arrowDown.classList.add('nav-arrow--visible');
             this.ensureBottomArrowVisibility();
         } else if (this.currentSection === 2) {
-            // Show up arrow immediately
+            // Show logo and up arrow immediately
+            const section2Logo = document.querySelector('#section-2 .section__logo--header');
+            if (section2Logo) {
+                section2Logo.style.opacity = '1';
+                section2Logo.style.transform = 'translateY(0)';
+            }
+            
             this.arrowUp.classList.add('nav-arrow--visible');
             
             // Show text and button after a delay

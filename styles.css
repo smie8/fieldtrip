@@ -216,6 +216,18 @@ body {
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+/* Initial state - hide content until animation starts */
+.row-1, .row-2, .row-3, .row-4, .row-5 {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Ensure illustration starts hidden */
+.illustration {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
 .section__content {
     text-align: center;
     max-width: 600px;

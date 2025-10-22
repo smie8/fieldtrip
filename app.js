@@ -652,51 +652,10 @@ class FieldTripApp {
      */
     showNewContent() {
         if (this.currentSection === 1) {
-            // Restore the illustration container
-            const illustrationContainer = document.querySelector('.illustration-container');
-            if (illustrationContainer) {
-                illustrationContainer.style.display = 'flex';
-                
-                // Clear any existing content
-                illustrationContainer.innerHTML = '';
-                
-                // Pre-load new image off-screen
-                const newImg = new Image();
-                const selectedIllustration = this.getNextIllustration();
-                const cacheBuster = Date.now();
-                newImg.src = `${selectedIllustration}?v=${cacheBuster}`;
-                newImg.alt = 'FieldTrip Illustration';
-                newImg.className = 'illustration';
-                newImg.id = 'random-illustration';
-                
-                newImg.style.opacity = '0';
-                newImg.onload = () => {
-                    // Once fully loaded, replace instantly
-                    illustrationContainer.innerHTML = '';
-                    newImg.style.transition = 'opacity 0.3s ease';
-                    newImg.style.opacity = '1';
-                    illustrationContainer.appendChild(newImg);
-                    this.randomIllustration = newImg;
-                };
-            }
-            
-            // Reveal rows 1,2,4 when returning to the first view
-            document.querySelectorAll('.row-1, .row-2, .row-4').forEach((row, index) => {
-                row.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                setTimeout(() => {
-                    row.style.opacity = '1';
-                    row.style.transform = 'translateY(0)';
-                }, index * 150);
-            });
-
-            // Ensure the CTA becomes visible again
-            setTimeout(() => {
-                this.requestReferencesBtn.classList.add('cta-button--visible');
-            }, 300);
-
-            // Show down arrow immediately and ensure it's protected
-            this.arrowDown.classList.add('nav-arrow--visible');
-            this.ensureBottomArrowVisibility();
+            // Use the same animation sequence as initial load
+            this.hideAllContentForAnimation();
+            this.selectRandomIllustration();
+            this.fadeInContentSequence();
         } else if (this.currentSection === 2) {
             // Show logo and up arrow immediately
             const section2Logo = document.querySelector('#section-2 .section__logo--header');

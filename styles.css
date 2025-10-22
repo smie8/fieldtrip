@@ -61,33 +61,30 @@ body {
     background-color: var(--color-background);
 }
 
-/* CSS Custom Properties for consistent spacing and animation timing */
+/* === Design Tokens (Phase 5) === */
 :root {
+    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-xxl: 4rem;
-    
-    --container-padding-mobile: 1rem;
-    --container-padding-desktop: 2rem;
-    
-    --nav-bottom-mobile: 1.5rem;
-    --nav-bottom-desktop: 2rem;
-    
-    /* Animation timing and easing */
-    --animation-duration: 0.8s;
-    --animation-duration-fast: 0.4s;
-    --animation-duration-slow: 1.2s;
-    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-    --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
+
+    /* Typography */
+    --base-font-size: 1.1rem;
+
     /* Colors */
     --color-primary: #083521;
     --color-text: #083521;
     --color-background: #d7d3c1;
     --color-overlay-bg: rgba(245, 243, 240, 0.9);
+
+    /* Animation */
+    --animation-duration: 0.8s;
+    --animation-duration-fast: 0.4s;
+    --animation-duration-slow: 1.2s;
+    --animation-easing: cubic-bezier(0.4,0,0.2,1);
 }
 
 /* Main app container */
@@ -249,10 +246,7 @@ body {
     line-height: 1.5;
 }
 
-/* Base font size for the site - derived from section description */
-:root {
-    --base-font-size: 1.1rem;
-}
+/* Base font size moved to design tokens above */
 
 /* Text block for section 2 */
 .text-block {
@@ -438,7 +432,7 @@ a {
 /* Removed unused environment flagging classes */
 
 /* Mobile-first responsive design */
-/* Mobile: up to 768px - Universal mobile styles for all devices */
+/* General mobile - up to 768px */
 @media screen and (max-width: 768px) {
     
     
@@ -744,7 +738,7 @@ a {
 
 /* Additional mobile styles consolidated into main mobile block above */
 
-/* Very small screens - ensure contact button is always visible */
+/* Small mobile - up to 480px */
 @media (max-width: 480px) {
     #section-2 .row-3 {
         /* REMOVED max-height constraint - let content flow naturally */
@@ -796,7 +790,7 @@ a {
     }
 }
 
-/* Desktop: from 769px upward */
+/* Desktop - from 769px upward */
 @media (min-width: 769px) {
     .layout-container {
         padding: var(--container-padding-desktop);
@@ -861,12 +855,7 @@ a {
     
 }
 
-/* Large desktop optimizations */
-@media (min-width: 1200px) {
-    .section__description {
-        font-size: 1.3rem;
-    }
-}
+/* Large desktop breakpoint removed - not needed for design */
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {

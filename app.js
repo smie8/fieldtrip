@@ -251,31 +251,15 @@ class FieldTripApp {
      * Initialize Section 1 exactly like a fresh page load
      */
     initializeSection1LikeFreshLoad() {
-        const section1 = document.querySelector('#section-1');
-        const rows = section1.querySelectorAll('.row-1, .row-2, .row-3 img, .row-4, .row-5');
-
-        // STEP 1: Hard reset to hidden state
-        rows.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(10px)'; // match intro motion
-            el.style.transition = 'none';
-        });
-
-        // STEP 2: Ensure section visible but empty
-        section1.style.display = 'flex';
-        section1.style.opacity = '1';
-
-        // STEP 3: Force reflow so hidden state is committed
-        void section1.offsetHeight;
-
-        // STEP 4: Restore transition ability
-        rows.forEach(el => el.style.transition = '');
-
-        // STEP 5: Trigger animation cleanly after frame repaint
-        requestAnimationFrame(() => {
-            this.selectRandomIllustration(); // fade in illustration first
-            setTimeout(() => this.fadeInContentSequence(), 150); // stagger start
-        });
+        // Ensure illustration container is visible
+        const illustrationContainer = document.querySelector('.illustration-container');
+        if (illustrationContainer) {
+            illustrationContainer.style.display = 'flex';
+        }
+        
+        // Use the same animation sequence as initial load
+        this.selectRandomIllustration();
+        this.fadeInContentSequence();
     }
 
     /**
@@ -319,9 +303,6 @@ class FieldTripApp {
      * Fade in content in the correct sequence (Section 1 only)
      */
     fadeInContentSequence() {
-        // Trigger animate-in class when animation begins
-        document.querySelector('#section-1').classList.add('animate-in');
-        
         const fadeIn = (selector, delay) => {
             setTimeout(() => {
                 const element = document.querySelector(selector);

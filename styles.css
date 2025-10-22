@@ -242,23 +242,20 @@ body {
     transition: none;
 }
 
-/* Guarantee hidden start for Section 1 */
-#section-1 .row-1,
-#section-1 .row-2,
-#section-1 .row-3 img,
-#section-1 .row-4,
+/* Initial state - hide content until animation starts (Section 1 only) */
+#section-1 .row-1, 
+#section-1 .row-2, 
+#section-1 .row-3, 
+#section-1 .row-4, 
 #section-1 .row-5 {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
 }
 
-/* Animation transitions when animate-in class is added */
-#section-1.animate-in .row-1,
-#section-1.animate-in .row-2,
-#section-1.animate-in .row-3 img,
-#section-1.animate-in .row-4,
-#section-1.animate-in .row-5 {
-    transition: opacity 0.8s var(--animation-easing), transform 0.8s var(--animation-easing);
+/* Ensure illustration starts hidden (Section 1 only) */
+#section-1 .illustration {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .section__content {

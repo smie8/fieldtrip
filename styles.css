@@ -935,7 +935,7 @@ a {
     /* Arrow centered - use viewport-relative positioning */
     #section-2 .nav-arrow--up {
         position: absolute;
-        left: 50vw;
+        left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
     }

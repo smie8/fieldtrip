@@ -251,47 +251,26 @@ class FieldTripApp {
      * Initialize Section 1 exactly like a fresh page load
      */
     initializeSection1LikeFreshLoad() {
-        // First, ensure illustration container is visible
-        const illustrationContainer = document.querySelector('.illustration-container');
-        if (illustrationContainer) {
-            illustrationContainer.style.display = 'flex';
-        }
-        
-        // Reset ALL content to the exact same state as fresh load
-        document.querySelectorAll('#section-1 .row-1, #section-1 .row-2, #section-1 .row-3, #section-1 .row-4, #section-1 .row-5').forEach(row => {
-            // Remove all classes and inline styles
-            row.classList.remove('fade-in', 'fade-out');
-            row.removeAttribute('style');
-            // Apply the same initial state as CSS
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(20px)';
+        const section1 = document.querySelector('#section-1');
+        const rows = section1.querySelectorAll('.row-1, .row-2, .row-3 img, .row-4, .row-5');
+
+        // 1. Immediately hide all rows before making section visible
+        rows.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transition = 'none';
         });
-        
-        // Reset illustration to same state as fresh load
-        if (this.randomIllustration) {
-            this.randomIllustration.classList.remove('fade-in', 'fade-out');
-            this.randomIllustration.removeAttribute('style');
-            this.randomIllustration.style.opacity = '0';
-            this.randomIllustration.style.transform = 'translateY(20px)';
-        }
-        
-        // Reset CTA button
-        if (this.requestReferencesBtn) {
-            this.requestReferencesBtn.classList.remove('fade-in', 'fade-out', 'cta-button--visible');
-            this.requestReferencesBtn.removeAttribute('style');
-            this.requestReferencesBtn.style.opacity = '0';
-            this.requestReferencesBtn.style.transform = 'translateY(20px)';
-        }
-        
-        // Reset arrow
-        if (this.arrowDown) {
-            this.arrowDown.classList.remove('fade-in', 'fade-out', 'nav-arrow--visible');
-            this.arrowDown.removeAttribute('style');
-            this.arrowDown.style.opacity = '0';
-            this.arrowDown.style.transform = 'translateY(10px)';
-        }
-        
-        // Now run the exact same sequence as fresh load
+
+        // 2. Make Section 1 visible but fully transparent (prevents flash)
+        section1.style.display = 'flex';
+        section1.style.opacity = '1';
+
+        // 3. Force a reflow so browser applies opacity 0 before animations
+        void section1.offsetHeight;
+
+        // 4. Re-enable transitions
+        rows.forEach(el => el.style.transition = '');
+
+        // 5. Start the normal fade-in sequence
         this.selectRandomIllustration();
         this.fadeInContentSequence();
     }

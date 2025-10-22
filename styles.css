@@ -232,6 +232,16 @@ body {
     transform: translateY(20px);
 }
 
+/* CSS safety net to prevent flash */
+#section-1.hidden .row-1,
+#section-1.hidden .row-2,
+#section-1.hidden .row-3 img,
+#section-1.hidden .row-4,
+#section-1.hidden .row-5 {
+    opacity: 0;
+    transition: none;
+}
+
 .section__content {
     text-align: center;
     max-width: 600px;

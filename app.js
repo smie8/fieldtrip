@@ -543,6 +543,8 @@ class FieldTripApp {
         // Show new content after transition
         setTimeout(() => {
             this.showNewContent();
+            // Reset any problematic inline styles that might interfere with links
+            this.resetSectionStyles();
             // Recalculate scaling for new section
             if (this.isMobile()) {
                 setTimeout(() => {
@@ -667,6 +669,35 @@ class FieldTripApp {
             }
         }
     }
+
+    /**
+     * Reset z-index and positioning after section transitions
+     */
+    resetSectionStyles() {
+        // Reset all inline z-index values that might interfere
+        const elementsToReset = [
+            '.row-5',
+            '.nav-arrow',
+            '.cta-button',
+            '#section-1 .row-5',
+            '#section-2 .row-4'
+        ];
+        
+        elementsToReset.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                // Only reset if we're on the active section
+                const section = el.closest('.section--active');
+                if (section) {
+                    // Remove problematic inline styles
+                    el.style.removeProperty('z-index');
+                    el.style.removeProperty('position');
+                    // Ensure pointer events work
+                    el.style.pointerEvents = 'auto';
+                }
+            });
+        });
+    }
     
     /**
      * Ensure bottom button is always visible and protected
@@ -790,6 +821,11 @@ class FieldTripApp {
         
         // Restore body scroll
         document.body.style.overflow = '';
+        
+        // Ensure Section 1 links are clickable after overlay closes
+        setTimeout(() => {
+            this.resetSectionStyles();
+        }, 100);
     }
 
     /**

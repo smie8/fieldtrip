@@ -630,6 +630,9 @@ a {
         display: flex;
         justify-content: center;
         align-items: center;
+        /* Prevent layout shifts during animation */
+        min-height: fit-content; /* Ensure stable height */
+        position: relative;
     }
     
     /* Text block with proper centering and width constraints */
@@ -642,6 +645,10 @@ a {
         width: 100%;
         padding: var(--spacing-sm);
         text-align: center; /* Center text within container */
+        /* Prevent layout shifts during animation */
+        position: relative;
+        transform: translateZ(0); /* Force hardware acceleration */
+        will-change: auto; /* Optimize for animations */
     }
     
     /* Contact button in separate row - always visible */

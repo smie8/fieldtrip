@@ -651,22 +651,25 @@ a {
         margin-right: auto; /* Push to left side */
     }
     
-    /* Mobile section 2 specific styles - text and button in separate rows */
+    /* Mobile section 2 specific styles - OVERRIDE universal .row-3 rules */
     #section-2 .row-3 {
-        flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* COMPLETELY STATIC - no animations, transitions, or transforms */
+        /* OVERRIDE universal .row-3 rules completely */
+        flex: 0 0 auto !important; /* Don't grow/shrink - prevent overlap */
+        min-height: fit-content !important; /* Override universal min-height: 0 */
+        display: flex !important;
+        flex-direction: row !important; /* Override universal flex-direction: column */
+        justify-content: center !important;
+        align-items: center !important;
+        padding: var(--spacing-md) !important; /* Override universal padding-block */
+        max-height: none !important;
         position: static !important;
+        z-index: auto !important; /* Override universal z-index: 1 */
+        /* COMPLETELY STATIC - no animations, transitions, or transforms */
         transition: none !important;
         transform: none !important;
         animation: none !important;
         will-change: auto !important;
         backface-visibility: visible !important;
-        /* Prevent layout shifts during animation */
-        min-height: fit-content; /* Ensure stable height */
     }
     
     /* Mobile up arrow - centered but positioned to prevent layout shifts */
@@ -971,7 +974,19 @@ a {
     }
     
     #section-2 .row-3 {
-        flex: 1; /* Fill available space for text content */
+        /* OVERRIDE desktop universal .row-3 rules for Section 2 */
+        flex: 0 0 auto !important; /* Override universal flex: 1 */
+        min-height: fit-content !important; /* Override universal min-height: 0 */
+        flex-direction: row !important; /* Override universal flex-direction: column */
+        position: static !important; /* Override universal position: relative */
+        z-index: auto !important; /* Override universal z-index: 1 */
+        padding: var(--spacing-md) !important; /* Override universal padding-block: 0 */
+        /* COMPLETELY STATIC - no animations, transitions, or transforms */
+        transition: none !important;
+        transform: none !important;
+        animation: none !important;
+        will-change: auto !important;
+        backface-visibility: visible !important;
         justify-content: center;
         align-items: center;
     }

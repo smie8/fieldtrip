@@ -41,18 +41,7 @@ html, body {
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
 }
 
-/* DEBUG: Force content visibility */
-.row-1, .row-2, .row-4 {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    visibility: visible !important;
-}
-
-.cta-button {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    visibility: visible !important;
-}
+/* Debug code removed - content visibility handled by JavaScript */
 
 body {
     font-family: 'PP Agrandir Wide', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;

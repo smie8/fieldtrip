@@ -624,6 +624,17 @@ a {
         align-items: center;
     }
     
+    /* Mobile section 2 header row - logo and up arrow */
+    #section-2 .row-1 {
+        flex: 0 0 auto; /* Don't grow/shrink */
+        padding: var(--spacing-md);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        min-height: 60px; /* Ensure consistent header height */
+    }
+    
     /* Mobile section 2 specific styles - text and button in separate rows */
     #section-2 .row-3 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
@@ -636,12 +647,12 @@ a {
         position: relative;
     }
     
-    /* Mobile up arrow - prevent layout shifts */
+    /* Mobile up arrow - positioned in header row */
     #section-2 .nav-arrow--up {
-        position: absolute !important;
-        left: 50vw !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
         z-index: 10 !important;
         /* Ensure arrow doesn't affect layout */
         pointer-events: auto;
@@ -661,6 +672,9 @@ a {
         position: relative;
         transform: translateZ(0); /* Force hardware acceleration */
         will-change: auto; /* Optimize for animations */
+        /* Ensure stable positioning */
+        flex: 1 1 auto;
+        min-height: 0;
     }
     
     /* Contact button in separate row - always visible */

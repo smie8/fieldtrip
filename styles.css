@@ -515,7 +515,7 @@ a {
         height: 100% !important; /* Fill container height */
         max-height: none !important; /* Remove height constraint */
         width: auto !important; /* Maintain aspect ratio */
-        max-width: 300px !important; /* Reasonable mobile constraint */
+        max-width: none !important; /* Remove width constraint - as big as possible */
         object-fit: contain !important; /* Safe containment without distortion */
     }
     

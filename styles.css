@@ -151,6 +151,10 @@ body {
     transition: opacity var(--animation-duration) var(--animation-easing), 
                 visibility var(--animation-duration) var(--animation-easing),
                 transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Flex layout for proper space distribution */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     /* Allow inner flex shrink to prevent clipping */
     flex: 1 1 auto;
     min-height: 0;
@@ -562,17 +566,18 @@ a {
     
     .section#section-1 .row-4 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-md); /* Rule 4: Uniform padding */
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md); /* Reduced padding */
+        margin-top: auto; /* Push to bottom */
     }
     
     /* CRITICAL: Bottom arrow protection for all mobile browsers - now using scaling approach */
     .section#section-1 .row-5 {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Reduced top/bottom padding */
+        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Minimal padding */
         margin-bottom: 0; /* Remove margin, use padding instead */
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure arrow stays above other content */
-        min-height: 60px; /* Reduced height */
+        min-height: 40px; /* Reduced height for better space usage */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -960,12 +965,16 @@ a {
         padding: var(--spacing-xxl);
     }
     
-    /* Desktop row-5 - ensure it stays at bottom */
+    /* Desktop row-4 and row-5 - efficient bottom spacing */
+    .row-4 {
+        margin-top: auto; /* Push to bottom */
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md);
+    }
+    
     .row-5 {
         flex-shrink: 0; /* Don't shrink, stay at bottom */
-        padding: var(--spacing-md) !important; /* Use global row padding only */
-        min-height: auto !important; /* Remove mobile min-height */
-        padding-bottom: var(--spacing-md) !important; /* Remove mobile extra bottom padding */
+        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Minimal padding */
+        min-height: 40px; /* Consistent with mobile */
     }
     
 }

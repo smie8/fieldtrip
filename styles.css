@@ -661,6 +661,9 @@ a {
         /* Prevent layout shifts during animation */
         min-height: fit-content; /* Ensure stable height */
         position: relative;
+        /* Disable any transitions that could cause zoom/shift */
+        transition: none !important;
+        transform: none !important;
     }
     
     /* Mobile up arrow - positioned to prevent layout shifts */
@@ -691,12 +694,10 @@ a {
         text-align: center; /* Center text within container */
         /* Prevent layout shifts during animation */
         position: relative;
-        transform: translateZ(0); /* Force hardware acceleration */
-        will-change: auto; /* Optimize for animations */
         /* Ensure stable positioning - prevent shifts from arrow */
         flex: 1 1 auto;
         min-height: 0;
-        /* Lock positioning to prevent shifts */
+        /* Static positioning - no transforms or transitions */
         top: 0;
         left: 0;
         right: 0;

@@ -660,11 +660,11 @@ a {
     #section-2 .text-block {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly; /* Better distribution of content vertically */
+        justify-content: flex-start; /* No artificial spacing - let content flow naturally */
         align-items: center;
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
         width: 100%;
-        padding: var(--spacing-sm);
+        padding: 0; /* No padding that affects paragraph spacing */
         text-align: center; /* Center text within container */
         /* COMPLETELY STATIC - no animations, transitions, or transforms */
         position: static !important;
@@ -734,6 +734,11 @@ a {
         backface-visibility: visible;
         word-wrap: break-word; /* Break long words if needed */
         overflow-wrap: break-word; /* Additional word breaking support */
+    }
+    
+    /* Hide empty paragraphs completely - they come from JSON empty strings */
+    #section-2 .text-block p:empty {
+        display: none;
     }
     
     /* All paragraphs have no margins - spacing handled by line breaks in content */

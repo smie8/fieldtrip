@@ -60,6 +60,7 @@ body {
     --spacing-xl: 3rem;
     --spacing-xxl: 4rem;
     --spacing-container: 2.5rem; /* 40px equivalent */
+    --container-padding-desktop: var(--spacing-md) var(--spacing-lg) var(--spacing-xl) var(--spacing-lg); /* More bottom padding for desktop */
     
     /* Common sizes */
     --size-icon: 24px;
@@ -940,6 +941,7 @@ a {
     #section-2 .row-4 {
         justify-content: center; /* Center contact button */
         align-items: center;
+        padding-bottom: var(--spacing-lg); /* Extra bottom padding for contact button */
     }
     
     /* Desktop Section 2: ensure rows 2 and 5 are empty */
@@ -961,8 +963,8 @@ a {
     
     .row-5 {
         flex-shrink: 0; /* Don't shrink, stay at bottom */
-        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-sm) var(--spacing-md); /* Minimal padding */
-        min-height: 40px; /* Consistent with mobile */
+        padding: var(--spacing-xs) var(--spacing-md) var(--spacing-lg) var(--spacing-md); /* More bottom padding for desktop */
+        min-height: 60px; /* More space for desktop */
     }
     
 }

@@ -660,7 +660,7 @@ a {
     #section-2 .text-block {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* No artificial spacing - let content flow naturally */
+        justify-content: center; /* Center vertically in available space */
         align-items: center;
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
         width: 100%;

@@ -620,6 +620,7 @@ a {
         min-height: 60px; /* Ensure consistent header height */
         height: 60px; /* Fixed height to prevent layout shifts */
         overflow: visible; /* Allow arrow to extend outside if needed */
+        margin-bottom: var(--spacing-lg); /* Space between arrow and text block */
     }
     
     /* Ensure logo doesn't shift when arrow appears */
@@ -683,6 +684,7 @@ a {
         height: 100%;
         min-height: 60vh; /* Take up more space but not too much */
         padding: var(--spacing-lg) var(--spacing-sm); /* More vertical padding for better distribution */
+        margin-bottom: var(--spacing-lg); /* Space between text block and contact button */
     }
     
     /* Contact button in separate row - always visible */
@@ -717,7 +719,7 @@ a {
     #section-2 .text-block p {
         font-size: 0.9rem; /* Match section 1 description font size */
         line-height: 1.4; /* Better line height for readability */
-        margin-bottom: 0.5rem; /* Better spacing between paragraphs */
+        margin-bottom: 0.25rem; /* Minimal spacing between paragraphs */
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport with padding */
         width: 100%; /* Full width within constraints */
         margin-left: auto;

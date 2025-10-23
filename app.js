@@ -607,6 +607,19 @@ class FieldTripApp {
         const currentSection = document.querySelector('.section--active');
         if (!currentSection) return;
         
+        // Skip scaling for Section 2 - it's designed to be static and fit naturally
+        if (currentSection.id === 'section-2') {
+            console.log('Skipping scaling for Section 2 - designed to be static');
+            this.resetContentScaling();
+            return;
+        }
+        
+        console.log('Scaling check for section:', currentSection.id, {
+            viewportHeight,
+            availableHeight,
+            safeAreaBottom
+        });
+        
         // Temporarily make content visible to measure it
         const originalDisplay = currentSection.style.display;
         currentSection.style.display = 'block';
@@ -614,6 +627,12 @@ class FieldTripApp {
         
         // Measure actual content height
         const contentHeight = currentSection.scrollHeight;
+        
+        console.log('Content measurement:', {
+            contentHeight,
+            originalDisplay,
+            currentDisplay: currentSection.style.display
+        });
         
         // Restore original display
         currentSection.style.display = originalDisplay;

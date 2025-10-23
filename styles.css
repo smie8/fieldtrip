@@ -715,11 +715,11 @@ a {
     
     /* Auto-sizing text block container - consolidated with centering styles above */
     
-    /* Optimized font size for mobile section 2 text - respect line breaks */
+    /* Simple text block - just line breaks and double line breaks */
     #section-2 .text-block p {
         font-size: 0.9rem; /* Match section 1 description font size */
-        line-height: 1.2; /* Tighter line height to reduce spacing */
-        margin-bottom: 0.25rem; /* Minimal spacing between paragraphs */
+        line-height: 1.2; /* Normal line height */
+        margin: 0; /* No margins - let line breaks handle spacing */
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport with padding */
         width: 100%; /* Full width within constraints */
         margin-left: auto;
@@ -736,17 +736,7 @@ a {
         overflow-wrap: break-word; /* Additional word breaking support */
     }
     
-    /* Empty paragraphs (from JSON empty strings) should have no spacing */
-    #section-2 .text-block p:empty {
-        margin: 0;
-        height: 0;
-        min-height: 0;
-    }
-    
-    /* Last paragraph with minimal spacing */
-    #section-2 .text-block p:last-child {
-        margin-bottom: 0.25rem; /* Minimal spacing for last paragraph */
-    }
+    /* All paragraphs have no margins - spacing handled by line breaks in content */
     
     /* Fixed font size for section 1 description on mobile - preserves line breaks */
     #section-1 .section__description {

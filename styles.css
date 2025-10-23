@@ -942,6 +942,14 @@ a {
         align-items: center;
     }
     
+    /* Desktop Section 2: ensure rows 2 and 5 are empty */
+    #section-2 .row-2,
+    #section-2 .row-5 {
+        display: none; /* Hide completely on desktop too */
+        padding: 0;
+        min-height: 0;
+    }
+    
     .contact-form {
         padding: var(--spacing-xxl);
     }

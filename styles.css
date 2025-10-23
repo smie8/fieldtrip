@@ -151,7 +151,7 @@ body {
 
 /* Section 2: text block (static) - positioned like illustration in Section 1 */
 #section-2 .row-3 {
-    flex: 1 1 auto; /* Grow to fill available space like Section 1 */
+    flex: 0 1 auto; /* Don't grow too much - leave space for contact button */
     min-height: 0; /* Allow flex shrinking */
     display: flex;
     align-items: center;

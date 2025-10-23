@@ -101,6 +101,9 @@ class FieldTripApp {
         }
         
         
+        // Reset any content scaling to ensure clean state
+        this.resetContentScaling();
+        
         this.init();
     }
 
@@ -618,10 +621,13 @@ class FieldTripApp {
         // Calculate scale factor needed to fit content
         const scaleFactor = Math.min(1, availableHeight / contentHeight);
         
-        // Only scale if content is too tall (scale factor < 1)
-        if (scaleFactor < 1) {
+        // Only scale if content is significantly too tall (scale factor < 0.9)
+        // This prevents unnecessary scaling on minor height differences
+        if (scaleFactor < 0.9) {
+            console.log('Content scaling applied:', { scaleFactor, viewportHeight, contentHeight, availableHeight });
             this.applyContentScaling(scaleFactor);
         } else {
+            console.log('Content scaling reset - no scaling needed:', { scaleFactor, viewportHeight, contentHeight, availableHeight });
             this.resetContentScaling();
         }
     }
@@ -645,7 +651,7 @@ class FieldTripApp {
      */
     applyContentScaling(scaleFactor) {
         // Set minimum scale factor to prevent content from becoming too small
-        const minScale = 0.6;
+        const minScale = 0.8; // Increased from 0.6 to be less aggressive
         const finalScale = Math.max(scaleFactor, minScale);
         
         const appContainer = document.querySelector('.app-container');
@@ -728,6 +734,10 @@ class FieldTripApp {
         if (sectionNumber === this.currentSection) return;
 
         this.isTransitioning = true;
+        
+        // Reset any content scaling before transition
+        this.resetContentScaling();
+        
         const previousSection = this.currentSection;
         this.currentSection = sectionNumber;
         

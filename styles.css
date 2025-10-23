@@ -903,7 +903,14 @@ a {
         transform: none;
     }
     
-    /* Arrow centered - inherits mobile positioning */
+    /* Desktop up arrow - centered in header row */
+    #section-2 .nav-arrow--up {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
     
     /* Show logo in section 2 on desktop */
     #section-2 .section__logo--header {

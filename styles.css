@@ -148,14 +148,23 @@ body {
     max-height: none; /* Remove any height constraints */
 }
 
-/* Section 2: text block (static) */
+/* Section 2: text block (static) - positioned like illustration in Section 1 */
 #section-2 .row-3 {
-    flex: 0 0 auto;
-    min-height: auto;
+    flex: 1 1 auto; /* Grow to fill available space like Section 1 */
+    min-height: 0; /* Allow flex shrinking */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-md);
+}
+
+/* Section 2: empty rows 2 and 5 */
+#section-2 .row-2,
+#section-2 .row-5 {
+    flex: 0 0 auto; /* Don't grow */
+    min-height: 0; /* Minimal height */
+    padding: 0; /* No padding */
+    display: none; /* Hide completely */
 }
 
 .row-1--header {

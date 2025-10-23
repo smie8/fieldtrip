@@ -659,7 +659,7 @@ a {
     #section-2 .text-block {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly; /* Better distribution of content vertically */
         align-items: center;
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport */
         width: 100%;
@@ -679,9 +679,10 @@ a {
         /* Ensure stable positioning - prevent shifts from arrow */
         flex: 1 1 auto;
         min-height: 0;
-        /* Take up more vertical space like illustration in View 1 */
+        /* Better space division - distribute content more evenly */
         height: 100%;
-        min-height: 50vh; /* Ensure minimum height for better space utilization */
+        min-height: 60vh; /* Take up more space but not too much */
+        padding: var(--spacing-lg) var(--spacing-sm); /* More vertical padding for better distribution */
     }
     
     /* Contact button in separate row - always visible */
@@ -714,7 +715,7 @@ a {
     
     /* Optimized font size for mobile section 2 text - respect line breaks */
     #section-2 .text-block p {
-        font-size: 0.9rem; /* Slightly larger font for better space utilization */
+        font-size: 0.9rem; /* Match section 1 description font size */
         line-height: 1.4; /* Better line height for readability */
         margin-bottom: 0.5rem; /* Better spacing between paragraphs */
         max-width: calc(100vw - 2rem); /* Constrain width to fit viewport with padding */

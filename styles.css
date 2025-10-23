@@ -151,7 +151,7 @@ body {
 
 /* Section 2: text block (static) - positioned like illustration in Section 1 */
 #section-2 .row-3 {
-    flex: 0 1 auto; /* Don't grow too much - leave space for contact button */
+    flex: 1 1 auto; /* Grow to fill available space like Section 1 */
     min-height: 0; /* Allow flex shrinking */
     display: flex;
     align-items: center;
@@ -802,6 +802,7 @@ a {
         padding-bottom: var(--spacing-md); /* Standard bottom padding */
         min-height: 80px; /* Reduced since scaling handles fit */
         position: relative;
+        margin-top: var(--spacing-xl); /* Push contact button lower */
         z-index: 10;
     }
     

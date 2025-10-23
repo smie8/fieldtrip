@@ -736,9 +736,11 @@ a {
         overflow-wrap: break-word; /* Additional word breaking support */
     }
     
-    /* Hide empty paragraphs completely - they come from JSON empty strings */
+    /* Empty paragraphs should just be empty lines - no spacing */
     #section-2 .text-block p:empty {
-        display: none;
+        margin: 0;
+        padding: 0;
+        height: 0.5em; /* Just enough for a line break */
     }
     
     /* All paragraphs have no margins - spacing handled by line breaks in content */

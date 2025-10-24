@@ -55,10 +55,11 @@ body {
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
+    /*--spacing-md: 1rem; /* TODO: */
+    --spacing-md: 1.25rem;
+    --spacing-lg: 1.5rem;
     --spacing-xl: 3rem;
-    --spacing-xxl: 4rem;
+    --spacing-xxl: 15vh;
     --spacing-container: 2.5rem; /* 40px equivalent */
     --container-padding-desktop: var(--spacing-md) var(--spacing-lg) var(--spacing-xl) var(--spacing-lg); /* More bottom padding for desktop */
     
@@ -66,7 +67,7 @@ body {
     --size-icon: 24px;
     --size-logo-mobile: 200px;
     --size-logo-desktop: 300px;
-    --size-illustration-desktop: 400px;
+    --size-illustration-desktop: 800px;
     --size-contact-max: 600px;
 
     /* Typography */
@@ -98,7 +99,7 @@ body {
     min-height: 100dvh;
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
-    padding-bottom: env(safe-area-inset-bottom);
+    /* padding-bottom: env(safe-area-inset-bottom); */
 }
 
 /* Layout containers for consistent structure */
@@ -221,7 +222,7 @@ body {
 .illustration {
     height: 100%;           /* Fill container height */
     max-height: 70dvh;      /* Allow more space */
-    min-height: 50dvh;       /* Ensure minimum size */
+    min-height: 40dvh;       /* Ensure minimum size */
     width: auto;
     object-fit: contain;
     opacity: 1;
@@ -234,6 +235,7 @@ body {
 /* Desktop illustration constraint */
 @media (min-width: 769px) {
     .illustration {
+        min-height: 40vh !important;
         max-width: var(--size-illustration-desktop); /* Reasonable desktop constraint */
     }
 }
@@ -357,7 +359,7 @@ a {
 
 /* CTA Button */
 .cta-button {
-    background: transparent;
+    background: #d7d3c1; /* Match background color, just in case if screen goes very small and button goes over content */
     border: 2px solid var(--color-primary);
     color: var(--color-primary);
     padding: var(--spacing-sm) var(--spacing-lg);
@@ -523,9 +525,6 @@ a {
 /* Mobile-first responsive design */
 /* General mobile - up to 768px */
 @media screen and (max-width: 768px) {
-    
-    
-    
     .layout-container {
         padding: 0; /* Remove padding to fit viewport properly */
     }
@@ -544,7 +543,7 @@ a {
     /* Mobile-specific illustration sizing - FORCE LARGE SIZE */
     .illustration {
         height: 100% !important; /* Fill container height */
-        max-height: none !important; /* Remove height constraint */
+        /* max-height: 50vh !important; Add constraint to avoid illustration growing too large */
         width: auto !important; /* Maintain aspect ratio */
         max-width: none !important; /* Remove width constraint - as big as possible */
         min-width: 250px !important; /* Ensure minimum size */
@@ -601,9 +600,9 @@ a {
     /* Ensure row-5 (down arrow) stays visible */
     .row-5 {
         flex-shrink: 0;
-        min-height: 80px; /* Increased space for arrow */
-        padding: var(--spacing-md) var(--spacing-md); /* Symmetric horizontal padding */
-        padding-bottom: var(--spacing-md); /* Standard bottom padding */
+        min-height: 15vh; /* Increased space for arrow */
+        /*padding: var(--spacing-md) var(--spacing-md); /* Symmetric horizontal padding */
+        /*padding-bottom: var(--spacing-md); /* Standard bottom padding */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -792,7 +791,7 @@ a {
     
     /* CRITICAL: Section 2 contact button protection - now using scaling approach */
     #section-2 .cta-button {
-        margin-bottom: var(--spacing-lg); /* Standard spacing */
+        margin-bottom: 20vh;
         position: relative; /* Enable z-index stacking */
         z-index: 10; /* Ensure button stays above other content */
     }
@@ -802,7 +801,7 @@ a {
         padding-bottom: var(--spacing-md); /* Standard bottom padding */
         min-height: 80px; /* Reduced since scaling handles fit */
         position: relative;
-        margin-top: var(--spacing-xl); /* Push contact button lower */
+        /*margin-top: var(--spacing-xl); /* Push contact button lower */
         z-index: 10;
     }
     
@@ -833,6 +832,9 @@ a {
 
 /* Small mobile - up to 480px */
 @media (max-width: 480px) {
+    .layout-container{
+        display: block;
+    }
     #section-2 .row-3 {
         /* REMOVED max-height constraint - let content flow naturally */
         padding: var(--spacing-sm) 0; /* Minimal padding for very small screens */
@@ -850,6 +852,7 @@ a {
         font-size: 0.7rem !important; /* Smaller button text */
         padding: 0.4rem 0.8rem; /* Even smaller padding for very small screens */
         min-height: auto !important; /* Use global button height */
+        /*
         margin-bottom: calc(var(--spacing-xl) + 150px) !important; /* Extra space for very small screens */
     }
     
@@ -869,7 +872,7 @@ a {
     /* Enhanced protection for very small screens - section 1 bottom arrow */
     .section#section-1 .row-5 {
         padding-bottom: var(--spacing-md); /* Standard padding */
-        min-height: 140px; /* More space for very small screens */
+        /*min-height: 140px; /* More space for very small screens */
     }
     
     /* Enhanced protection for very small screens - section 2 contact button */
@@ -881,14 +884,31 @@ a {
         padding-bottom: var(--spacing-md); /* Standard padding */
         min-height: 140px; /* More space for very small screens */
     }
+
+    /* .row-5 {
+        min-height: 0 !important;
+    } */
 }
 
 /* Desktop - from 769px upward */
 @media (min-width: 769px) {
     .layout-container {
-        padding: var(--container-padding-desktop);
+        /*padding: var(--container-padding-desktop);*/
         /* Desktop: Use space-between to fill full height */
         justify-content: space-between;
+        min-height: 600px;
+    }
+
+    .section {
+        /* New Rule: Ensure sections inside the container also meet minimum height */
+        min-height: 600px;
+        /* Keep other height properties for full viewport coverage */
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100); 
+    }
+
+    .illustration {
+        min-height: 40vh;
     }
     
     .section__description {
@@ -943,7 +963,7 @@ a {
     #section-2 .row-4 {
         justify-content: center; /* Center contact button */
         align-items: center;
-        padding-bottom: var(--spacing-lg); /* Extra bottom padding for contact button */
+        padding-bottom: var(--spacing-xxl); /* Extra bottom padding for contact button */
     }
     
     /* Desktop Section 2: ensure rows 2 and 5 are empty */
@@ -966,7 +986,7 @@ a {
     .row-5 {
         flex-shrink: 0; /* Don't shrink, stay at bottom */
         padding: var(--spacing-xs) var(--spacing-md) var(--spacing-lg) var(--spacing-md); /* More bottom padding for desktop */
-        min-height: 60px; /* More space for desktop */
+        min-height: 120px; /* More space for desktop */
     }
     
 }

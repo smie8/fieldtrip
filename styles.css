@@ -38,7 +38,7 @@ html, body {
 }
 
 .app-container {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--spacing-container));
+    padding-bottom: calc(env(safe-area-inset-bottom) + var(--spacing-md));
 }
 
 /* Debug code removed - content visibility handled by JavaScript */
@@ -597,11 +597,11 @@ a {
     /* Ensure row-5 (down arrow) stays visible */
     .row-5 {
         flex-shrink: 0;
-        /* min-height: 15vh; */
-        min-height: 65px !important;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
+        min-height: 80px;
     }
     
     /* Mobile section 2 header row - logo and up arrow */

@@ -675,7 +675,7 @@ a {
     /* Contact button in separate row - always visible */
     .section#section-2 .cta-button {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: 0.5rem 1rem; /* Smaller padding for mobile */
+        padding: 1rem 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -689,7 +689,7 @@ a {
     /* Request references button - same sizing as Contact Us */
     .section#section-1 .cta-button {
         flex: 0 0 auto; /* Don't grow/shrink - prevent overlap */
-        padding: 0.5rem 1rem; /* Same smaller padding for mobile */
+        padding: 1rem 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
